@@ -211,7 +211,7 @@
         </div>
 
         <div class="shots" aria-label="앱 화면">
-          <figure><img src="today.jpg" alt="오늘 탭: 칠하는 중인 키링과 오늘의 공부" loading="lazy"><figcaption>오늘의 공부</figcaption></figure>
+          <figure><img src="home.jpg" alt="오늘 탭: 칠하는 중인 키링과 오늘의 공부" loading="lazy"><figcaption>오늘의 공부</figcaption></figure>
           <figure><img src="flash.jpg" alt="새 단어 플래시카드: arrest 체포하다" loading="lazy"><figcaption>새 단어는 카드로 먼저</figcaption></figure>
           <figure><img src="quiz.jpg" alt="4초 문제: arrest의 뜻 고르기" loading="lazy"><figcaption>4초 안에 맞히기</figcaption></figure>
           <figure><img src="answer.jpg" alt="틀렸을 때 정답과 예문" loading="lazy"><figcaption>틀리면 정답과 예문</figcaption></figure>
@@ -255,7 +255,7 @@
         </details>
         <details>
           <summary>인터넷 없이도 쓸 수 있나요?</summary>
-          <div><p>네. 단어, 문제, 발음, 기록이 모두 기기 안에 있어요. 발음도 기기 안의 AI 목소리가 만들어요. 인터넷은 iCloud에 기록을 저장할 때만 써요.</p></div>
+          <div><p>네. 단어, 문제, 발음, 기록이 모두 기기 안에 있어요. 발음도 기기 안의 AI 목소리가 만들어요. 인터넷은 iCloud에 기록을 저장하고, 오류 · 이용 통계를 보낼 때만 써요.</p></div>
         </details>
         <details>
           <summary>틀린 단어는 어떻게 다시 보나요?</summary>
@@ -281,7 +281,7 @@
       <div class="card">
         <h2>개인정보 처리방침</h2>
         <p class="meta">시행일: 2026년 10월 9일</p>
-        <p class="lead">'단숙이'(이하 '앱')는 이용자의 개인정보를 소중히 다루며 「개인정보 보호법」 등 관련 법령을 지켜요. 앱은 <strong>회원가입이 없고</strong>, 이름 · 이메일 · 전화번호를 수집하지 않으며, <strong>광고와 이용 통계 도구를 쓰지 않아요.</strong> 앱을 만든 사람의 서버도 없어요.</p>
+        <p class="lead">'단숙이'(이하 '앱')는 이용자의 개인정보를 소중히 다루며 「개인정보 보호법」 등 관련 법령을 지켜요. 앱은 <strong>회원가입이 없고</strong>, 이름 · 이메일 · 전화번호를 수집하지 않으며, <strong>광고를 넣지 않아요.</strong> 앱을 더 낫게 만들기 위해 개인을 알아볼 수 없는 이용 통계와 오류 정보만 모아요.</p>
 
         <h4>1. 처리하는 정보</h4>
         <ul class="list">
@@ -291,22 +291,29 @@
           <li><strong>신고 내용:</strong> 문제 화면에서 신고한 단어와 이유. 기기 안에 저장되며 앱을 만든 사람에게 자동으로 보내지지 않아요.</li>
         </ul>
         <p class="meta">위 정보는 모두 기기 안에 저장되고, iCloud를 쓰는 경우 아래 4번의 백업에 함께 담겨요.</p>
+        <ul class="list">
+          <li><strong>이용 통계:</strong> 공부를 시작 · 마친 횟수, 푼 문제 수, 캡슐 뽑기 · 키링 완성 같은 앱 사용 기록과 앱 설치마다 만들어지는 임의의 식별자, 기기 모델 · OS 버전 · 국가 · 언어. 외운 단어나 이름 같은 내용은 보내지 않아요.</li>
+          <li><strong>오류 정보:</strong> 앱이 멈추거나 오류가 났을 때의 기록(오류가 난 코드 위치, 기기 모델 · OS 버전 · 메모리 상태 등).</li>
+        </ul>
 
         <h4>2. 이용 목적</h4>
         <ul class="list">
           <li>오늘 공부할 단어를 고르고, 외운 정도와 기록 · 통계를 보여 주기 위해</li>
           <li>앱을 다시 설치하거나 기기를 바꿨을 때 공부 기록을 되살리기 위해(iCloud)</li>
+          <li>앱 품질 개선과 오류 해결(이용 통계 · 오류 정보)</li>
         </ul>
 
         <h4>3. 보관과 파기</h4>
         <ul class="list">
           <li><strong>기기의 정보:</strong> 앱을 삭제하면 함께 지워져요.</li>
+          <li><strong>이용 통계 · 오류 정보:</strong> Google Firebase의 보관 기간(이용 통계 최대 14개월, 오류 정보 90일)이 지나면 자동으로 지워져요.</li>
           <li><strong>iCloud의 백업:</strong> 이용자 본인의 iCloud 계정 안, 이 앱만 볼 수 있는 비공개 공간에 기록 파일 하나로 저장돼요. iPhone 설정 › Apple 계정 › iCloud › 저장 공간 관리에서 언제든 지울 수 있어요.</li>
         </ul>
 
         <h4>4. 외부 전송과 국외 이전</h4>
         <ul class="list">
           <li><strong>Apple Inc.(미국):</strong> 공부 기록 백업을 이용자 본인의 iCloud(CloudKit 비공개 데이터베이스)에 저장해요. 앱을 만든 사람은 이 데이터를 볼 수 없어요. iCloud에 로그인하지 않았으면 전송되지 않아요.</li>
+          <li><strong>Google LLC(미국):</strong> 이용 통계(Firebase Analytics)와 오류 정보(Firebase Crashlytics)를 처리해요. 앱을 쓰는 동안 인터넷으로 전송되며, 개인을 알아볼 수 있는 정보는 보내지 않아요.</li>
           <li>발음 소리는 기기 안의 AI 모델이 만들어요. 단어나 예문을 외부 음성 서비스로 보내지 않아요.</li>
           <li>문제 화면에서 사전 보기를 누르면 네이버 영어사전이 브라우저로 열려요. 그 사이트의 이용에는 그 사이트의 방침이 적용돼요.</li>
         </ul>
@@ -318,6 +325,7 @@
         <ul class="list">
           <li>공부 기록은 앱을 삭제하거나 iCloud 저장 공간 관리에서 지울 수 있어요.</li>
           <li>알림 권한은 iPhone 설정에서 언제든 끌 수 있어요.</li>
+          <li>이용 통계 · 오류 정보의 삭제를 원하면 아래 이메일로 요청해 주세요.</li>
         </ul>
 
         <h4>7. 문의</h4>
