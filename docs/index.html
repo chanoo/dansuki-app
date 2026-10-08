@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>단숙이 · 고객 지원 및 개인정보 처리방침</title>
+  <meta name="description" content="단숙이: 수능 영단어 · 숙어를 플래시카드로 보고, 4초 안에 맞히며, 외울 때마다 픽셀 키링을 채우는 iPhone 앱.">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+  <style>
+    /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
+    :root {
+      --canvas: #F6F1E7;
+      --surface: #FCFAF4;
+      --sunk: #EEE7D9;
+      --text: #23211E;
+      --muted: #6A645B;
+      --faint: #98918A;
+      --line: #E6DECF;
+      --highlight: #F3D66B;
+      --caution: #A9532F;
+      --shadow: 0 1px 2px rgba(35, 33, 30, .04), 0 6px 18px -8px rgba(35, 33, 30, .08);
+      --mark: rgba(243, 214, 107, .85);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --canvas: #181613;
+        --surface: #221F1B;
+        --sunk: #1C1A17;
+        --text: #EDE7DB;
+        --muted: #A8A094;
+        --faint: #79726A;
+        --line: #302C27;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -10px rgba(0, 0, 0, .6);
+        --mark: rgba(243, 214, 107, .35);
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--canvas);
+      color: var(--text);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-decoration-color: var(--highlight); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    strong { font-weight: 700; }
+    .mark {
+      background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);
+      padding: 0 2px;
+    }
+
+    .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* 머리 */
+    header.wrap { padding-top: 56px; padding-bottom: 28px; text-align: center; }
+    .icon {
+      width: 88px; height: 88px; border-radius: 22px;
+      box-shadow: var(--shadow); border: 1px solid var(--line);
+    }
+    .name {
+      font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700;
+      font-size: 40px; letter-spacing: -0.5px; margin-top: 18px; line-height: 1.2;
+    }
+    .tagline { color: var(--muted); font-size: 16px; margin-top: 8px; }
+
+    /* 탭 */
+    nav {
+      display: inline-flex; gap: 4px; padding: 4px; margin-top: 28px;
+      background: var(--sunk); border-radius: 999px; border: 1px solid var(--line);
+    }
+    nav a {
+      text-decoration: none; padding: 10px 22px; border-radius: 999px;
+      font-size: 15px; font-weight: 600; color: var(--muted);
+      transition: background .25s, color .25s;
+    }
+    nav a[aria-current="page"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+
+    main { padding-bottom: 72px; }
+    section[data-page] { display: none; }
+    section[data-page].on { display: block; animation: rise .5s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { section[data-page].on { animation: none; } html { scroll-behavior: auto; } }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
+      box-shadow: var(--shadow); padding: 32px; margin-top: 16px;
+    }
+    h2 { font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700; font-size: 28px; line-height: 1.35; }
+    h3 { font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700; font-size: 21px; margin: 0 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; margin: 28px 0 8px; }
+    p + p { margin-top: 12px; }
+    .lead { margin-top: 14px; color: var(--muted); }
+
+    /* 세 단계 */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+    .step { background: var(--canvas); border-radius: 16px; padding: 18px 16px; }
+    .step .n { font-size: 13px; font-weight: 700; color: var(--faint); font-feature-settings: 'tnum'; }
+    .step .t { font-weight: 700; margin-top: 4px; }
+    .step .d { font-size: 15px; color: var(--muted); margin-top: 4px; line-height: 1.55; }
+
+    /* 스크린샷: 옆으로 넘기기 */
+    .shots {
+      display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+      margin: 20px -32px 0; padding: 4px 32px 12px; scrollbar-width: none;
+    }
+    .shots::-webkit-scrollbar { display: none; }
+    figure { flex: 0 0 200px; scroll-snap-align: start; text-align: center; }
+    figure img {
+      width: 200px; aspect-ratio: 1206 / 2622; object-fit: cover; display: block;
+      border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow);
+      background: var(--sunk);
+    }
+    figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+    .hint { font-size: 13px; color: var(--faint); text-align: right; margin-top: 2px; }
+
+    /* 문의 */
+    .contact { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px;
+      border-radius: 999px; background: var(--text); color: var(--canvas);
+      font-weight: 600; font-size: 15px; text-decoration: none;
+    }
+    .pill.ghost { background: var(--canvas); color: var(--text); border: 1px solid var(--line); }
+
+    /* 자주 묻는 질문 */
+    details { border-top: 1px solid var(--line); }
+    details:last-of-type { border-bottom: 1px solid var(--line); }
+    summary {
+      list-style: none; cursor: pointer; padding: 18px 32px 18px 0; position: relative;
+      font-weight: 600;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: ''; position: absolute; right: 4px; top: 50%; width: 9px; height: 9px;
+      border-right: 2px solid var(--faint); border-bottom: 2px solid var(--faint);
+      transform: translateY(-70%) rotate(45deg); transition: transform .25s;
+    }
+    details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+    details > div { padding: 0 0 20px; color: var(--muted); font-size: 16px; }
+    details > div strong { color: var(--text); }
+
+    ul.list { list-style: none; }
+    ul.list li { position: relative; padding-left: 16px; margin-top: 8px; color: var(--muted); font-size: 16px; }
+    ul.list li::before { content: ''; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--highlight); }
+    ul.list li strong { color: var(--text); }
+
+    .meta { font-size: 14px; color: var(--faint); margin-top: 6px; }
+    .note {
+      background: var(--canvas); border-radius: 16px; padding: 16px 18px; margin-top: 18px;
+      font-size: 15px; color: var(--muted);
+    }
+
+    footer { text-align: center; color: var(--faint); font-size: 13px; padding: 0 20px 48px; }
+
+    @media (max-width: 600px) {
+      header.wrap { padding-top: 40px; }
+      .name { font-size: 34px; }
+      .card { padding: 24px 20px; border-radius: 20px; }
+      .shots { margin: 20px -20px 0; padding: 4px 20px 12px; }
+      figure { flex-basis: 168px; }
+      figure img { width: 168px; border-radius: 22px; }
+      .steps { grid-template-columns: 1fr; }
+      h2 { font-size: 24px; }
+      nav a { padding: 10px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <img class="icon" src="icon.png" alt="단숙이 앱 아이콘" width="88" height="88">
+    <div class="name">단숙이</div>
+    <p class="tagline">수능 영단어 · 숙어, 한 칸씩 내 것으로</p>
+    <nav aria-label="페이지">
+      <a href="#support" data-tab="support">고객 지원</a>
+      <a href="#privacy" data-tab="privacy">개인정보 처리방침</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <!-- 고객 지원 -->
+    <section data-page="support" id="support-page">
+      <div class="card">
+        <h2>보고, 맞히고, <span class="mark">내 것으로</span></h2>
+        <p class="lead">단숙이는 수능 기본 어휘 3,000개와 기출 · 기초 보충 단어 306개, 숙어 580개를 외우는 iPhone 앱이에요. 회원가입 없이 바로 시작하고, 모든 공부는 기기 안에서 이루어져요.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="n">01</div>
+            <div class="t">카드로 먼저 보고</div>
+            <div class="d">새 단어는 5장씩 플래시카드로 넘겨 봐요. 발음도 함께 들려줘요.</div>
+          </div>
+          <div class="step">
+            <div class="n">02</div>
+            <div class="t">4초 안에 맞히고</div>
+            <div class="d">영어 → 뜻, 뜻 → 영어를 각각 3번 연속 맞히면 외운 거예요.</div>
+          </div>
+          <div class="step">
+            <div class="n">03</div>
+            <div class="t">키링을 채워요</div>
+            <div class="d">외울 때마다 픽셀이 하나씩. 144개를 외우면 키링이 완성돼요.</div>
+          </div>
+        </div>
+
+        <div class="shots" aria-label="앱 화면">
+          <figure><img src="today.jpg" alt="오늘 탭: 칠하는 중인 키링과 오늘의 공부" loading="lazy"><figcaption>오늘의 공부</figcaption></figure>
+        </div>
+        <p class="hint">옆으로 넘겨 보세요 →</p>
+      </div>
+
+      <div class="card">
+        <h3>문의하기</h3>
+        <p class="lead" style="margin-top:0">궁금한 점, 틀린 뜻이나 예문 제보, 기능 제안 모두 환영해요. 보통 하루 안에 답장해요.</p>
+        <div class="contact">
+          <a class="pill" href="mailto:fastchanoo@gmail.com?subject=%5B%EB%8B%A8%EC%88%99%EC%9D%B4%5D%20">✉︎ fastchanoo@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>자주 묻는 질문</h3>
+        <details>
+          <summary>어떤 단어가 나오나요?</summary>
+          <div><p>교육부 고시 <strong>교육과정 기본 어휘 3,000개</strong>(2015 · 2022 개정, 설정에서 고를 수 있어요)에, 최근 수능 · 모의평가에 두 번 이상 나왔지만 기본 어휘에 없는 <strong>기출 보충 286개</strong>, 요일 · 월 같은 <strong>기초 보충</strong>, 그리고 <strong>숙어 580개</strong>가 나와요.</p></div>
+        </details>
+        <details>
+          <summary>언제 '외운 단어'가 되나요?</summary>
+          <div><p>한 단어를 <strong>영어 → 뜻</strong>, <strong>뜻 → 영어</strong>로 각각 <strong>3번 연속</strong> 맞히면 외운 거예요. 틀리거나 4초를 넘기면 그 방향은 처음부터 다시 세요. 카드 아래 A · 가 옆 네모가 하나씩 차는 게 그 표시예요.</p></div>
+        </details>
+        <details>
+          <summary>왜 4초 안에 맞혀야 하나요?</summary>
+          <div><p>시험에서 단어는 읽자마자 뜻이 떠올라야 해요. 오래 고민해서 맞힌 건 아직 내 것이 아니라서, 4초 안에 맞힌 것만 외운 것으로 세요. 숙어는 문장을 읽어야 해서 시간이 넉넉해요.</p></div>
+        </details>
+        <details>
+          <summary>키링은 어떻게 모아요?</summary>
+          <div><p>캡슐 머신에서 뽑은 키링이 단어를 외울 때마다 한 픽셀씩 드러나요. <strong>144개</strong>를 외우면 키링이 완성되고, <strong>내 키링</strong> 탭의 카드에 하나씩 달려요. 카드가 다 차면 새 오브제 카드가 열려요. 키링은 돈이 아니라 공부로만 뽑아요.</p></div>
+        </details>
+        <details>
+          <summary>앱을 지웠다가 다시 깔면 기록이 사라지나요?</summary>
+          <div><p>아니요. 공부 기록은 <strong>본인 iCloud</strong>에 자동으로 저장돼요. 같은 Apple 계정으로 다시 설치하면 처음 열 때 기록을 알아서 불러와요. 설정 › 기록 › <strong>iCloud 자동 저장</strong>에서 마지막으로 저장한 시각을 볼 수 있어요.</p></div>
+        </details>
+        <details>
+          <summary>인터넷 없이도 쓸 수 있나요?</summary>
+          <div><p>네. 단어, 문제, 발음, 기록이 모두 기기 안에 있어요. 발음도 기기 안의 AI 목소리가 만들어요. 인터넷은 iCloud에 기록을 저장할 때만 써요.</p></div>
+        </details>
+        <details>
+          <summary>틀린 단어는 어떻게 다시 보나요?</summary>
+          <div><p>오늘 탭의 <strong>틀린 단어 · 숙어</strong>와 <strong>자주 틀린 단어</strong>에서 다시 풀 수 있어요. 문제 앞에 카드로 먼저 한 번 보여 줘요. 잠금 화면 위젯과 매일 알림으로도 챙겨 드려요.</p></div>
+        </details>
+        <details>
+          <summary>하루에 몇 개씩 공부하나요?</summary>
+          <div><p>처음엔 단어 40개 · 숙어 12개예요. 설정에서 바꿀 수 있고, 오늘 몫을 다 하면 <strong>계속하기</strong>로 더 할 수 있어요. 하루 쉬어도 칠한 칸은 사라지지 않아요.</p></div>
+        </details>
+
+        <h3 style="margin-top:32px">문제 해결</h3>
+        <ul class="list">
+          <li><strong>발음이 들리지 않아요:</strong> iPhone이 무음 모드면 소리가 나지 않아요. 문제 화면의 스피커에 무음 표시가 보이면 옆 버튼으로 무음을 꺼 주세요.</li>
+          <li><strong>발음이 처음에 조금 늦어요:</strong> 기기 안에서 목소리를 만드느라 그래요. 한 번 만든 소리는 저장돼서 다음부터는 바로 나와요.</li>
+          <li><strong>iCloud 저장이 안 된대요:</strong> 설정 앱에서 Apple 계정에 로그인되어 있고 iCloud가 켜져 있는지 확인해 주세요. 인터넷이 연결되면 다음에 앱을 닫을 때 다시 저장해요.</li>
+          <li><strong>위젯에 단어가 안 보여요:</strong> 앱을 한 번 열면 위젯이 새로 그려져요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 개인정보 처리방침 -->
+    <section data-page="privacy" id="privacy-page">
+      <div class="card">
+        <h2>개인정보 처리방침</h2>
+        <p class="meta">시행일: 2026년 10월 9일</p>
+        <p class="lead">'단숙이'(이하 '앱')는 이용자의 개인정보를 소중히 다루며 「개인정보 보호법」 등 관련 법령을 지켜요. 앱은 <strong>회원가입이 없고</strong>, 이름 · 이메일 · 전화번호를 수집하지 않으며, <strong>광고와 이용 통계 도구를 쓰지 않아요.</strong> 앱을 만든 사람의 서버도 없어요.</p>
+
+        <h4>1. 처리하는 정보</h4>
+        <ul class="list">
+          <li><strong>공부 기록:</strong> 푼 문제와 맞힘 여부, 걸린 시간, 외운 단어, 뽑은 키링, 공부 설정. 기기 안에 저장돼요.</li>
+          <li><strong>부르는 이름(선택):</strong> 앱이 불러 줄 별명. 입력한 경우에만 기기 안에 저장돼요.</li>
+          <li><strong>알림 시간:</strong> 공부 알림을 켠 경우 정한 시각과 요일. 알림은 기기 안에서 예약돼요.</li>
+          <li><strong>신고 내용:</strong> 문제 화면에서 신고한 단어와 이유. 기기 안에 저장되며 앱을 만든 사람에게 자동으로 보내지지 않아요.</li>
+        </ul>
+        <p class="meta">위 정보는 모두 기기 안에 저장되고, iCloud를 쓰는 경우 아래 4번의 백업에 함께 담겨요.</p>
+
+        <h4>2. 이용 목적</h4>
+        <ul class="list">
+          <li>오늘 공부할 단어를 고르고, 외운 정도와 기록 · 통계를 보여 주기 위해</li>
+          <li>앱을 다시 설치하거나 기기를 바꿨을 때 공부 기록을 되살리기 위해(iCloud)</li>
+        </ul>
+
+        <h4>3. 보관과 파기</h4>
+        <ul class="list">
+          <li><strong>기기의 정보:</strong> 앱을 삭제하면 함께 지워져요.</li>
+          <li><strong>iCloud의 백업:</strong> 이용자 본인의 iCloud 계정 안, 이 앱만 볼 수 있는 비공개 공간에 기록 파일 하나로 저장돼요. iPhone 설정 › Apple 계정 › iCloud › 저장 공간 관리에서 언제든 지울 수 있어요.</li>
+        </ul>
+
+        <h4>4. 외부 전송과 국외 이전</h4>
+        <ul class="list">
+          <li><strong>Apple Inc.(미국):</strong> 공부 기록 백업을 이용자 본인의 iCloud(CloudKit 비공개 데이터베이스)에 저장해요. 앱을 만든 사람은 이 데이터를 볼 수 없어요. iCloud에 로그인하지 않았으면 전송되지 않아요.</li>
+          <li>발음 소리는 기기 안의 AI 모델이 만들어요. 단어나 예문을 외부 음성 서비스로 보내지 않아요.</li>
+          <li>문제 화면에서 사전 보기를 누르면 네이버 영어사전이 브라우저로 열려요. 그 사이트의 이용에는 그 사이트의 방침이 적용돼요.</li>
+        </ul>
+
+        <h4>5. 아동의 개인정보</h4>
+        <p class="lead" style="margin-top:0">앱은 이용자를 식별할 수 있는 정보를 수집하지 않으므로, 만 14세 미만 이용자도 법정대리인 동의 절차 없이 쓸 수 있어요.</p>
+
+        <h4>6. 이용자의 권리</h4>
+        <ul class="list">
+          <li>공부 기록은 앱을 삭제하거나 iCloud 저장 공간 관리에서 지울 수 있어요.</li>
+          <li>알림 권한은 iPhone 설정에서 언제든 끌 수 있어요.</li>
+        </ul>
+
+        <h4>7. 문의</h4>
+        <ul class="list">
+          <li>개인정보 관련 문의: <a href="mailto:fastchanoo@gmail.com">fastchanoo@gmail.com</a></li>
+        </ul>
+        <div class="note">방침이 바뀌면 이 페이지에서 시행일과 함께 알려 드려요.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 단숙이. All rights reserved.</footer>
+
+  <script>
+    // #privacy로 들어오면 처리방침 탭(App Store 개인정보 URL로 바로 연결).
+    const tabs = document.querySelectorAll('nav a');
+    function show(name) {
+      if (name !== 'privacy') name = 'support';
+      document.querySelectorAll('section[data-page]').forEach(s =>
+        s.classList.toggle('on', s.dataset.page === name));
+      tabs.forEach(a => { if (a.dataset.tab === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      document.title = name === 'privacy' ? '단숙이 · 개인정보 처리방침' : '단숙이 · 고객 지원';
+    }
+    tabs.forEach(a => a.addEventListener('click', e => {
+      e.preventDefault();
+      history.replaceState(null, '', '#' + a.dataset.tab);
+      show(a.dataset.tab);
+      window.scrollTo({ top: 0 });
+    }));
+    window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+    show(location.hash.slice(1));
+  </script>
+</body>
+</html>
