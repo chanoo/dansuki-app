@@ -62,8 +62,44 @@
 
     .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
-    /* 머리 */
-    header.wrap { padding-top: 56px; padding-bottom: 28px; text-align: center; }
+    /* 머리: 왼쪽 소개 · 오른쪽 영상 */
+    header.wrap { padding-top: 56px; padding-bottom: 8px; }
+    .hero { display: grid; grid-template-columns: 1fr 248px; gap: 48px; align-items: center; }
+    .hero .copy { text-align: left; }
+    .hero .say {
+      font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700;
+      font-size: 30px; line-height: 1.4; margin-top: 22px; letter-spacing: -0.3px;
+    }
+    .hero .about { color: var(--muted); font-size: 16px; margin-top: 12px; line-height: 1.6; }
+    .store {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+      padding: 11px 22px 11px 16px; border-radius: 14px; text-decoration: none;
+      background: var(--text); color: var(--canvas); transition: transform .2s;
+    }
+    .store:active { transform: scale(.97); }
+    .store svg { width: 28px; height: 28px; fill: currentColor; }
+    .store small { display: block; font-size: 11px; line-height: 1.25; opacity: .75; }
+    .store b { display: block; font-size: 19px; line-height: 1.2; letter-spacing: -0.2px; }
+    .facts { font-size: 13px; color: var(--faint); margin-top: 12px; }
+
+    .reel { position: relative; width: 248px; }
+    .reel video {
+      display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover;
+      border-radius: 30px; border: 1px solid var(--line); background: var(--sunk);
+      box-shadow: 0 2px 4px rgba(35,33,30,.05), 0 24px 48px -20px rgba(35,33,30,.28);
+    }
+    .sound {
+      position: absolute; right: 12px; bottom: 12px; border: 0; cursor: pointer;
+      padding: 7px 12px; border-radius: 999px; font: 600 13px 'Pretendard', sans-serif;
+      background: rgba(35,33,30,.72); color: #F6F1E7; backdrop-filter: blur(6px);
+    }
+    body[data-page="privacy"] .hero { grid-template-columns: 1fr; }
+    body[data-page="privacy"] .hero .copy { text-align: center; }
+    body[data-page="privacy"] .reel, body[data-page="privacy"] .hero .say,
+    body[data-page="privacy"] .hero .about, body[data-page="privacy"] .store,
+    body[data-page="privacy"] .facts { display: none; }
+    .tabs { text-align: center; padding-top: 40px; }
+    .tabs nav { margin-top: 0; }
     .icon {
       width: 88px; height: 88px; border-radius: 22px;
       box-shadow: var(--shadow); border: 1px solid var(--line);
@@ -161,41 +197,22 @@
       font-size: 15px; color: var(--muted);
     }
 
-    /* App Store 내려받기 */
-    .store {
-      display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
-      padding: 12px 22px 12px 18px; border-radius: 14px; text-decoration: none;
-      background: var(--text); color: var(--canvas); box-shadow: var(--shadow);
-      transition: transform .2s;
-    }
-    .store:active { transform: scale(.97); }
-    .store svg { width: 26px; height: 26px; fill: currentColor; }
-    .store small { display: block; font-size: 11px; line-height: 1.2; opacity: .8; }
-    .store b { display: block; font-size: 19px; line-height: 1.2; letter-spacing: -0.2px; }
-    header .store { margin-top: 20px; }
-
-    /* 소개 영상 */
-    .reel { display: flex; gap: 24px; align-items: center; margin-top: 24px; }
-    .reel video {
-      flex: 0 0 240px; width: 240px; aspect-ratio: 9 / 16; border-radius: 26px; display: block;
-      border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--sunk); object-fit: cover;
-    }
-    .reel .t { font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700; font-size: 21px; line-height: 1.45; }
-    .reel .d { color: var(--muted); font-size: 15px; margin-top: 8px; }
-
     .maker { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line, #E6DECF); color: var(--muted, #6A645B); font-size: 14px; line-height: 1.7; }
     footer { text-align: center; color: var(--faint); font-size: 13px; padding: 0 20px 48px; }
 
     @media (max-width: 600px) {
       header.wrap { padding-top: 40px; }
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero .copy { text-align: center; }
+      .hero .say { font-size: 25px; }
+      .reel { width: 232px; margin: 0 auto; }
+      .tabs { padding-top: 32px; }
       .name { font-size: 34px; }
       .card { padding: 24px 20px; border-radius: 20px; }
       .shots { margin: 20px -20px 0; padding: 4px 20px 12px; }
       figure { flex-basis: 168px; }
       figure img { width: 168px; border-radius: 22px; }
       .steps { grid-template-columns: 1fr; }
-      .reel { flex-direction: column; text-align: center; }
-      .reel video { width: 100%; max-width: 280px; flex-basis: auto; }
       h2 { font-size: 24px; }
       nav a { padding: 10px 18px; }
     }
@@ -203,25 +220,37 @@
 </head>
 <body>
   <header class="wrap">
-    <img class="icon" src="icon.png" alt="단숙이 앱 아이콘" width="88" height="88">
-    <div class="name">단숙이</div>
-    <p class="tagline">외울 때마다 키링이 한 조각씩</p>
-    <a class="store" href="https://apps.apple.com/kr/app/id6819707350" aria-label="App Store에서 단숙이 받기">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.59 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
-      <span><small>App Store에서</small><b>무료로 받기</b></span>
-    </a>
-    <br>
-    <nav aria-label="페이지">
-      <a href="#support" data-tab="support">고객 지원</a>
-      <a href="#privacy" data-tab="privacy">개인정보 처리방침</a>
-    </nav>
+    <div class="hero">
+      <div class="copy">
+        <img class="icon" src="icon.png" alt="단숙이 앱 아이콘" width="88" height="88">
+        <div class="name">단숙이</div>
+        <p class="tagline">수능 영단어 · 숙어</p>
+        <p class="say">외울 때마다<br>키링이 <span class="mark">한 조각씩</span></p>
+        <p class="about">단어 하나를 외우면 한 칸이 열리고, 144칸을 다 열면 키링이 완성돼요. 무슨 그림인지는 외워야 보여요.</p>
+        <a class="store" href="https://apps.apple.com/kr/app/id6819707350" aria-label="App Store에서 단숙이 받기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.59 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+          <span><small>App Store에서</small><b>무료로 받기</b></span>
+        </a>
+        <p class="facts">iPhone · 무료 · 가입 없이 바로</p>
+      </div>
+      <div class="reel">
+        <video src="reel.mp4" poster="reel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="단숙이 소개 영상: 단어를 외울 때마다 딸기 키링이 한 칸씩 드러나요"></video>
+        <button class="sound" type="button" aria-pressed="false">소리 켜기</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <nav aria-label="페이지">
+        <a href="#support" data-tab="support">고객 지원</a>
+        <a href="#privacy" data-tab="privacy">개인정보 처리방침</a>
+      </nav>
+    </div>
   </header>
 
   <main class="wrap">
     <!-- 고객 지원 -->
     <section data-page="support" id="support-page">
       <div class="card">
-        <h2>외울 때마다 키링이 <span class="mark">한 조각씩</span></h2>
+        <h2>이렇게 <span class="mark">외워요</span></h2>
         <p class="lead">단숙이는 수능 기본 어휘 3,000개와 기출 · 기초 보충 단어 306개, 숙어 580개를 외우는 iPhone 앱이에요. 회원가입 없이 바로 시작하고, 모든 공부는 기기 안에서 이루어져요.</p>
         <div class="steps">
           <div class="step">
@@ -241,13 +270,6 @@
           </div>
         </div>
 
-        <div class="reel">
-          <video src="reel.mp4" poster="reel-poster.jpg" controls playsinline muted loop preload="metadata" aria-label="단숙이 소개 영상"></video>
-          <div>
-            <div class="t">단어 하나에 한 칸,<br>144칸이면 <span class="mark">키링 완성</span></div>
-            <p class="d">무슨 그림인지는 외워야 보여요. 그림은 58종, 캡슐 머신으로 하나씩 뽑아요.</p>
-          </div>
-        </div>
 
         <div class="shots" aria-label="앱 화면">
           <figure><img src="home.jpg" alt="오늘 탭: 칠하는 중인 키링과 오늘의 공부" loading="lazy"><figcaption>오늘의 공부</figcaption></figure>
@@ -389,6 +411,9 @@
       document.querySelectorAll('section[data-page]').forEach(s =>
         s.classList.toggle('on', s.dataset.page === name));
       tabs.forEach(a => { if (a.dataset.tab === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      document.body.dataset.page = name;
+      const v = document.querySelector('.reel video');
+      if (v) { if (name === 'privacy') v.pause(); else v.play().catch(() => {}); }
       document.title = name === 'privacy' ? '단숙이 · 개인정보 처리방침' : '단숙이 · 고객 지원';
     }
     tabs.forEach(a => a.addEventListener('click', e => {
@@ -399,6 +424,16 @@
     }));
     window.addEventListener('hashchange', () => show(location.hash.slice(1)));
     show(location.hash.slice(1));
+    // 영상은 소리 없이 저절로 돌고, 버튼으로 소리를 켠다. 움직임 줄이기 설정이면 멈춰 둔다.
+    const video = document.querySelector('.reel video');
+    const sound = document.querySelector('.sound');
+    sound.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted) { video.currentTime = 0; video.play(); }
+      sound.textContent = video.muted ? '소리 켜기' : '소리 끄기';
+      sound.setAttribute('aria-pressed', String(!video.muted));
+    });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { video.removeAttribute('autoplay'); video.pause(); video.controls = true; }
   </script>
 </body>
 </html>
