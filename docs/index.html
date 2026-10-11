@@ -144,6 +144,16 @@
     .step .n { font-size: 13px; font-weight: 700; color: var(--faint); font-feature-settings: 'tnum'; }
     .step .t { font-weight: 700; margin-top: 4px; }
     .step .d { font-size: 15px; color: var(--muted); margin-top: 4px; line-height: 1.55; }
+    .steps4 { grid-template-columns: repeat(2, 1fr); }
+    .step .why { font-size: 14px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); line-height: 1.55; }
+    .step .why strong { color: var(--text); }
+    .step .cite { font-size: 12.5px; color: var(--faint); margin-top: 6px; }
+    .papers { margin-top: 20px; }
+    .papers ul { margin: 0 0 12px; padding-left: 18px; }
+    .papers li { margin: 6px 0; font-size: 15px; line-height: 1.55; }
+    .papers li a { color: var(--text); text-decoration: none; }
+    .papers .journal { color: var(--faint); font-style: italic; font-size: 13px; }
+    .papers-h { font-weight: 700; color: var(--text); margin: 6px 0 4px; font-size: 14px; }
 
     /* 스크린샷: 옆으로 넘기기 */
     .shots {
@@ -284,6 +294,67 @@
         </div>
         <p class="hint">옆으로 넘겨 보세요 →</p>
         <p class="maker">단숙이는 고등학생 아이의 단어 공부를 돕고 싶었던 아빠가 직접 만들었어요. 아이가 매일 쓰는 앱이라 광고도, 가입도 넣지 않았어요.</p>
+      </div>
+
+      <div class="card" id="method">
+        <h2>단숙이 <span class="mark">공부법</span></h2>
+        <p class="lead">게임처럼 키링을 모으지만, 공부 방법은 학습 연구를 바탕으로 만들었어요. 핵심은 <strong>알아보는 게 아니라 떠올리기</strong>, 그리고 <strong>잊을 때쯤 다시 만나기</strong>예요. 논문 14편을 참고했어요.</p>
+        <div class="steps steps4">
+          <div class="step">
+            <div class="n">01</div>
+            <div class="t">카드로 먼저 봐요</div>
+            <div class="d">새 단어는 플래시카드 다섯 장으로 뜻 · 발음 · 예문을 먼저 보고, 바로 그 다섯 개를 풀어요.</div>
+            <div class="why"><strong>왜?</strong> 처음부터 틀리며 시작하면 금방 지쳐요. 한 번 보고 바로 꺼내 보면 첫 기억이 단단해져요.</div>
+            <div class="cite">근거 · Karpicke &amp; Roediger 2008 · Webb 외 2020</div>
+          </div>
+          <div class="step">
+            <div class="n">02</div>
+            <div class="t">먼저 떠올리고 골라요</div>
+            <div class="d">보기는 1초 뒤에 나와요. 그 사이에 뜻을 머릿속에서 먼저 꺼내 봐요.</div>
+            <div class="why"><strong>왜?</strong> 보기를 보고 알아보는 것보다 스스로 떠올린 단어가 훨씬 오래 남아요.</div>
+            <div class="cite">근거 · Karpicke &amp; Roediger 2008 · Yang 외 2021 · Agarwal 외 2021</div>
+          </div>
+          <div class="step">
+            <div class="n">03</div>
+            <div class="t">바로 떠오르면 내 것</div>
+            <div class="d">4초 안에 떠올라야 통과. 영어 → 뜻, 뜻 → 영어를 각각 3번 연속 맞히면 외운 단어가 돼요.</div>
+            <div class="why"><strong>왜?</strong> 수능 지문에서 단어마다 멈칫하면 시간이 새요. 한 번은 운일 수 있으니 양쪽으로 여러 번 확인해요.</div>
+            <div class="cite">근거 · Rawson &amp; Dunlosky 2011 · Perfetti 2007 · Webb 2009</div>
+          </div>
+          <div class="step">
+            <div class="n">04</div>
+            <div class="t">잊을 때쯤 다시 만나요</div>
+            <div class="d">외운 단어는 2일 · 7일 · 21일 뒤에 한 번씩 다시 확인해요. 세 번 다 맞히면 단단히 외운 단어. 틀려도 키링 조각은 그대로예요.</div>
+            <div class="why"><strong>왜?</strong> 기억이 흐려질 즈음 다시 꺼내야 오래 가요. 몰아서보다 간격을 두는 게 효과가 커요.</div>
+            <div class="cite">근거 · Rawson &amp; Dunlosky 2011 · Latimier 외 2021 · Kim &amp; Webb 2022</div>
+          </div>
+        </div>
+        <p class="lead"><strong>난이도도 맞춰 줘요.</strong> 최근 40문제를 몇 % 맞혔는지 보고 20문제마다 한 칸씩 조절해요. 너무 쉬우면(90% 넘게) 헷갈리는 보기와 어려운 단어를 더 섞고, 너무 어려우면(60% 아래) 숨 고르기를 해요. 대략 85%를 맞히는 수준에서 가장 빨리 배운다는 연구(Wilson 외 2019)를 따랐어요. 어느 단계든 외웠다고 보는 기준은 같아요.</p>
+        <details class="papers">
+          <summary>참고한 연구 14편</summary>
+          <div>
+            <p class="papers-h">최근 연구 · 2020년 이후</p>
+            <ul>
+              <li><a href="https://doi.org/10.1037/bul0000309" target="_blank" rel="noopener"><strong>Yang, Luo, Vadillo, Yu & Shanks (2021)</strong></a> · 교실 연구를 모아 보니 퀴즈로 스스로 확인하면 성적이 확실히 올랐어요. <span class="journal">Psychological Bulletin 147</span></li>
+              <li><a href="https://doi.org/10.1007/s10648-021-09595-9" target="_blank" rel="noopener"><strong>Agarwal, Nunes & Blunt (2021)</strong></a> · 실제 학교 · 교실 실험 50개 대부분에서 떠올리기 연습이 중간 이상 효과를 냈어요. <span class="journal">Educational Psychology Review 33</span></li>
+              <li><a href="https://doi.org/10.1007/s10648-020-09572-8" target="_blank" rel="noopener"><strong>Latimier, Peyre & Ramus (2021)</strong></a> · 떠올리기를 몰아서보다 간격을 두고 할 때 훨씬 오래 기억했어요. <span class="journal">Educational Psychology Review 33</span></li>
+              <li><a href="https://doi.org/10.1111/lang.12479" target="_blank" rel="noopener"><strong>Kim & Webb (2022)</strong></a> · 외국어 단어도 간격을 두고 연습할 때 더 오래 남았어요(실험 48개). <span class="journal">Language Learning 72</span></li>
+              <li><a href="https://doi.org/10.1111/modl.12671" target="_blank" rel="noopener"><strong>Webb, Yanagisawa & Uchihara (2020)</strong></a> · 플래시카드처럼 단어에 집중하는 공부는 바로는 잘 떠올리지만, 시간이 지나면 줄어 다시 보기가 필요해요. <span class="journal">The Modern Language Journal 104</span></li>
+            </ul>
+            <p class="papers-h">기초 연구</p>
+            <ul>
+              <li><a href="https://doi.org/10.1126/science.1152408" target="_blank" rel="noopener"><strong>Karpicke & Roediger (2008)</strong></a> · 다시 읽기보다 다시 떠올리기가 일주일 뒤 기억을 크게 늘렸어요. <span class="journal">Science 319</span></li>
+              <li><a href="https://doi.org/10.1177/0956797612443370" target="_blank" rel="noopener"><strong>Little, Bjork, Bjork & Angello (2012)</strong></a> · 그럴듯한 오답이 섞인 객관식은 답을 떠올리게 만들어 배움에 도움이 돼요. <span class="journal">Psychological Science 23</span></li>
+              <li><a href="https://doi.org/10.1037/a0023956" target="_blank" rel="noopener"><strong>Rawson & Dunlosky (2011)</strong></a> · 처음엔 3번 맞힐 때까지, 그 뒤 날을 두고 다시 익히기를 권해요. <span class="journal">J. of Experimental Psychology: General 140</span></li>
+              <li><a href="https://doi.org/10.1080/10888430701530730" target="_blank" rel="noopener"><strong>Perfetti (2007)</strong></a> · 단어를 빠르고 정확하게 떠올리는 힘이 읽기 이해를 좌우해요. <span class="journal">Scientific Studies of Reading 11</span></li>
+              <li><a href="https://doi.org/10.1177/0033688209343854" target="_blank" rel="noopener"><strong>Webb (2009)</strong></a> · 뜻에서 단어를 꺼내는 연습이 더 많은 단어 지식을 남겨요. <span class="journal">RELC Journal 40</span></li>
+              <li><a href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener"><strong>Cepeda, Pashler, Vul, Wixted & Rohrer (2006)</strong></a> · 실험 317개를 모아 보니 간격을 두고 공부할 때 더 오래 기억했어요. <span class="journal">Psychological Bulletin 132</span></li>
+              <li><a href="https://doi.org/10.3758/MC.36.3.604" target="_blank" rel="noopener"><strong>Butler & Roediger (2008)</strong></a> · 객관식 뒤에 정답을 알려 주면 배움이 커져요. <span class="journal">Memory & Cognition 36</span></li>
+              <li><a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener"><strong>Dunlosky, Rawson, Marsh, Nathan & Willingham (2013)</strong></a> · 여러 공부법 가운데 스스로 시험하기와 간격 두기가 가장 효과가 컸어요. <span class="journal">Psychological Science in the Public Interest 14</span></li>
+              <li><a href="https://doi.org/10.1038/s41467-019-12552-4" target="_blank" rel="noopener"><strong>Wilson, Shenhav, Straccia & Cohen (2019)</strong></a> · 너무 쉽지도 어렵지도 않게, 대략 85% 맞히는 수준에서 가장 빨리 배워요. <span class="journal">Nature Communications 10</span></li>
+            </ul>
+          </div>
+        </details>
       </div>
 
       <div class="card">
