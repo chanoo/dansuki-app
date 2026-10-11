@@ -251,11 +251,11 @@
     </div>
     <div class="tabs">
       <nav aria-label="페이지">
-        <a href="#intro" data-tab="intro">소개</a>
-        <a href="#method" data-tab="method">공부법</a>
-        <a href="#faq" data-tab="faq">질문</a>
-        <a href="#contact" data-tab="contact">문의</a>
-        <a href="#privacy" data-tab="privacy">개인정보</a>
+        <a href="#intro" data-tab="intro">앱 소개</a>
+        <a href="#method" data-tab="method">단숙이 공부법</a>
+        <a href="#faq" data-tab="faq">자주 묻는 질문</a>
+        <a href="#contact" data-tab="contact">문의하기</a>
+        <a href="#privacy" data-tab="privacy">개인정보 처리방침</a>
       </nav>
     </div>
   </header>
@@ -511,13 +511,13 @@
   <script>
     // #privacy로 들어오면 처리방침 탭(App Store 개인정보 URL로 바로 연결).
     const tabs = document.querySelectorAll('nav a');
-    const names = { intro: '소개', method: '공부법', faq: '자주 묻는 질문', contact: '문의', privacy: '개인정보 처리방침' };
+    const names = { intro: '앱 소개', method: '단숙이 공부법', faq: '자주 묻는 질문', contact: '문의하기', privacy: '개인정보 처리방침' };
     function show(name) {
       // 예전 주소(#support)와 빈 주소는 소개로.
       if (!(name in names)) name = 'intro';
       document.querySelectorAll('section[data-page]').forEach(s =>
         s.classList.toggle('on', s.dataset.page === name));
-      tabs.forEach(a => { if (a.dataset.tab === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      tabs.forEach(a => { if (a.dataset.tab === name) { a.setAttribute('aria-current', 'page'); a.scrollIntoView({ block: 'nearest', inline: 'center' }); } else a.removeAttribute('aria-current'); });
       document.body.dataset.page = name;
       const v = document.querySelector('.reel video');
       if (v) { if (name === 'privacy') v.pause(); else v.play().catch(() => {}); }
