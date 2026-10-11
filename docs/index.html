@@ -517,7 +517,7 @@
       if (!(name in names)) name = 'intro';
       document.querySelectorAll('section[data-page]').forEach(s =>
         s.classList.toggle('on', s.dataset.page === name));
-      tabs.forEach(a => { if (a.dataset.tab === name) { a.setAttribute('aria-current', 'page'); a.scrollIntoView({ block: 'nearest', inline: 'center' }); } else a.removeAttribute('aria-current'); });
+      tabs.forEach(a => { if (a.dataset.tab === name) { a.setAttribute('aria-current', 'page'); const n = a.parentElement; n.scrollLeft = a.offsetLeft - (n.clientWidth - a.offsetWidth) / 2; } else a.removeAttribute('aria-current'); });
       document.body.dataset.page = name;
       const v = document.querySelector('.reel video');
       if (v) { if (name === 'privacy') v.pause(); else v.play().catch(() => {}); }
