@@ -173,3 +173,45 @@
 .more { margin-top: 24px; font-weight: 700; }
 .more a { text-decoration: underline; text-decoration-color: var(--highlight); text-decoration-thickness: 3px; text-underline-offset: 4px; }
 .level-table h3 { font-size: 18px; }
+
+/* 모바일 최적화(2026-10-13 사용자) */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .lead br, .sub br { display: none; }
+  .lead { font-size: 17px; }
+  .sub { font-size: 16px; }
+  .hero { padding-top: 28px; padding-bottom: 48px; gap: 28px; }
+  .reel { width: 200px; }
+  .store { margin-top: 22px; }
+  section { padding: 52px 0; }
+  h2 { font-size: 25px; }
+  .trio { gap: 10px; margin-top: 24px; }
+  .tile { padding: 18px 18px; border-radius: 18px; display: grid; grid-template-columns: minmax(0, 110px) minmax(0, 1fr); align-items: center; gap: 12px; }
+  .tile b { font-size: 22px; }
+  .tile span { margin-top: 0; font-size: 14px; }
+  .tile span br { display: none; }
+  /* 하루 공부: 한 줄에 그림 + 글 */
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 28px; }
+  .steps li { flex-direction: row; align-items: center; gap: 16px; }
+  .steps figure { flex: 0 0 34%; }
+  .steps figure img { border-radius: 16px; }
+  .steps p { font-size: 15px; }
+  /* 2 · 7 · 21일: 한 줄 */
+  .tags { gap: 8px; flex-wrap: nowrap; }
+  .tag { padding: 12px 14px; font-size: 15px; border-radius: 14px; flex: 1; text-align: center; }
+  .tag b { font-size: 22px; }
+  .gallery { gap: 12px; margin-top: 28px; }
+  .gallery img { border-radius: 16px; }
+  .gallery figcaption { font-size: 13.5px; margin-top: 8px; }
+  .rules { gap: 10px; }
+  .rules > div { padding: 18px; border-radius: 18px; }
+  .gauge-card, .level-table { padding: 18px; border-radius: 18px; }
+  .gauge-legend { font-size: 12px; }
+  .level-table th, .level-table td { padding: 10px 3px; font-size: 13px; }
+  .level-table td { white-space: nowrap; }
+  .level-table tbody th { width: 34%; }
+  .maker p { font-size: 16px; }
+  .faq summary { font-size: 16px; }
+  footer.site { padding: 40px 0 28px; }
+  .foot-cols { gap: 28px 40px; }
+}
