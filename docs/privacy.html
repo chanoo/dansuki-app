@@ -33,151 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
-    <style>
-    /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
-    :root {
-      --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
-      --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;
-      --highlight: #F3D66B; --mark: rgba(243, 214, 107, .85);
-      --shadow: 0 1px 2px rgba(35,33,30,.04), 0 10px 28px -12px rgba(35,33,30,.16);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --canvas: #181613; --surface: #221F1B; --sunk: #1C1A17;
-        --text: #EDE7DB; --muted: #A8A094; --faint: #79726A; --line: #302C27;
-        --mark: rgba(243, 214, 107, .35);
-        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6);
-      }
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-    body {
-      background: var(--canvas); color: var(--text);
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
-      font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;
-      word-break: keep-all; overflow-wrap: break-word;
-      background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px); background-size: 24px 24px;
-    }
-    a { color: inherit; }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-    .narrow { max-width: 760px; }
-    .mark { background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); padding: 0 2px; }
-    h1, h2, h3 { font-family: 'MaruBuri', 'AppleMyungjo', serif; font-weight: 700; letter-spacing: -0.4px; }
-    h2 { font-size: 34px; line-height: 1.3; }
-    h3 { font-size: 19px; line-height: 1.35; }
-    .sub { color: var(--muted); margin-top: 12px; font-size: 17.5px; }
-
-    /* 위 막대 */
-    nav.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--canvas) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
-    nav.top .row { display: flex; align-items: center; gap: 20px; height: 60px; }
-    .brand { display: flex; align-items: center; gap: 8px; font-family: 'MaruBuri', serif; font-weight: 700; font-size: 19px; text-decoration: none; }
-    .brand img { border-radius: 7px; }
-    .links { display: flex; gap: 18px; margin-left: auto; font-size: 15px; color: var(--muted); }
-    .links a { text-decoration: none; }
-    .links a:hover { color: var(--text); }
-    .get { background: var(--text); color: var(--canvas); text-decoration: none; font-weight: 700; font-size: 14px; padding: 8px 16px; border-radius: 999px; }
-
-    /* 첫 화면 */
-    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-top: 64px; padding-bottom: 72px; }
-    .eyebrow { font-weight: 700; color: var(--muted); letter-spacing: .5px; }
-    h1 { font-size: 58px; line-height: 1.18; margin-top: 10px; letter-spacing: -1px; }
-    .lead { font-size: 19px; color: var(--muted); margin-top: 20px; }
-    .store { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--text); color: var(--canvas); text-decoration: none; padding: 12px 22px 12px 18px; border-radius: 16px; box-shadow: var(--shadow); }
-    .store svg { width: 26px; height: 26px; fill: currentColor; }
-    .store span { display: flex; flex-direction: column; line-height: 1.15; }
-    .store small { font-size: 12px; opacity: .8; }
-    .store b { font-size: 19px; }
-    .facts { margin-top: 14px; font-size: 14px; color: var(--faint); }
-    .reel { position: relative; justify-self: center; width: 300px; }
-    .reel video { width: 100%; aspect-ratio: 9/16; border-radius: 30px; display: block; background: var(--sunk); box-shadow: var(--shadow); border: 1px solid var(--line); object-fit: cover; }
-    .sound { position: absolute; right: 12px; bottom: 12px; border: 0; background: rgba(35,33,30,.72); color: #fff; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
-
-    /* 구역 */
-    section { padding: 88px 0; }
-    section.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
-    .tile { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; }
-    .tile b { display: block; font-family: 'MaruBuri', serif; font-size: 30px; }
-    .tile span { display: block; margin-top: 8px; color: var(--muted); font-size: 15.5px; }
-
-    .steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
-    .steps li { display: flex; flex-direction: column; gap: 16px; }
-    .steps figure img, .gallery img { width: 100%; height: auto; aspect-ratio: 1206/2622; object-fit: cover; border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow); display: block; background: var(--sunk); }
-    .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--highlight); color: #23211E; font-weight: 800; font-size: 14px; margin-bottom: 8px; }
-    .steps p { color: var(--muted); font-size: 15.5px; margin-top: 6px; }
-
-    .tags { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
-    .tag { background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 26px; font-size: 18px; box-shadow: var(--shadow); }
-    .tag b { font-family: 'MaruBuri', serif; font-size: 28px; margin-right: 4px; }
-    .tag:nth-child(2) { transform: rotate(-2deg); } .tag:nth-child(3) { transform: rotate(1.5deg); }
-    .note { margin-top: 24px; color: var(--muted); }
-
-    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
-    .gallery figcaption { margin-top: 12px; font-size: 15px; color: var(--muted); text-align: center; }
-
-    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-    .rules > div { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
-    .rules p { color: var(--muted); font-size: 15.5px; margin-top: 8px; }
-    .rules small { display: block; margin-top: 10px; color: var(--faint); font-size: 12.5px; }
-    details.papers { margin-top: 24px; background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 22px; }
-    details.papers summary { cursor: pointer; font-weight: 700; }
-    .papers-h { margin-top: 16px; font-weight: 700; font-size: 14px; color: var(--muted); }
-    details.papers ul { margin: 8px 0 0 18px; font-size: 14.5px; color: var(--muted); }
-    details.papers li { margin-top: 6px; }
-    .journal { color: var(--faint); font-size: 13px; }
-
-    .maker { display: flex; gap: 20px; align-items: flex-start; }
-    .maker img { border-radius: 16px; flex: none; }
-    .maker p { font-size: 18px; }
-
-    .faq { margin-top: 28px; }
-    .faq details { border-bottom: 1px solid var(--line); padding: 16px 4px; }
-    .faq summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
-    .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after { content: '+'; color: var(--faint); font-weight: 400; }
-    .faq details[open] summary::after { content: '–'; }
-    .faq details div { margin-top: 10px; color: var(--muted); font-size: 15.5px; }
-    #faq h3 { margin-top: 40px !important; }
-    ul.list { margin: 12px 0 0 18px; color: var(--muted); font-size: 15.5px; }
-    ul.list li { margin-top: 8px; }
-
-    .contact p { margin-top: 14px; color: var(--muted); }
-    .mail { display: inline-block; margin-top: 18px; font-weight: 700; font-size: 18px; }
-    .store.small { display: block; width: max-content; margin-top: 22px; font-weight: 700; padding: 12px 20px; }
-
-    /* 아래 끝(2026-10-13 사용자: 만들다 만 느낌) */
-    footer.site { margin-top: 0; border-top: 1px solid var(--line); background: var(--surface); padding: 56px 0 36px; }
-    .foot-top { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
-    .foot-brand p { margin-top: 12px; color: var(--muted); font-size: 15px; }
-    .foot-brand .brand img { border-radius: 9px; }
-    .foot-brand .store { margin-top: 18px; padding: 10px 18px 10px 14px; }
-    .foot-brand .store b { font-size: 16px; }
-    .foot-cols { display: flex; gap: 56px; flex-wrap: wrap; }
-    .foot-cols h4 { font-size: 13px; color: var(--faint); font-weight: 700; letter-spacing: .4px; margin-bottom: 12px; }
-    .foot-cols a, .foot-cols span { display: block; font-size: 15px; margin-top: 8px; text-decoration: none; color: var(--text); }
-    .foot-cols a:hover { text-decoration: underline; text-decoration-color: var(--highlight); text-decoration-thickness: 2px; }
-    .foot-cols .muted { color: var(--faint); font-size: 13px; }
-    .foot-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--faint); font-size: 13px; }
-    @media (max-width: 880px) { .foot-top { flex-direction: column; gap: 36px; } .foot-cols { gap: 36px; } }
-
-    @media (max-width: 880px) {
-      .links { display: none; }
-      .get { margin-left: auto; }
-      .hero { grid-template-columns: 1fr; padding-top: 40px; gap: 36px; text-align: left; }
-      h1 { font-size: 42px; }
-      h2 { font-size: 27px; }
-      .reel { width: 240px; }
-      section { padding: 64px 0; }
-      .trio, .rules { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
-      .gallery { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .maker { flex-direction: column; }
-    }
-    @media (max-width: 420px) {
-      .wrap { padding: 0 16px; }
-      h1 { font-size: 36px; }
-    }
-  </style>
+    <link rel="stylesheet" href="site.css">
 
   <style>
     .policy { padding: 48px 0 72px; }
@@ -269,11 +125,11 @@
         <div class="foot-cols">
           <div>
             <h4>단숙이</h4>
-            <a href="./#how">공부 방법</a>
+            <a href="method.html">공부 방법</a>
             <a href="./#again">다시 확인</a>
-            <a href="./#level">난이도</a>
+            <a href="difficulty.html">난이도</a>
             <a href="./#keyring">키링</a>
-            <a href="./#method">연구 근거</a>
+            <a href="method.html#papers">연구 근거</a>
           </div>
           <div>
             <h4>도움</h4>
