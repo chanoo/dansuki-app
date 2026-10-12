@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개인정보 처리방침 · 단숙이</title>
+  <meta name="description" content="수능 영단어 3,000개와 숙어 580개를 플래시카드로 보고 4초 안에 맞히며 외우는 무료 iPhone 앱. 영어→뜻, 뜻→영어를 3번 연속 맞히면 외운 단어로 치고, 2·7·21일 뒤 다시 물어 오래 기억하게 해요. 외울 때마다 픽셀 키링이 한 조각씩 완성돼요.">
+  <meta name="keywords" content="수능 영단어, 수능 영단어 앱, 영단어 암기 앱, 수능 숙어, 교육과정 기본 어휘, 고등 영단어, 영어 단어 외우기, 단숙이">
+  <link rel="canonical" href="https://chanoo.github.io/dansuki-app/privacy.html">
+  <meta name="theme-color" content="#F6F1E7">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="단숙이">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://chanoo.github.io/dansuki-app/">
+  <meta property="og:title" content="단숙이 - 수능 영단어 · 숙어 암기 앱">
+  <meta property="og:description" content="단어 하나 외우면 키링이 한 조각씩. 수능 영단어 3,000개 · 숙어 580개, 무료 iPhone 앱.">
+  <meta property="og:image" content="https://chanoo.github.io/dansuki-app/og.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://chanoo.github.io/dansuki-app/og.jpg?v=2">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="외울 때마다 키링이 한 조각씩 칠해지는 단숙이 키링 판">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="단숙이 - 수능 영단어 · 숙어 암기 앱">
+  <meta name="twitter:description" content="수능 영단어 3,000개 · 숙어 580개를 4초 안에 맞히며 외우는 무료 iPhone 앱.">
+  <meta name="twitter:image" content="https://chanoo.github.io/dansuki-app/og.jpg?v=2">
+  <meta name="twitter:image:alt" content="외울 때마다 키링이 한 조각씩 칠해지는 단숙이 키링 판">
+  <meta name="apple-itunes-app" content="app-id=6819707350">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+    <style>
+    /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
+    :root {
+      --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
+      --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;
+      --highlight: #F3D66B; --mark: rgba(243, 214, 107, .85);
+      --shadow: 0 1px 2px rgba(35,33,30,.04), 0 10px 28px -12px rgba(35,33,30,.16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --canvas: #181613; --surface: #221F1B; --sunk: #1C1A17;
+        --text: #EDE7DB; --muted: #A8A094; --faint: #79726A; --line: #302C27;
+        --mark: rgba(243, 214, 107, .35);
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6);
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      background: var(--canvas); color: var(--text);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+      font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+      word-break: keep-all; overflow-wrap: break-word;
+      background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px); background-size: 24px 24px;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .narrow { max-width: 760px; }
+    .mark { background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); padding: 0 2px; }
+    h1, h2, h3 { font-family: 'MaruBuri', 'AppleMyungjo', serif; font-weight: 700; letter-spacing: -0.4px; }
+    h2 { font-size: 34px; line-height: 1.3; }
+    h3 { font-size: 19px; line-height: 1.35; }
+    .sub { color: var(--muted); margin-top: 12px; font-size: 17.5px; }
+
+    /* 위 막대 */
+    nav.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--canvas) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav.top .row { display: flex; align-items: center; gap: 20px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 8px; font-family: 'MaruBuri', serif; font-weight: 700; font-size: 19px; text-decoration: none; }
+    .brand img { border-radius: 7px; }
+    .links { display: flex; gap: 18px; margin-left: auto; font-size: 15px; color: var(--muted); }
+    .links a { text-decoration: none; }
+    .links a:hover { color: var(--text); }
+    .get { background: var(--text); color: var(--canvas); text-decoration: none; font-weight: 700; font-size: 14px; padding: 8px 16px; border-radius: 999px; }
+
+    /* 첫 화면 */
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-top: 64px; padding-bottom: 72px; }
+    .eyebrow { font-weight: 700; color: var(--muted); letter-spacing: .5px; }
+    h1 { font-size: 58px; line-height: 1.18; margin-top: 10px; letter-spacing: -1px; }
+    .lead { font-size: 19px; color: var(--muted); margin-top: 20px; }
+    .store { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--text); color: var(--canvas); text-decoration: none; padding: 12px 22px 12px 18px; border-radius: 16px; box-shadow: var(--shadow); }
+    .store svg { width: 26px; height: 26px; fill: currentColor; }
+    .store span { display: flex; flex-direction: column; line-height: 1.15; }
+    .store small { font-size: 12px; opacity: .8; }
+    .store b { font-size: 19px; }
+    .facts { margin-top: 14px; font-size: 14px; color: var(--faint); }
+    .reel { position: relative; justify-self: center; width: 300px; }
+    .reel video { width: 100%; aspect-ratio: 9/16; border-radius: 30px; display: block; background: var(--sunk); box-shadow: var(--shadow); border: 1px solid var(--line); object-fit: cover; }
+    .sound { position: absolute; right: 12px; bottom: 12px; border: 0; background: rgba(35,33,30,.72); color: #fff; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+
+    /* 구역 */
+    section { padding: 88px 0; }
+    section.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .tile { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; }
+    .tile b { display: block; font-family: 'MaruBuri', serif; font-size: 30px; }
+    .tile span { display: block; margin-top: 8px; color: var(--muted); font-size: 15.5px; }
+
+    .steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+    .steps li { display: flex; flex-direction: column; gap: 16px; }
+    .steps figure img, .gallery img { width: 100%; height: auto; aspect-ratio: 1206/2622; object-fit: cover; border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow); display: block; background: var(--sunk); }
+    .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--highlight); color: #23211E; font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+    .steps p { color: var(--muted); font-size: 15.5px; margin-top: 6px; }
+
+    .tags { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+    .tag { background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 26px; font-size: 18px; box-shadow: var(--shadow); }
+    .tag b { font-family: 'MaruBuri', serif; font-size: 28px; margin-right: 4px; }
+    .tag:nth-child(2) { transform: rotate(-2deg); } .tag:nth-child(3) { transform: rotate(1.5deg); }
+    .note { margin-top: 24px; color: var(--muted); }
+
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+    .gallery figcaption { margin-top: 12px; font-size: 15px; color: var(--muted); text-align: center; }
+
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .rules > div { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
+    .rules p { color: var(--muted); font-size: 15.5px; margin-top: 8px; }
+    .rules small { display: block; margin-top: 10px; color: var(--faint); font-size: 12.5px; }
+    details.papers { margin-top: 24px; background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 22px; }
+    details.papers summary { cursor: pointer; font-weight: 700; }
+    .papers-h { margin-top: 16px; font-weight: 700; font-size: 14px; color: var(--muted); }
+    details.papers ul { margin: 8px 0 0 18px; font-size: 14.5px; color: var(--muted); }
+    details.papers li { margin-top: 6px; }
+    .journal { color: var(--faint); font-size: 13px; }
+
+    .maker { display: flex; gap: 20px; align-items: flex-start; }
+    .maker img { border-radius: 16px; flex: none; }
+    .maker p { font-size: 18px; }
+
+    .faq { margin-top: 28px; }
+    .faq details { border-bottom: 1px solid var(--line); padding: 16px 4px; }
+    .faq summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: '+'; color: var(--faint); font-weight: 400; }
+    .faq details[open] summary::after { content: '–'; }
+    .faq details div { margin-top: 10px; color: var(--muted); font-size: 15.5px; }
+    #faq h3 { margin-top: 40px !important; }
+    ul.list { margin: 12px 0 0 18px; color: var(--muted); font-size: 15.5px; }
+    ul.list li { margin-top: 8px; }
+
+    .contact p { margin-top: 14px; color: var(--muted); }
+    .mail { display: inline-block; margin-top: 18px; font-weight: 700; font-size: 18px; }
+    .store.small { display: block; width: max-content; margin-top: 22px; font-weight: 700; padding: 12px 20px; }
+
+    footer { display: flex; justify-content: space-between; padding: 28px 24px 48px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--line); }
+
+    @media (max-width: 880px) {
+      .links { display: none; }
+      .get { margin-left: auto; }
+      .hero { grid-template-columns: 1fr; padding-top: 40px; gap: 36px; text-align: left; }
+      h1 { font-size: 42px; }
+      h2 { font-size: 27px; }
+      .reel { width: 240px; }
+      section { padding: 64px 0; }
+      .trio, .rules { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+      .gallery { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .maker { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .wrap { padding: 0 16px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+
+  <style>
+    .policy { padding: 48px 0 72px; }
+    .policy h2 { font-size: 30px; }
+    .policy h3 { margin-top: 28px; font-size: 18px; }
+    .policy p, .policy li { color: var(--muted); font-size: 15.5px; margin-top: 8px; }
+    .policy ul { margin-left: 18px; }
+    .policy .card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px; }
+  </style>
+</head>
+<body>
+  <nav class="top"><div class="wrap row"><a class="brand" href="./"><img src="icon.png" alt="" width="28" height="28">단숙이</a><a class="get" href="https://apps.apple.com/kr/app/id6819707350">받기</a></div></nav>
+  <main class="wrap narrow policy">
+<section id="privacy">
+      <div class="card">
+        <h2>개인정보 처리방침</h2>
+        <p class="meta">시행일: 2026년 10월 10일</p>
+        <p class="lead">'단숙이'(이하 '앱')는 이용자의 개인정보를 소중히 다루며 「개인정보 보호법」 등 관련 법령을 지켜요. 앱은 <strong>회원가입이 없고</strong>, 이름 · 이메일 · 전화번호를 수집하지 않으며, <strong>광고를 넣지 않아요.</strong> 앱을 더 낫게 만들기 위해 개인을 알아볼 수 없는 이용 통계와 오류 정보만 모아요.</p>
+
+        <h4>1. 처리하는 정보</h4>
+        <ul class="list">
+          <li><strong>공부 기록:</strong> 푼 문제와 맞힘 여부, 걸린 시간, 외운 단어, 뽑은 키링, 공부 설정. 기기 안에 저장돼요.</li>
+          <li><strong>부르는 이름(선택):</strong> 앱이 불러 줄 별명. 입력한 경우에만 기기 안에 저장돼요.</li>
+          <li><strong>알림 시간:</strong> 공부 알림을 켠 경우 정한 시각과 요일. 알림은 기기 안에서 예약돼요.</li>
+          <li><strong>신고 내용:</strong> 문제 화면에서 신고한 단어와 이유. 기기 안에 저장되며 앱을 만든 사람에게 자동으로 보내지지 않아요.</li>
+        </ul>
+        <p class="meta">위 정보는 모두 기기 안에 저장되고, iCloud를 쓰는 경우 아래 4번의 백업에 함께 담겨요.</p>
+        <ul class="list">
+          <li><strong>이용 통계:</strong> 공부를 시작 · 마친 횟수, 푼 문제 수, 외운 단어를 며칠 뒤 다시 맞혔는지(맞힘 여부와 지난 날수만), 캡슐 뽑기 · 키링 완성 같은 앱 사용 기록과 앱 설치마다 만들어지는 임의의 식별자, 기기 모델 · OS 버전 · 국가 · 언어. 외운 단어나 이름 같은 내용은 보내지 않아요.</li>
+          <li><strong>오류 정보:</strong> 앱이 멈추거나 오류가 났을 때의 기록(오류가 난 코드 위치, 기기 모델 · OS 버전 · 메모리 상태 등).</li>
+          <li><strong>문의 내용:</strong> 설정 › 문의하기로 직접 보낸 경우에만, 쓴 내용 · 적어 준 답장 받을 곳(선택) · 앱 버전 · iOS 버전 · 기기 모델. 이름이나 공부 기록은 함께 가지 않아요.</li>
+        </ul>
+
+        <h4>2. 이용 목적</h4>
+        <ul class="list">
+          <li>오늘 공부할 단어를 고르고, 외운 정도와 기록 · 통계를 보여 주기 위해</li>
+          <li>앱을 다시 설치하거나 기기를 바꿨을 때 공부 기록을 되살리기 위해(iCloud)</li>
+          <li>앱 품질 개선과 오류 해결(이용 통계 · 오류 정보)</li>
+          <li>문의에 답하고 틀린 뜻 · 예문을 고치기 위해(문의 내용)</li>
+        </ul>
+
+        <h4>3. 보관과 파기</h4>
+        <ul class="list">
+          <li><strong>기기의 정보:</strong> 앱을 삭제하면 함께 지워져요.</li>
+          <li><strong>문의 내용:</strong> 답장과 수정을 마치면 지워요.</li>
+          <li><strong>이용 통계 · 오류 정보:</strong> Google Firebase의 보관 기간(이용 통계 최대 14개월, 오류 정보 90일)이 지나면 자동으로 지워져요.</li>
+          <li><strong>iCloud의 백업:</strong> 이용자 본인의 iCloud 계정 안, 이 앱만 볼 수 있는 비공개 공간에 기록 파일 하나로 저장돼요. iPhone 설정 › Apple 계정 › iCloud › 저장 공간 관리에서 언제든 지울 수 있어요.</li>
+        </ul>
+
+        <h4>4. 외부 전송과 국외 이전</h4>
+        <ul class="list">
+          <li><strong>Apple Inc.(미국):</strong> 공부 기록 백업을 이용자 본인의 iCloud(CloudKit 비공개 데이터베이스)에 저장해요. 앱을 만든 사람은 이 데이터를 볼 수 없어요. iCloud에 로그인하지 않았으면 전송되지 않아요.</li>
+          <li><strong>Google LLC(미국):</strong> 이용 통계(Firebase Analytics)와 오류 정보(Firebase Crashlytics)를 처리해요. 앱을 쓰는 동안 인터넷으로 전송되며, 개인을 알아볼 수 있는 정보는 보내지 않아요.</li>
+          <li><strong>Slack Technologies(미국):</strong> 문의하기로 보낸 내용을 앱을 만든 사람이 읽고 답장하기 위해 Slack 메시지로 받아요. 보낼 때만 전송되며, 답장을 마치면 지울 수 있어요.</li>
+          <li>발음 소리는 기기 안의 AI 모델이 만들어요. 단어나 예문을 외부 음성 서비스로 보내지 않아요.</li>
+          <li>문제 화면에서 사전 보기를 누르면 네이버 영어사전이 브라우저로 열려요. 그 사이트의 이용에는 그 사이트의 방침이 적용돼요.</li>
+        </ul>
+
+        <h4>5. 아동의 개인정보</h4>
+        <p class="lead" style="margin-top:0">앱은 이용자를 식별할 수 있는 정보를 수집하지 않으므로, 만 14세 미만 이용자도 법정대리인 동의 절차 없이 쓸 수 있어요.</p>
+
+        <h4>6. 이용자의 권리</h4>
+        <ul class="list">
+          <li>공부 기록은 앱을 삭제하거나 iCloud 저장 공간 관리에서 지울 수 있어요.</li>
+          <li>알림 권한은 iPhone 설정에서 언제든 끌 수 있어요.</li>
+          <li>이용 통계 · 오류 정보의 삭제를 원하면 아래 이메일로 요청해 주세요.</li>
+        </ul>
+
+        <h4>7. 문의</h4>
+        <ul class="list">
+          <li>개인정보 관련 문의: <a href="mailto:fastchanoo@gmail.com">fastchanoo@gmail.com</a></li>
+        </ul>
+        <div class="note">방침이 바뀌면 이 페이지에서 시행일과 함께 알려 드려요.</div>
+      </div>
+    </section>
+  
+  </main>
+  <footer class="wrap"><a href="./">단숙이 홈</a><span>© 2026 단숙이</span></footer>
+</body>
+</html>

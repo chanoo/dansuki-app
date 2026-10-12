@@ -33,222 +33,140 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
-  <style>
+    <style>
     /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
     :root {
-      --canvas: #F6F1E7;
-      --surface: #FCFAF4;
-      --sunk: #EEE7D9;
-      --text: #23211E;
-      --muted: #6A645B;
-      --faint: #98918A;
-      --line: #E6DECF;
-      --highlight: #F3D66B;
-      --caution: #A9532F;
-      --shadow: 0 1px 2px rgba(35, 33, 30, .04), 0 6px 18px -8px rgba(35, 33, 30, .08);
-      --mark: rgba(243, 214, 107, .85);
+      --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
+      --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;
+      --highlight: #F3D66B; --mark: rgba(243, 214, 107, .85);
+      --shadow: 0 1px 2px rgba(35,33,30,.04), 0 10px 28px -12px rgba(35,33,30,.16);
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --canvas: #181613;
-        --surface: #221F1B;
-        --sunk: #1C1A17;
-        --text: #EDE7DB;
-        --muted: #A8A094;
-        --faint: #79726A;
-        --line: #302C27;
-        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -10px rgba(0, 0, 0, .6);
+        --canvas: #181613; --surface: #221F1B; --sunk: #1C1A17;
+        --text: #EDE7DB; --muted: #A8A094; --faint: #79726A; --line: #302C27;
         --mark: rgba(243, 214, 107, .35);
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6);
       }
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--canvas);
-      color: var(--text);
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body { overflow-x: hidden;
+      background: var(--canvas); color: var(--text);
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
-      font-size: 17px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      word-break: keep-all;
-      overflow-wrap: break-word;
+      font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+      word-break: keep-all; overflow-wrap: break-word;
+      background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px); background-size: 24px 24px;
     }
-    a { color: inherit; text-decoration-color: var(--highlight); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-    strong { font-weight: 700; }
-    .mark {
-      background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);
-      padding: 0 2px;
-    }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .narrow { max-width: 760px; }
+    .mark { background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); padding: 0 2px; }
+    h1, h2, h3 { font-family: 'MaruBuri', 'AppleMyungjo', serif; font-weight: 700; letter-spacing: -0.4px; }
+    h2 { font-size: 34px; line-height: 1.3; }
+    h3 { font-size: 19px; line-height: 1.35; }
+    .sub { color: var(--muted); margin-top: 12px; font-size: 17.5px; }
 
-    .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    /* 위 막대 */
+    nav.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--canvas) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav.top .row { display: flex; align-items: center; gap: 20px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 8px; font-family: 'MaruBuri', serif; font-weight: 700; font-size: 19px; text-decoration: none; }
+    .brand img { border-radius: 7px; }
+    .links { display: flex; gap: 18px; margin-left: auto; font-size: 15px; color: var(--muted); }
+    .links a { text-decoration: none; }
+    .links a:hover { color: var(--text); }
+    .get { background: var(--text); color: var(--canvas); text-decoration: none; font-weight: 700; font-size: 14px; padding: 8px 16px; border-radius: 999px; }
 
-    /* 머리: 왼쪽 소개 · 오른쪽 영상 */
-    header.wrap { padding-top: 56px; padding-bottom: 8px; }
-    .hero { display: grid; grid-template-columns: 1fr 248px; gap: 48px; align-items: center; }
-    .hero .copy { text-align: left; }
-    .hero .say {
-      font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700;
-      font-size: 30px; line-height: 1.4; margin-top: 22px; letter-spacing: -0.3px;
-    }
-    .hero .about { color: var(--muted); font-size: 16px; margin-top: 12px; line-height: 1.6; }
-    .store {
-      display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
-      padding: 11px 22px 11px 16px; border-radius: 14px; text-decoration: none;
-      background: var(--text); color: var(--canvas); transition: transform .2s;
-    }
-    .store:active { transform: scale(.97); }
-    .store svg { width: 28px; height: 28px; fill: currentColor; }
-    .store small { display: block; font-size: 11px; line-height: 1.25; opacity: .75; }
-    .store b { display: block; font-size: 19px; line-height: 1.2; letter-spacing: -0.2px; }
-    .facts { font-size: 13px; color: var(--faint); margin-top: 12px; }
+    /* 첫 화면 */
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-top: 64px; padding-bottom: 72px; }
+    .eyebrow { font-weight: 700; color: var(--muted); letter-spacing: .5px; }
+    h1 { font-size: 58px; line-height: 1.18; margin-top: 10px; letter-spacing: -1px; }
+    .lead { font-size: 19px; color: var(--muted); margin-top: 20px; }
+    .store { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--text); color: var(--canvas); text-decoration: none; padding: 12px 22px 12px 18px; border-radius: 16px; box-shadow: var(--shadow); }
+    .store svg { width: 26px; height: 26px; fill: currentColor; }
+    .store span { display: flex; flex-direction: column; line-height: 1.15; }
+    .store small { font-size: 12px; opacity: .8; }
+    .store b { font-size: 19px; }
+    .facts { margin-top: 14px; font-size: 14px; color: var(--faint); }
+    .reel { position: relative; justify-self: center; width: 300px; }
+    .reel video { width: 100%; aspect-ratio: 9/16; border-radius: 30px; display: block; background: var(--sunk); box-shadow: var(--shadow); border: 1px solid var(--line); object-fit: cover; }
+    .sound { position: absolute; right: 12px; bottom: 12px; border: 0; background: rgba(35,33,30,.72); color: #fff; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
 
-    .reel { position: relative; width: 248px; }
-    .reel video {
-      display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover;
-      border-radius: 30px; border: 1px solid var(--line); background: var(--sunk);
-      box-shadow: 0 2px 4px rgba(35,33,30,.05), 0 24px 48px -20px rgba(35,33,30,.28);
-    }
-    .sound {
-      position: absolute; right: 12px; bottom: 12px; border: 0; cursor: pointer;
-      padding: 7px 12px; border-radius: 999px; font: 600 13px 'Pretendard', sans-serif;
-      background: rgba(35,33,30,.72); color: #F6F1E7; backdrop-filter: blur(6px);
-    }
-    body[data-page="privacy"] .hero { grid-template-columns: 1fr; }
-    body[data-page="privacy"] .hero .copy { text-align: center; }
-    body[data-page="privacy"] .reel, body[data-page="privacy"] .hero .say,
-    body[data-page="privacy"] .hero .about, body[data-page="privacy"] .store,
-    body[data-page="privacy"] .facts { display: none; }
-    .tabs { text-align: center; padding-top: 40px; }
-    .tabs nav { margin-top: 0; }
-    .icon {
-      width: 88px; height: 88px; border-radius: 22px;
-      box-shadow: var(--shadow); border: 1px solid var(--line);
-    }
-    .name {
-      font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700;
-      font-size: 40px; letter-spacing: -0.5px; margin-top: 18px; line-height: 1.2;
-    }
-    .tagline { color: var(--muted); font-size: 16px; margin-top: 8px; }
+    /* 구역 */
+    section { padding: 88px 0; }
+    section.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .tile { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; }
+    .tile b { display: block; font-family: 'MaruBuri', serif; font-size: 30px; }
+    .tile span { display: block; margin-top: 8px; color: var(--muted); font-size: 15.5px; }
 
-    /* 탭 */
-    nav {
-      display: inline-flex; gap: 4px; padding: 4px; margin-top: 28px; max-width: 100%;
-      overflow-x: auto; scrollbar-width: none; white-space: nowrap;
-      background: var(--sunk); border-radius: 999px; border: 1px solid var(--line);
+    .steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
+    .steps li, .gallery figure { min-width: 0; }
+    .steps li { display: flex; flex-direction: column; gap: 16px; }
+    .steps figure img, .gallery img { width: 100%; height: auto; aspect-ratio: 1206/2622; object-fit: cover; border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow); display: block; background: var(--sunk); }
+    .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--highlight); color: #23211E; font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+    .steps p { color: var(--muted); font-size: 15.5px; margin-top: 6px; }
+
+    .tags { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+    .tag { background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 26px; font-size: 18px; box-shadow: var(--shadow); }
+    .tag b { font-family: 'MaruBuri', serif; font-size: 28px; margin-right: 4px; }
+    .tag:nth-child(2) { transform: rotate(-2deg); } .tag:nth-child(3) { transform: rotate(1.5deg); }
+    .note { margin-top: 24px; color: var(--muted); }
+
+    .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
+    .gallery figcaption { margin-top: 12px; font-size: 15px; color: var(--muted); text-align: center; }
+
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .rules > div { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
+    .rules p { color: var(--muted); font-size: 15.5px; margin-top: 8px; }
+    .rules small { display: block; margin-top: 10px; color: var(--faint); font-size: 12.5px; }
+    details.papers { margin-top: 24px; background: var(--canvas); border: 1px solid var(--line); border-radius: 18px; padding: 16px 22px; }
+    details.papers summary { cursor: pointer; font-weight: 700; }
+    .papers-h { margin-top: 16px; font-weight: 700; font-size: 14px; color: var(--muted); }
+    details.papers ul { margin: 8px 0 0 18px; font-size: 14.5px; color: var(--muted); }
+    details.papers li { margin-top: 6px; }
+    .journal { color: var(--faint); font-size: 13px; }
+
+    .maker { display: flex; gap: 20px; align-items: flex-start; }
+    .maker img { border-radius: 16px; flex: none; }
+    .maker p { font-size: 18px; }
+
+    .faq { margin-top: 28px; }
+    .faq details { border-bottom: 1px solid var(--line); padding: 16px 4px; }
+    .faq summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: '+'; color: var(--faint); font-weight: 400; }
+    .faq details[open] summary::after { content: '–'; }
+    .faq details div { margin-top: 10px; color: var(--muted); font-size: 15.5px; }
+    #faq h3 { margin-top: 40px !important; }
+    ul.list { margin: 12px 0 0 18px; color: var(--muted); font-size: 15.5px; }
+    ul.list li { margin-top: 8px; }
+
+    .contact p { margin-top: 14px; color: var(--muted); }
+    .mail { display: inline-block; margin-top: 18px; font-weight: 700; font-size: 18px; }
+    .store.small { display: block; width: max-content; margin-top: 22px; font-weight: 700; padding: 12px 20px; }
+
+    footer { display: flex; justify-content: space-between; padding: 28px 24px 48px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--line); }
+
+    @media (max-width: 880px) {
+      .links { display: none; }
+      .get { margin-left: auto; }
+      .hero { grid-template-columns: 1fr; padding-top: 40px; gap: 36px; text-align: left; }
+      h1 { font-size: 42px; }
+      h2 { font-size: 27px; }
+      .reel { width: 240px; }
+      section { padding: 64px 0; }
+      .trio, .rules { grid-template-columns: minmax(0, 1fr); }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .maker { flex-direction: column; }
     }
-    nav a {
-      text-decoration: none; padding: 10px 22px; border-radius: 999px;
-      font-size: 15px; font-weight: 600; color: var(--muted);
-      transition: background .25s, color .25s;
-    }
-    nav a[aria-current="page"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
-
-    main { padding-bottom: 72px; }
-    section[data-page] { display: none; }
-    section[data-page].on { display: block; animation: rise .5s ease-out; }
-    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { section[data-page].on { animation: none; } html { scroll-behavior: auto; } }
-
-    .card {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
-      box-shadow: var(--shadow); padding: 32px; margin-top: 16px;
-    }
-    h2 { font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700; font-size: 28px; line-height: 1.35; }
-    h3 { font-family: 'MaruBuri', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-weight: 700; font-size: 21px; margin: 0 0 14px; }
-    h4 { font-size: 17px; font-weight: 700; margin: 28px 0 8px; }
-    p + p { margin-top: 12px; }
-    .lead { margin-top: 14px; color: var(--muted); }
-
-    /* 세 단계 */
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
-    .step { background: var(--canvas); border-radius: 16px; padding: 18px 16px; }
-    .step .n { font-size: 13px; font-weight: 700; color: var(--faint); font-feature-settings: 'tnum'; }
-    .step .t { font-weight: 700; margin-top: 4px; }
-    .step .d { font-size: 15px; color: var(--muted); margin-top: 4px; line-height: 1.55; }
-    .steps4 { grid-template-columns: repeat(2, 1fr); }
-    .step .why { font-size: 14px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); line-height: 1.55; }
-    .step .why strong { color: var(--text); }
-    .step .cite { font-size: 12.5px; color: var(--faint); margin-top: 6px; }
-    .papers { margin-top: 20px; }
-    .papers ul { margin: 0 0 12px; padding-left: 18px; }
-    .papers li { margin: 6px 0; font-size: 15px; line-height: 1.55; }
-    .papers li a { color: var(--text); text-decoration: none; }
-    .papers .journal { color: var(--faint); font-style: italic; font-size: 13px; }
-    .papers-h { font-weight: 700; color: var(--text); margin: 6px 0 4px; font-size: 14px; }
-
-    /* 스크린샷: 옆으로 넘기기 */
-    .shots {
-      display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
-      margin: 20px -32px 0; padding: 4px 32px 12px; scrollbar-width: none;
-    }
-    .shots::-webkit-scrollbar { display: none; }
-    figure { flex: 0 0 200px; scroll-snap-align: start; text-align: center; }
-    figure img {
-      width: 200px; height: auto; aspect-ratio: 1206 / 2622; object-fit: cover; display: block;
-      border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow);
-      background: var(--sunk);
-    }
-    figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
-    .hint { font-size: 13px; color: var(--faint); text-align: right; margin-top: 2px; }
-
-    /* 문의 */
-    .contact { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px;
-      border-radius: 999px; background: var(--text); color: var(--canvas);
-      font-weight: 600; font-size: 15px; text-decoration: none;
-    }
-    .pill.ghost { background: var(--canvas); color: var(--text); border: 1px solid var(--line); }
-
-    /* 자주 묻는 질문 */
-    details { border-top: 1px solid var(--line); }
-    details:last-of-type { border-bottom: 1px solid var(--line); }
-    summary {
-      list-style: none; cursor: pointer; padding: 18px 32px 18px 0; position: relative;
-      font-weight: 600;
-    }
-    summary::-webkit-details-marker { display: none; }
-    summary::after {
-      content: ''; position: absolute; right: 4px; top: 50%; width: 9px; height: 9px;
-      border-right: 2px solid var(--faint); border-bottom: 2px solid var(--faint);
-      transform: translateY(-70%) rotate(45deg); transition: transform .25s;
-    }
-    details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
-    details > div { padding: 0 0 20px; color: var(--muted); font-size: 16px; }
-    details > div strong { color: var(--text); }
-
-    ul.list { list-style: none; }
-    ul.list li { position: relative; padding-left: 16px; margin-top: 8px; color: var(--muted); font-size: 16px; }
-    ul.list li::before { content: ''; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--highlight); }
-    ul.list li strong { color: var(--text); }
-
-    .meta { font-size: 14px; color: var(--faint); margin-top: 6px; }
-    .note {
-      background: var(--canvas); border-radius: 16px; padding: 16px 18px; margin-top: 18px;
-      font-size: 15px; color: var(--muted);
-    }
-
-    .maker { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line, #E6DECF); color: var(--muted, #6A645B); font-size: 14px; line-height: 1.7; }
-    footer { text-align: center; color: var(--faint); font-size: 13px; padding: 0 20px 48px; }
-
-    @media (max-width: 600px) {
-      header.wrap { padding-top: 40px; }
-      .hero { grid-template-columns: 1fr; gap: 32px; }
-      .hero .copy { text-align: center; }
-      .hero .say { font-size: 25px; }
-      .reel { width: 232px; margin: 0 auto; }
-      .tabs { padding-top: 32px; }
-      .name { font-size: 34px; }
-      .card { padding: 24px 20px; border-radius: 20px; }
-      .shots { margin: 20px -20px 0; padding: 4px 20px 12px; }
-      figure { flex-basis: 168px; }
-      figure img { width: 168px; border-radius: 22px; }
-      .steps { grid-template-columns: 1fr; }
-      h2 { font-size: 24px; }
-      nav a { padding: 9px 13px; font-size: 14px; flex: none; }
+    @media (max-width: 420px) {
+      .wrap { padding: 0 16px; }
+      h1 { font-size: 36px; }
     }
   </style>
+
   <script type="application/ld+json">
 [
  {
@@ -392,114 +310,105 @@
   </script>
 </head>
 <body>
-  <header class="wrap">
-    <div class="hero">
-      <div class="copy">
-        <img class="icon" src="icon.png" alt="단숙이 앱 아이콘" width="88" height="88">
-        <h1 class="name">단숙이</h1>
-        <p class="tagline">수능 영단어 · 숙어</p>
-        <p class="say">외울 때마다<br>키링이 <span class="mark">한 조각씩</span></p>
-        <p class="about">단어 하나를 외우면 한 칸이 열리고, 144칸을 다 열면 키링이 완성돼요. 무슨 그림인지는 외워야 보여요.</p>
-        <a class="store" href="https://apps.apple.com/kr/app/id6819707350" aria-label="App Store에서 단숙이 받기">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.59 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
-          <span><small>App Store에서</small><b>무료로 받기</b></span>
-        </a>
-        <p class="facts">iPhone · 무료 · 가입 없이 바로</p>
+  <nav class="top">
+    <div class="wrap row">
+      <a class="brand" href="#top"><img src="icon.png" alt="" width="28" height="28">단숙이</a>
+      <div class="links">
+        <a href="#how">공부 방법</a>
+        <a href="#keyring">키링</a>
+        <a href="#method">연구 근거</a>
+        <a href="#faq">자주 묻는 질문</a>
       </div>
-      <div class="reel">
-        <video src="reel.mp4" poster="reel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="단숙이 소개 영상: 단어장은 외운 게 눈에 안 보여 그만두게 되지만, 단숙이는 한 단어 외울 때마다 키링이 한 칸씩 칠해져요"></video>
-        <button class="sound" type="button" aria-pressed="false">소리 켜기</button>
-      </div>
+      <a class="get" href="https://apps.apple.com/kr/app/id6819707350">받기</a>
     </div>
-    <div class="tabs">
-      <nav aria-label="페이지">
-        <a href="#intro" data-tab="intro">앱 소개</a>
-        <a href="#method" data-tab="method">단숙이 공부법</a>
-        <a href="#faq" data-tab="faq">자주 묻는 질문</a>
-        <a href="#contact" data-tab="contact">문의하기</a>
-        <a href="#privacy" data-tab="privacy">개인정보 처리방침</a>
-      </nav>
+  </nav>
+
+  <header class="hero wrap" id="top">
+    <div class="copy">
+      <p class="eyebrow">수능 기본 어휘 · 숙어</p>
+      <h1><span class="mark">끝까지</span> 외우게<br>만들었어요</h1>
+      <p class="lead">단어 하나 외울 때마다 키링 그림이 한 칸씩 칠해져요.<br>외운 게 눈에 보이니까, 끝까지 가요.</p>
+      <a class="store" href="https://apps.apple.com/kr/app/id6819707350" aria-label="App Store에서 단숙이 받기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.17-1.53 2.66-.39 6.59 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+        <span><small>App Store에서</small><b>무료로 받기</b></span>
+      </a>
+      <p class="facts">iPhone · 무료 · 광고 없음 · 가입 없이 바로</p>
+    </div>
+    <div class="reel">
+      <video src="reel.mp4" poster="reel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="단숙이 소개 영상: 외운 게 눈에 안 보이면 그만두게 돼요. 단숙이는 한 단어 외울 때마다 키링이 한 칸씩 칠해져요"></video>
+      <button class="sound" type="button" aria-pressed="false">소리 켜기</button>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- 고객 지원 -->
-    <section data-page="intro" id="intro-page">
-      <div class="card">
-        <h2>이렇게 <span class="mark">외워요</span></h2>
-        <p class="lead">단숙이는 수능 기본 어휘 3,000개와 기출 · 기초 보충 단어 306개, 숙어 580개를 외우는 iPhone 앱이에요. 회원가입 없이 바로 시작하고, 모든 공부는 기기 안에서 이루어져요.</p>
-        <div class="steps">
-          <div class="step">
-            <div class="n">01</div>
-            <div class="t">카드로 먼저 보고</div>
-            <div class="d">새 단어는 5장씩 플래시카드로 넘겨 봐요. 발음도 함께 들려줘요.</div>
-          </div>
-          <div class="step">
-            <div class="n">02</div>
-            <div class="t">먼저 떠올리고 골라요</div>
-            <div class="d">보기는 1초 뒤에 나와요. 영어 → 뜻, 뜻 → 영어를 각각 3번 연속 바로 맞히면 외운 거예요.</div>
-          </div>
-          <div class="step">
-            <div class="n">03</div>
-            <div class="t">키링을 채워요</div>
-            <div class="d">외울 때마다 조각이 하나씩. 144개를 외우면 키링이 완성돼요.</div>
-          </div>
+  <main>
+    <!-- 누구를 위한 앱 -->
+    <section class="band" id="for">
+      <div class="wrap">
+        <h2>기초 단어부터<br><span class="mark">다시 채워요</span></h2>
+        <p class="sub">지문을 읽다 모르는 단어에서 자꾸 멈춘다면, 여기서부터 시작하면 돼요.</p>
+        <div class="trio">
+          <div class="tile"><b>3,306</b><span>교육부 기본 어휘(+기출 · 기초 보충)와<br>숙어 580개</span></div>
+          <div class="tile"><b>하루 30개</b><span>쉬운 등급부터, 내 실력에 맞춰<br>난이도도 알아서</span></div>
+          <div class="tile"><b>1분만 해도</b><span>바쁜 날엔 1분만 해도 하루로 쳐요.<br>쉬어도 칠한 칸은 그대로</span></div>
         </div>
-
-
-        <div class="shots" aria-label="앱 화면">
-          <figure><img src="home.jpg" alt="오늘 탭: 칠하는 중인 키링과 오늘의 공부" width="460" height="1000" loading="lazy"><figcaption>오늘의 공부</figcaption></figure>
-          <figure><img src="flash.jpg" alt="새 단어 플래시카드: common 흔한, 일반적인" width="460" height="1000" loading="lazy"><figcaption>새 단어는 카드로 먼저</figcaption></figure>
-          <figure><img src="quiz.jpg" alt="4초 문제: 흔한, 일반적인의 영어 고르기" width="460" height="1000" loading="lazy"><figcaption>떠오르면 바로 고르기</figcaption></figure>
-          <figure><img src="answer.jpg" alt="틀렸을 때 정답과 예문: compare 비교하다" width="460" height="1000" loading="lazy"><figcaption>틀리면 정답과 예문</figcaption></figure>
-          <figure><img src="summary.jpg" alt="학습 끝: 키링 131 / 144" width="460" height="1000" loading="lazy"><figcaption>외운 만큼 한 조각씩</figcaption></figure>
-          <figure><img src="complete.jpg" alt="탕후루 키링 완성 축하" width="460" height="1000" loading="lazy"><figcaption>144개면 키링 완성</figcaption></figure>
-          <figure><img src="capsule.jpg" alt="단숙이 판 캡슐 머신" width="460" height="1000" loading="lazy"><figcaption>캡슐 머신으로 다음 그림</figcaption></figure>
-          <figure><img src="keyrings.jpg" alt="내 키링: 사물함 카드에 달린 키링" width="460" height="1000" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
-          <figure><img src="stats.jpg" alt="기록: 공부한 날과 외운 단어" width="460" height="1000" loading="lazy"><figcaption>공부 기록</figcaption></figure>
-        </div>
-        <p class="hint">옆으로 넘겨 보세요 →</p>
-        <p class="maker">단숙이는 고등학생 아이의 단어 공부를 돕고 싶었던 아빠가 직접 만들었어요. 아이가 매일 쓰는 앱이라 광고도, 가입도 넣지 않았어요.</p>
       </div>
-
     </section>
 
-    <!-- 공부법 -->
-    <section data-page="method" id="method-page">
-      <div class="card">
-        <h2>단숙이 <span class="mark">공부법</span></h2>
-        <p class="lead">게임처럼 키링을 모으지만, 공부 방법은 학습 연구를 바탕으로 만들었어요. 핵심은 <strong>알아보는 게 아니라 떠올리기</strong>, 그리고 <strong>잊을 때쯤 다시 만나기</strong>예요. 논문 15편을 참고했어요.</p>
-        <div class="steps steps4">
-          <div class="step">
-            <div class="n">01</div>
-            <div class="t">카드로 먼저 봐요</div>
-            <div class="d">새 단어는 플래시카드 다섯 장으로 뜻 · 발음 · 예문을 먼저 보고, 바로 그 다섯 개를 풀어요.</div>
-            <div class="why"><strong>왜?</strong> 처음부터 틀리며 시작하면 금방 지쳐요. 한 번 보고 바로 꺼내 보면 첫 기억이 단단해져요.</div>
-            <div class="cite">근거 · Karpicke &amp; Roediger 2008 · Webb 외 2020</div>
-          </div>
-          <div class="step">
-            <div class="n">02</div>
-            <div class="t">먼저 떠올리고 골라요</div>
-            <div class="d">보기는 1초 뒤에 나와요. 그 사이에 뜻을 머릿속에서 먼저 꺼내 봐요.</div>
-            <div class="why"><strong>왜?</strong> 보기를 보고 알아보는 것보다 스스로 떠올린 단어가 훨씬 오래 남아요.</div>
-            <div class="cite">근거 · Karpicke &amp; Roediger 2008 · Yang 외 2021 · Agarwal 외 2021</div>
-          </div>
-          <div class="step">
-            <div class="n">03</div>
-            <div class="t">바로 떠오르면 내 것</div>
-            <div class="d">4초 안에 떠올라야 통과. 영어 → 뜻, 뜻 → 영어를 각각 3번 연속 맞히면 외운 단어가 돼요.</div>
-            <div class="why"><strong>왜?</strong> 수능 지문에서 단어마다 멈칫하면 시간이 새요. 한 번은 운일 수 있으니 양쪽으로 여러 번 확인해요.</div>
-            <div class="cite">근거 · Rawson &amp; Dunlosky 2011 · Perfetti 2007 · Webb 2009</div>
-          </div>
-          <div class="step">
-            <div class="n">04</div>
-            <div class="t">잊을 때쯤 다시 만나요</div>
-            <div class="d">외운 단어는 2일 · 7일 · 21일 뒤에 한 번씩 다시 확인해요. 세 번 다 맞히면 단단히 외운 단어. 틀려도 키링 조각은 그대로예요.</div>
-            <div class="why"><strong>왜?</strong> 기억이 흐려질 즈음 다시 꺼내야 오래 가요. 몰아서보다 간격을 두는 게 효과가 커요.</div>
-            <div class="cite">근거 · Rawson &amp; Dunlosky 2011 · Latimier 외 2021 · Kim &amp; Webb 2022</div>
-          </div>
+    <!-- 하루 공부 -->
+    <section id="how">
+      <div class="wrap">
+        <h2>하루 공부는 이렇게</h2>
+        <p class="sub">외웠다고 치는 기준은 하나예요. 보자마자 떠오르는가.</p>
+        <ol class="steps">
+          <li><figure><img src="img/flash.jpg" alt="새 단어 플래시카드: common 흔한, 일반적인" width="520" height="1131" loading="lazy"></figure>
+            <div><span class="n">1</span><h3>카드로 먼저 봐요</h3><p>새 단어는 다섯 장씩 뜻 · 발음 · 예문을 먼저 보고, 바로 그 다섯 개를 풀어요.</p></div></li>
+          <li><figure><img src="img/quiz.jpg" alt="4초 문제: 뜻을 보고 영어 고르기" width="520" height="1131" loading="lazy"></figure>
+            <div><span class="n">2</span><h3>먼저 떠올리고 골라요</h3><p>보기는 1초 뒤에 나와요. 4초 안에 떠오르면 통과. 영어 → 뜻, 뜻 → 영어를 각각 3번 연속 맞히면 외운 단어예요.</p></div></li>
+          <li><figure><img src="img/answer.jpg" alt="틀렸을 때 정답과 예문" width="520" height="1131" loading="lazy"></figure>
+            <div><span class="n">3</span><h3>틀리면 정답과 예문</h3><p>틀린 단어는 따로 모아 다시 만나요. 위젯에도 떠서 지나가다 한 번 더 봐요.</p></div></li>
+          <li><figure><img src="img/summary.jpg" alt="공부를 마치면 키링이 한 칸씩" width="520" height="1131" loading="lazy"></figure>
+            <div><span class="n">4</span><h3>외운 만큼 한 칸씩</h3><p>외운 단어마다 키링 판에 조각이 하나 끼워져요. 오늘 얼마나 했는지 숫자보다 그림으로 보여요.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 다시 확인 -->
+    <section class="band" id="again">
+      <div class="wrap">
+        <h2>잊을 만하면 <span class="mark">다시 물어봐요</span></h2>
+        <p class="sub">어제 외운 단어도 자고 나면 흐려져요. 그래서 외운 단어는 날을 두고 세 번 다시 확인해요.</p>
+        <div class="tags" aria-label="외운 날로부터 2일 · 7일 · 21일 뒤">
+          <span class="tag"><b>2일</b> 뒤</span><span class="tag"><b>7일</b> 뒤</span><span class="tag"><b>21일</b> 뒤</span>
         </div>
-        <p class="lead"><strong>난이도도 맞춰 줘요.</strong> 최근 40문제를 몇 % 맞혔는지 보고 20문제마다 한 칸씩 조절해요. 너무 쉬우면(92% 넘게) 헷갈리는 보기와 어려운 단어를 더 섞고, 너무 어려우면(70% 아래) 숨 고르기를 해요. 연습 중에 잘 맞혀도 며칠 뒤 기억(외운 단어 다시 확인)이 70% 아래면 어렵게 올리지 않아요. 대략 85%를 맞히는 수준에서 가장 빨리 배운다는 연구(Wilson 외 2019)를 따랐어요. 어느 단계든 외웠다고 보는 기준은 같아요.</p>
+        <p class="note">세 번 다 맞히면 단단히 외운 단어. 틀려도 키링 조각은 빠지지 않아요. 다시 외우면 돼요.</p>
+      </div>
+    </section>
+
+    <!-- 키링 -->
+    <section id="keyring">
+      <div class="wrap">
+        <h2>키링은 <span class="mark">공부로만</span> 모아요</h2>
+        <p class="sub">캡슐 머신으로 도안을 뽑고, 무슨 그림인지는 외워야 보여요. 144칸을 채우면 키링 완성. 지금 58종이에요.</p>
+        <div class="gallery">
+          <figure><img src="img/capsule.jpg" alt="캡슐 머신으로 다음 그림 뽑기" width="520" height="1131" loading="lazy"><figcaption>캡슐로 다음 그림</figcaption></figure>
+          <figure><img src="img/complete.jpg" alt="탕후루 키링 완성" width="520" height="1131" loading="lazy"><figcaption>144칸이면 완성</figcaption></figure>
+          <figure><img src="img/keyrings.jpg" alt="완성한 키링이 달린 사물함 카드" width="520" height="1131" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
+          <figure><img src="img/stats.jpg" alt="공부한 날 · 외운 단어 · 배지 기록" width="520" height="1131" loading="lazy"><figcaption>기록과 배지 52개</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 연구 근거 -->
+    <section class="band" id="method">
+      <div class="wrap narrow">
+        <h2>학습 연구가 뒷받침하는 <span class="mark">단숙이 공부법</span></h2>
+        <p class="sub">게임처럼 모으지만, 공부 방식은 연구에서 가져왔어요.</p>
+        <div class="rules">
+          <div><h3>알아보기보다 떠올리기</h3><p>보기를 보고 알아보는 것보다 스스로 떠올린 단어가 훨씬 오래 남아요. 그래서 보기를 1초 늦게 보여 줘요.</p><small>Karpicke &amp; Roediger 2008 · Yang 외 2021 · Agarwal 외 2021</small></div>
+          <div><h3>몰아서보다 나눠서</h3><p>기억이 흐려질 즈음 다시 꺼내야 오래 가요. 2일 · 7일 · 21일 뒤에 다시 확인하는 이유예요.</p><small>Cepeda 외 2006 · Latimier 외 2021 · Kim &amp; Webb 2022</small></div>
+          <div><h3>바로 떠올라야 읽혀요</h3><p>지문에서 단어마다 멈칫하면 시간이 새요. 4초 안에, 양쪽으로 여러 번 맞혀야 외운 걸로 쳐요.</p><small>Perfetti 2007 · Rawson &amp; Dunlosky 2011 · Webb 2009</small></div>
+          <div><h3>너무 쉽지도 어렵지도 않게</h3><p>최근 40문제를 몇 % 맞혔는지 보고 난이도를 맞춰요. 대략 85%를 맞히는 수준에서 가장 빨리 배운다고 해요.</p><small>Wilson 외 2019 · Soderstrom &amp; Bjork 2015</small></div>
+        </div>
         <details class="papers">
           <summary>참고한 연구 15편</summary>
           <div>
@@ -527,26 +436,22 @@
           </div>
         </details>
       </div>
-
     </section>
 
-    <!-- 문의 -->
-    <section data-page="contact" id="contact-page">
-      <div class="card">
-        <h3>문의하기</h3>
-        <p class="lead" style="margin-top:0">궁금한 점, 틀린 뜻이나 예문 제보, 기능 제안 모두 환영해요. 앱의 <strong>설정 › 문의하기</strong>에서 바로 보내도 되고, 메일도 좋아요. 보통 하루 안에 답장해요.</p>
-        <div class="contact">
-          <a class="pill" href="mailto:fastchanoo@gmail.com?subject=%5B%EB%8B%A8%EC%88%99%EC%9D%B4%5D%20">✉︎ fastchanoo@gmail.com</a>
-        </div>
+    <!-- 만든 사람 -->
+    <section id="maker">
+      <div class="wrap narrow maker">
+        <img src="icon.png" alt="" width="64" height="64">
+        <p>단숙이는 고등학생 아이의 기초 단어가 비어 있다는 걸 알게 된 아빠가 직접 만들었어요. 아이가 매일 쓰는 앱이라 광고도, 가입도 넣지 않았어요. 공부 기록은 기기 안과 본인 iCloud에만 저장돼요.</p>
       </div>
-
     </section>
 
     <!-- 자주 묻는 질문 -->
-    <section data-page="faq" id="faq-page">
-      <div class="card">
-        <h3>자주 묻는 질문</h3>
-        <details>
+    <section class="band" id="faq">
+      <div class="wrap narrow">
+        <h2>자주 묻는 질문</h2>
+        <div class="faq">
+          <details>
           <summary>어떤 단어가 나오나요?</summary>
           <div><p>교육부 고시 <strong>교육과정 기본 어휘 3,000개</strong>(2015 · 2022 개정, 설정에서 고를 수 있어요)에, 최근 수능 · 모의평가에 두 번 이상 나왔지만 기본 어휘에 없는 <strong>기출 보충 286개</strong>, 요일 · 월 같은 <strong>기초 보충</strong>, 그리고 <strong>숙어 580개</strong>가 나와요.</p></div>
         </details>
@@ -590,7 +495,7 @@
           <summary>공부한 걸 친구에게 보여 줄 수 있나요?</summary>
           <div><p>오늘 몫을 끝내면 요약 화면에서 <strong>오늘 카드 공유</strong>를 누를 수 있어요. 며칠 동안 단어를 몇 개 외웠는지와, 칠하는 중인 키링이 반쯤 드러난 그림이 한 장에 담겨요. 인스타 스토리, 사진 저장, 메시지로 보낼 수 있어요.</p></div>
         </details>
-
+        </div>
         <h3 style="margin-top:32px">문제 해결</h3>
         <ul class="list">
           <li><strong>발음이 들리지 않아요:</strong> 단숙이 발음은 무음 모드여도 나와요. 그래도 안 들리면 음량이 0인지, 블루투스 이어폰에 연결돼 있는지 확인해 주세요. 설정에서 '발음 자동 재생'이 꺼져 있어도 단어 옆 스피커를 누르면 들을 수 있어요.</li>
@@ -603,97 +508,28 @@
       </div>
     </section>
 
-    <!-- 개인정보 처리방침 -->
-    <section data-page="privacy" id="privacy-page">
-      <div class="card">
-        <h2>개인정보 처리방침</h2>
-        <p class="meta">시행일: 2026년 10월 10일</p>
-        <p class="lead">'단숙이'(이하 '앱')는 이용자의 개인정보를 소중히 다루며 「개인정보 보호법」 등 관련 법령을 지켜요. 앱은 <strong>회원가입이 없고</strong>, 이름 · 이메일 · 전화번호를 수집하지 않으며, <strong>광고를 넣지 않아요.</strong> 앱을 더 낫게 만들기 위해 개인을 알아볼 수 없는 이용 통계와 오류 정보만 모아요.</p>
-
-        <h4>1. 처리하는 정보</h4>
-        <ul class="list">
-          <li><strong>공부 기록:</strong> 푼 문제와 맞힘 여부, 걸린 시간, 외운 단어, 뽑은 키링, 공부 설정. 기기 안에 저장돼요.</li>
-          <li><strong>부르는 이름(선택):</strong> 앱이 불러 줄 별명. 입력한 경우에만 기기 안에 저장돼요.</li>
-          <li><strong>알림 시간:</strong> 공부 알림을 켠 경우 정한 시각과 요일. 알림은 기기 안에서 예약돼요.</li>
-          <li><strong>신고 내용:</strong> 문제 화면에서 신고한 단어와 이유. 기기 안에 저장되며 앱을 만든 사람에게 자동으로 보내지지 않아요.</li>
-        </ul>
-        <p class="meta">위 정보는 모두 기기 안에 저장되고, iCloud를 쓰는 경우 아래 4번의 백업에 함께 담겨요.</p>
-        <ul class="list">
-          <li><strong>이용 통계:</strong> 공부를 시작 · 마친 횟수, 푼 문제 수, 외운 단어를 며칠 뒤 다시 맞혔는지(맞힘 여부와 지난 날수만), 캡슐 뽑기 · 키링 완성 같은 앱 사용 기록과 앱 설치마다 만들어지는 임의의 식별자, 기기 모델 · OS 버전 · 국가 · 언어. 외운 단어나 이름 같은 내용은 보내지 않아요.</li>
-          <li><strong>오류 정보:</strong> 앱이 멈추거나 오류가 났을 때의 기록(오류가 난 코드 위치, 기기 모델 · OS 버전 · 메모리 상태 등).</li>
-          <li><strong>문의 내용:</strong> 설정 › 문의하기로 직접 보낸 경우에만, 쓴 내용 · 적어 준 답장 받을 곳(선택) · 앱 버전 · iOS 버전 · 기기 모델. 이름이나 공부 기록은 함께 가지 않아요.</li>
-        </ul>
-
-        <h4>2. 이용 목적</h4>
-        <ul class="list">
-          <li>오늘 공부할 단어를 고르고, 외운 정도와 기록 · 통계를 보여 주기 위해</li>
-          <li>앱을 다시 설치하거나 기기를 바꿨을 때 공부 기록을 되살리기 위해(iCloud)</li>
-          <li>앱 품질 개선과 오류 해결(이용 통계 · 오류 정보)</li>
-          <li>문의에 답하고 틀린 뜻 · 예문을 고치기 위해(문의 내용)</li>
-        </ul>
-
-        <h4>3. 보관과 파기</h4>
-        <ul class="list">
-          <li><strong>기기의 정보:</strong> 앱을 삭제하면 함께 지워져요.</li>
-          <li><strong>문의 내용:</strong> 답장과 수정을 마치면 지워요.</li>
-          <li><strong>이용 통계 · 오류 정보:</strong> Google Firebase의 보관 기간(이용 통계 최대 14개월, 오류 정보 90일)이 지나면 자동으로 지워져요.</li>
-          <li><strong>iCloud의 백업:</strong> 이용자 본인의 iCloud 계정 안, 이 앱만 볼 수 있는 비공개 공간에 기록 파일 하나로 저장돼요. iPhone 설정 › Apple 계정 › iCloud › 저장 공간 관리에서 언제든 지울 수 있어요.</li>
-        </ul>
-
-        <h4>4. 외부 전송과 국외 이전</h4>
-        <ul class="list">
-          <li><strong>Apple Inc.(미국):</strong> 공부 기록 백업을 이용자 본인의 iCloud(CloudKit 비공개 데이터베이스)에 저장해요. 앱을 만든 사람은 이 데이터를 볼 수 없어요. iCloud에 로그인하지 않았으면 전송되지 않아요.</li>
-          <li><strong>Google LLC(미국):</strong> 이용 통계(Firebase Analytics)와 오류 정보(Firebase Crashlytics)를 처리해요. 앱을 쓰는 동안 인터넷으로 전송되며, 개인을 알아볼 수 있는 정보는 보내지 않아요.</li>
-          <li><strong>Slack Technologies(미국):</strong> 문의하기로 보낸 내용을 앱을 만든 사람이 읽고 답장하기 위해 Slack 메시지로 받아요. 보낼 때만 전송되며, 답장을 마치면 지울 수 있어요.</li>
-          <li>발음 소리는 기기 안의 AI 모델이 만들어요. 단어나 예문을 외부 음성 서비스로 보내지 않아요.</li>
-          <li>문제 화면에서 사전 보기를 누르면 네이버 영어사전이 브라우저로 열려요. 그 사이트의 이용에는 그 사이트의 방침이 적용돼요.</li>
-        </ul>
-
-        <h4>5. 아동의 개인정보</h4>
-        <p class="lead" style="margin-top:0">앱은 이용자를 식별할 수 있는 정보를 수집하지 않으므로, 만 14세 미만 이용자도 법정대리인 동의 절차 없이 쓸 수 있어요.</p>
-
-        <h4>6. 이용자의 권리</h4>
-        <ul class="list">
-          <li>공부 기록은 앱을 삭제하거나 iCloud 저장 공간 관리에서 지울 수 있어요.</li>
-          <li>알림 권한은 iPhone 설정에서 언제든 끌 수 있어요.</li>
-          <li>이용 통계 · 오류 정보의 삭제를 원하면 아래 이메일로 요청해 주세요.</li>
-        </ul>
-
-        <h4>7. 문의</h4>
-        <ul class="list">
-          <li>개인정보 관련 문의: <a href="mailto:fastchanoo@gmail.com">fastchanoo@gmail.com</a></li>
-        </ul>
-        <div class="note">방침이 바뀌면 이 페이지에서 시행일과 함께 알려 드려요.</div>
+    <!-- 문의 -->
+    <section id="contact">
+      <div class="wrap narrow contact">
+        <h2>문의하기</h2>
+        <p>궁금한 점, 틀린 뜻이나 예문 제보, 기능 제안 모두 환영해요. 앱의 <b>설정 › 문의하기</b>에서 바로 보내도 되고, 메일도 좋아요. 보통 하루 안에 답장해요.</p>
+        <a class="mail" href="mailto:fastchanoo@gmail.com">✉︎ fastchanoo@gmail.com</a>
+        <a class="store small" href="https://apps.apple.com/kr/app/id6819707350">App Store에서 무료로 받기</a>
       </div>
     </section>
   </main>
 
-  <footer>© 2026 단숙이. All rights reserved.</footer>
+  <footer class="wrap">
+    <a href="privacy.html">개인정보 처리방침</a>
+    <span>© 2026 단숙이</span>
+  </footer>
 
   <script>
-    // #privacy로 들어오면 처리방침 탭(App Store 개인정보 URL로 바로 연결).
-    const tabs = document.querySelectorAll('nav a');
-    const names = { intro: '앱 소개', method: '단숙이 공부법', faq: '자주 묻는 질문', contact: '문의하기', privacy: '개인정보 처리방침' };
-    function show(name) {
-      // 예전 주소(#support)와 빈 주소는 소개로.
-      if (!(name in names)) name = 'intro';
-      document.querySelectorAll('section[data-page]').forEach(s =>
-        s.classList.toggle('on', s.dataset.page === name));
-      tabs.forEach(a => { if (a.dataset.tab === name) { a.setAttribute('aria-current', 'page'); const n = a.parentElement; n.scrollLeft = a.offsetLeft - (n.clientWidth - a.offsetWidth) / 2; } else a.removeAttribute('aria-current'); });
-      document.body.dataset.page = name;
-      const v = document.querySelector('.reel video');
-      if (v) { if (name === 'privacy') v.pause(); else v.play().catch(() => {}); }
-      document.title = name === 'intro' ? '단숙이 - 수능 영단어 · 숙어 암기 앱 | 외울 때마다 키링이 한 조각씩' : '단숙이 · ' + names[name];
-    }
-    tabs.forEach(a => a.addEventListener('click', e => {
-      e.preventDefault();
-      history.replaceState(null, '', '#' + a.dataset.tab);
-      show(a.dataset.tab);
-      window.scrollTo({ top: 0 });
-    }));
-    window.addEventListener('hashchange', () => show(location.hash.slice(1)));
-    show(location.hash.slice(1));
-    // 영상은 소리 없이 저절로 돌고, 버튼으로 소리를 켠다. 움직임 줄이기 설정이면 멈춰 둔다.
+    // 예전 주소 #privacy(앱스토어에 등록된 개인정보 URL)는 처리방침 페이지로.
+    if (location.hash === '#privacy') location.replace('privacy.html');
+    // 예전 탭 주소(#intro · #support)는 맨 위로.
+    if (location.hash === '#intro' || location.hash === '#support') history.replaceState(null, '', location.pathname);
+    // 영상은 소리 없이 돌고, 버튼으로 소리를 켠다. 움직임 줄이기면 멈춰 둔다.
     const video = document.querySelector('.reel video');
     const sound = document.querySelector('.sound');
     sound.addEventListener('click', () => {
