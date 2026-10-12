@@ -146,6 +146,28 @@
     .mail { display: inline-block; margin-top: 18px; font-weight: 700; font-size: 18px; }
     .store.small { display: block; width: max-content; margin-top: 22px; font-weight: 700; padding: 12px 20px; }
 
+    /* 난이도 */
+    .level-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 20px; margin-top: 36px; align-items: start; }
+    .gauge-card, .level-table { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 26px; }
+    .cap { font-size: 14px; color: var(--muted); font-weight: 600; }
+    .gauge { position: relative; display: flex; height: 16px; border-radius: 999px; overflow: visible; margin-top: 34px; }
+    .gauge .z { height: 100%; }
+    .gauge .down { width: 70%; background: #CFE7DB; border-radius: 999px 0 0 999px; }
+    .gauge .keep { width: 22%; background: var(--sunk); }
+    .gauge .up { width: 8%; background: #F6D2BE; border-radius: 0 999px 999px 0; }
+    .gauge .tick { position: absolute; top: -8px; bottom: -8px; width: 3px; background: var(--text); border-radius: 2px; }
+    .gauge .tick i { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); font-style: normal; font-size: 12px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; }
+    .gauge-legend { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; color: var(--muted); }
+    ul.why { margin: 20px 0 0 18px; color: var(--muted); font-size: 15px; }
+    ul.why li { margin-top: 6px; }
+    .level-table table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .level-table th, .level-table td { padding: 12px 6px; text-align: left; border-bottom: 1px solid var(--line); }
+    .level-table thead th { color: var(--faint); font-size: 13px; font-weight: 700; }
+    .level-table tbody th { font-weight: 600; color: var(--text); }
+    .level-table td { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .level-table .note { font-size: 14px; }
+    @media (prefers-color-scheme: dark) { .gauge .down { background: #2E4A3E; } .gauge .up { background: #5A3A2C; } }
+    @media (max-width: 880px) { .level-grid { grid-template-columns: minmax(0,1fr); } .level-table th, .level-table td { padding: 10px 4px; font-size: 14px; } }
     /* 아래 끝(2026-10-13 사용자: 만들다 만 느낌) */
     footer.site { margin-top: 0; border-top: 1px solid var(--line); background: var(--surface); padding: 56px 0 36px; }
     .foot-top { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
@@ -328,6 +350,7 @@
       <a class="brand" href="#top"><img src="icon.png" alt="" width="28" height="28">단숙이</a>
       <div class="links">
         <a href="#how">공부 방법</a>
+        <a href="#level">난이도</a>
         <a href="#keyring">키링</a>
         <a href="#method">연구 근거</a>
         <a href="#faq">자주 묻는 질문</a>
@@ -394,6 +417,41 @@
           <span class="tag"><b>2일</b> 뒤</span><span class="tag"><b>7일</b> 뒤</span><span class="tag"><b>21일</b> 뒤</span>
         </div>
         <p class="note">세 번 다 맞히면 단단히 외운 단어. 틀려도 키링 조각은 빠지지 않아요. 다시 외우면 돼요.</p>
+      </div>
+    </section>
+
+    <!-- 난이도 -->
+    <section id="level">
+      <div class="wrap">
+        <h2>난이도는 <span class="mark">단숙이가 맞춰요</span></h2>
+        <p class="sub">너무 쉬우면 배우는 게 없고, 너무 어려우면 지쳐요. 푸는 걸 보고 20문제마다 한 칸씩 맞춰요.</p>
+        <div class="level-grid">
+          <div class="gauge-card">
+            <p class="cap">최근 40문제에서 처음 물은 문제를 4초 안에 맞힌 비율</p>
+            <div class="gauge" role="img" aria-label="70% 아래면 쉬워지고, 70~92%면 그대로, 92% 넘으면 어려워져요. 85% 근처가 가장 잘 배우는 곳">
+              <span class="z down"></span><span class="z keep"></span><span class="z up"></span>
+              <span class="tick" style="left:85%"><i>85%</i></span>
+            </div>
+            <div class="gauge-legend"><span>↓ 70% 아래면 쉽게</span><span>그대로</span><span>92% 넘으면 어렵게 ↑</span></div>
+            <ul class="why">
+              <li>'이미 알아요'를 자주 누르면 한 칸 올려요.</li>
+              <li>틀린 단어가 30개 넘게 쌓이면 한 칸 내려 정리부터 해요.</li>
+              <li>연습 때 잘 맞혀도 며칠 뒤 다시 확인한 단어를 70% 아래로 기억하면 올리지 않아요.</li>
+              <li>며칠 쉬다 온 날은 하루만 한 칸 쉽게 시작해요.</li>
+            </ul>
+          </div>
+          <div class="level-table">
+            <table>
+              <thead><tr><th></th><th>쉽게</th><th>보통</th><th>어렵게</th></tr></thead>
+              <tbody>
+                <tr><th>헷갈리는 보기</th><td>1개</td><td>2개</td><td>3개</td></tr>
+                <tr><th>아는 단어 빨리 넘기기</th><td>안 함</td><td>1초</td><td>1.5초</td></tr>
+                <tr><th>새 단어 초 · 중 · 고(%)</th><td>70 · 30 · 0</td><td>40 · 40 · 20</td><td>15 · 35 · 50</td></tr>
+              </tbody>
+            </table>
+            <p class="note">어느 단계든 모든 단어를 지나가고, 외웠다고 보는 기준(4초 · 양쪽 3번 연속)은 같아요. 대략 85%를 맞히는 수준에서 가장 빨리 배운다는 연구(Wilson 외 2019)를 따랐어요. 설정에서 직접 고를 수도 있어요.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -547,6 +605,7 @@
             <h4>단숙이</h4>
             <a href="./#how">공부 방법</a>
             <a href="./#again">다시 확인</a>
+            <a href="./#level">난이도</a>
             <a href="./#keyring">키링</a>
             <a href="./#method">연구 근거</a>
           </div>
