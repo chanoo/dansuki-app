@@ -34,8 +34,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
     <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
   <style>
-    .page-hero { padding: 64px 0 24px; }
+    .page-hero { padding-top: 64px; padding-bottom: 24px; }
     .page-hero h1 { font-size: 46px; }
     .page-hero .lead { max-width: 640px; }
     .crumb { font-size: 14px; color: var(--muted); }
@@ -53,6 +57,12 @@
     .box li { margin-top: 6px; }
     .formula { font-family: 'Pretendard', sans-serif; font-size: 16.5px; line-height: 1.9; background: var(--canvas); border: 1px solid var(--line); border-radius: 16px; padding: 18px 22px; margin-top: 16px; overflow-x: auto; }
     .formula b { font-family: 'Pretendard', sans-serif; }
+    .formula.math { font-size: 18px; line-height: 1.4; }
+    .formula.math .katex-display { margin: .5em 0; }
+    table.symbols { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px; }
+    table.symbols th { width: 80px; text-align: left; padding: 8px 6px; font-weight: 400; }
+    table.symbols td { padding: 8px 6px; color: var(--muted); border-bottom: 1px solid var(--line); }
+    table.symbols th { border-bottom: 1px solid var(--line); }
     .cta { text-align: center; padding: 64px 0 80px; }
     .cta p { color: var(--muted); margin-top: 8px; }
     #papers ul { margin: 8px 0 0 18px; color: var(--muted); font-size: 15px; }
@@ -66,15 +76,10 @@
   <nav class="top">
     <div class="wrap row">
       <a class="brand" href="./"><img src="icon.png" alt="" width="28" height="28">단숙이</a>
-      <div class="links">
-        <a href="method.html">공부 방법</a>
-        <a href="difficulty.html">난이도</a>
-        <a href="./#keyring">키링</a>
-        <a href="method.html#papers">연구 근거</a>
-        <a href="./#faq">자주 묻는 질문</a>
-      </div>
+      <div class="links"><a href="method.html">공부 방법</a><a href="difficulty.html" aria-current="page">난이도</a><a href="./#keyring">키링</a><a href="method.html#papers">연구 근거</a><a href="./#faq">자주 묻는 질문</a></div>
       <a class="get" href="https://apps.apple.com/kr/app/id6819707350">받기</a>
     </div>
+    <div class="links mobile"><a href="method.html">공부 방법</a><a href="difficulty.html" aria-current="page">난이도</a><a href="./#keyring">키링</a><a href="method.html#papers">연구 근거</a><a href="./#faq">자주 묻는 질문</a></div>
   </nav>
   <main>
     <header class="wrap narrow page-hero">
@@ -105,12 +110,23 @@
 
     <section class="detail">
       <div class="wrap narrow">
-        <h2>규칙을 한 줄로</h2>
-        <div class="formula">
-          <b>한 칸 위</b> ← (통과율 ≥ 92% 또는 '이미 알아요' &gt; 5) 그리고 며칠 뒤 기억 ≥ 70%<br>
-          <b>한 칸 아래</b> ← 통과율 &lt; 70% 또는 틀린 단어 &gt; 30<br>
-          <b>그대로</b> ← 그 밖의 경우
+        <h2>공식으로 보면</h2>
+        <p class="sub">앱 안 난이도 화면에 나오는 식 그대로예요. 내 숫자를 넣은 값도 앱에서 볼 수 있어요.</p>
+        <div class="formula math">
+          <div>$$r = \frac{1}{|W|}\sum_{a \in W} p(a)$$</div>
+          <div>$$r_C = \frac{1}{|C|}\sum_{c \in C} p(c)$$</div>
+          <div>$$L' = \begin{cases} L + 1 & (r \ge 0.92 \,\lor\, E > 5) \,\land\, r_C \ge 0.70 \\ L - 1 & r < 0.70 \,\lor\, m > 30 \\ L & \text{그 밖} \end{cases}$$</div>
         </div>
+        <table class="symbols">
+          <tr><th>\(W\)</th><td>최근 40문제(익히는 중 단어의 복습. 새 단어 첫 문제와 외운 단어 다시 확인은 빼요)</td></tr>
+          <tr><th>\(p(a)\)</th><td>4초 안에 맞히면 1, 아니면 0</td></tr>
+          <tr><th>\(r\)</th><td>통과율</td></tr>
+          <tr><th>\(C\)</th><td>외운 단어 다시 확인 최근 40개(20개 쌓인 뒤부터 봐요)</td></tr>
+          <tr><th>\(r_C\)</th><td>며칠 뒤 기억</td></tr>
+          <tr><th>\(E\)</th><td>최근 40문제 사이 '이미 알아요' 수</td></tr>
+          <tr><th>\(m\)</th><td>지금 틀린 단어 수</td></tr>
+          <tr><th>\(L\)</th><td>단계: 쉽게 0 · 보통 1 · 어렵게 2</td></tr>
+        </table>
         <div class="box"><ul>
           <li>20문제마다 한 번 봐요. 바뀌면 다음 새 단어 묶음부터 적용하고, 40문제 동안은 그대로 둬요(오락가락하지 않게).</li>
           <li>처음 40문제가 쌓이기 전에는 95% 넘게 맞힐 때만 올려요.</li>
