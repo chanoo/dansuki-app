@@ -223,7 +223,8 @@
       <div class="wrap">
         <h2>하루 공부는 이렇게</h2>
         <p class="sub">외웠다고 치는 기준은 하나예요. 보자마자 떠오르는가.</p>
-        <ol class="steps">
+        <p class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요 →</p>
+        <ol class="steps snap">
           <li><figure><img src="img/flash.jpg" alt="새 단어 플래시카드: common 흔한, 일반적인" width="520" height="1131" loading="lazy"></figure>
             <div><span class="n">1</span><h3>카드로 먼저 봐요</h3><p>새 단어는 다섯 장씩 뜻 · 발음 · 예문을 먼저 보고, 바로 그 다섯 개를 풀어요.</p></div></li>
           <li><figure><img src="img/quiz.jpg" alt="4초 문제: abandon의 뜻 고르기" width="520" height="1131" loading="lazy"></figure>
@@ -283,7 +284,8 @@
       <div class="wrap">
         <h2>키링은 <span class="mark">공부로만</span> 모아요</h2>
         <p class="sub">캡슐 머신으로 도안을 뽑고, 무슨 그림인지는 외워야 보여요. 144칸을 채우면 키링 완성. 지금 58종이에요.</p>
-        <div class="gallery">
+        <p class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요 →</p>
+        <div class="gallery snap">
           <figure><img src="img/capsule.jpg" alt="캡슐 머신으로 다음 그림 뽑기" width="520" height="1131" loading="lazy"><figcaption>캡슐로 다음 그림</figcaption></figure>
           <figure><img src="img/complete.jpg" alt="탕후루 키링 완성" width="520" height="1131" loading="lazy"><figcaption>144칸이면 완성</figcaption></figure>
           <figure><img src="img/keyrings.jpg" alt="완성한 키링이 달린 사물함 카드" width="520" height="1131" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
@@ -387,6 +389,13 @@
     </section>
   </main>
 
+  <!-- 휴대폰: 첫 화면을 지나면 아래에 받기 바(2026-10-13 사용자: 모바일 최적화) -->
+  <div class="dock" aria-hidden="true">
+    <img src="icon.png" alt="" width="40" height="40">
+    <div><b>단숙이</b><small>수능 기본 단어 · 무료</small></div>
+    <a href="https://apps.apple.com/kr/app/id6819707350" tabindex="-1">받기</a>
+  </div>
+
   <footer class="site">
     <div class="wrap">
       <div class="foot-top">
@@ -428,6 +437,23 @@
   </footer>
 
   <script>
+    // 첫 화면의 받기 버튼이 화면 위로 지나가면 아래 받기 바를 띄우고, 맨 아래(푸터)에서는 숨긴다(휴대폰만, CSS가 데스크톱에서 숨김).
+    (() => {
+      const dock = document.querySelector('.dock'), hero = document.querySelector('.hero .store'), foot = document.querySelector('footer.site');
+      if (!dock) return;
+      const link = dock.querySelector('a');
+      let ticking = false;
+      const sync = () => {
+        ticking = false;
+        const on = (hero ? hero.getBoundingClientRect().bottom < 0 : scrollY > 360) && (!foot || foot.getBoundingClientRect().top > innerHeight);
+        if (dock.classList.contains('on') === on) return;
+        dock.classList.toggle('on', on);
+        dock.setAttribute('aria-hidden', String(!on));
+        link.tabIndex = on ? 0 : -1;
+      };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+      sync();
+    })();
     // 예전 주소 #privacy(앱스토어에 등록된 개인정보 URL)는 처리방침 페이지로.
     if (location.hash === '#privacy') location.replace('privacy.html');
     // 예전 탭 주소(#intro · #support)는 맨 위로.
