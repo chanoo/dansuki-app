@@ -15,7 +15,7 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-    body { overflow-x: hidden;
+    body {
       background: var(--canvas); color: var(--text);
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
       font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;

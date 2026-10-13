@@ -437,7 +437,7 @@
   </footer>
 
   <script>
-    // 첫 화면의 받기 버튼이 화면 위로 지나가면 아래 받기 바를 띄우고, 맨 아래(푸터)에서는 숨긴다(휴대폰만, CSS가 데스크톱에서 숨김).
+    // 첫 화면의 받기 버튼이 화면 위로 지나가면 아래 받기 바를 띄운다(휴대폰만, CSS가 데스크톱에서 숨김).
     (() => {
       const dock = document.querySelector('.dock'), hero = document.querySelector('.hero .store'), foot = document.querySelector('footer.site');
       if (!dock) return;
@@ -448,8 +448,9 @@
         // 문턱 근처에서 켜졌다 꺼졌다 하지 않게 여유를 둔다(켤 때 · 끌 때 기준이 다름).
         const was = dock.classList.contains('on');
         const past = hero ? hero.getBoundingClientRect().bottom < (was ? 60 : 0) : scrollY > (was ? 280 : 360);
-        const atEnd = foot && foot.getBoundingClientRect().top < innerHeight - (was ? 0 : 80);
-        const on = past && !atEnd;
+        // 푸터에서 숨기지 않는다: iOS는 맨 아래에서 아래 도구 막대가 나왔다 들어가며 화면 높이가 바뀌어
+        // 바가 켜졌다 꺼졌다 튀었다(2026-10-13 사용자). 푸터는 아래 여백으로 바에 가리지 않게 해 둠.
+        const on = past;
         if (dock.classList.contains('on') === on) return;
         dock.classList.toggle('on', on);
         dock.setAttribute('aria-hidden', String(!on));
