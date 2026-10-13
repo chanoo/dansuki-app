@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
-    <link rel="stylesheet" href="site.css?v=202610131810">
+    <link rel="stylesheet" href="site.css?v=202610132205">
 
   <script type="application/ld+json">
 [
@@ -257,22 +257,35 @@
         <p class="sub">너무 쉬우면 배우는 게 없고, 너무 어려우면 지쳐요. 푸는 걸 보고 20문제마다 한 칸씩 맞춰요.</p>
         <div class="level-grid">
           <div class="gauge-card">
+            <h3>푸는 걸 보고 맞춰요</h3>
             <p class="cap">최근 40문제에서 처음 물은 문제를 4초 안에 맞힌 비율</p>
             <div class="gauge" role="img" aria-label="70% 아래면 쉬워지고, 70~92%면 그대로, 92% 넘으면 어려워져요. 85% 근처가 가장 잘 배우는 곳">
               <span class="z down"></span><span class="z keep"></span><span class="z up"></span>
               <span class="tick" style="left:85%"><i>85%</i></span>
             </div>
-            <div class="gauge-legend"><span>↓ 70% 아래면 쉽게</span><span>그대로</span><span>92% 넘으면 어렵게 ↑</span></div>
+            <div class="gauge-legend" aria-hidden="true">
+              <span class="l-down">↓ 쉽게</span><span class="l-keep">그대로</span><span class="l-up">어렵게 ↑</span>
+              <span class="mark70">70%</span><span class="mark92">92%</span>
+            </div>
+            <div class="gauge-legend-m" aria-hidden="true"><span>↓ 70% 아래면 쉽게</span><span>92% 넘으면 어렵게 ↑</span></div>
             <ul class="why">
               <li>'이미 알아요'를 자주 누르면 한 칸 올려요.</li>
               <li>틀린 단어가 30개 넘게 쌓이면 한 칸 내려 정리부터 해요.</li>
-              <li>연습 때 잘 맞혀도 며칠 뒤 다시 확인한 단어를 70% 아래로 기억하면 올리지 않아요.</li>
+              <li>며칠 뒤 다시 확인한 단어를 70% 아래로 기억하면 올리지 않아요.</li>
               <li>며칠 쉬다 온 날은 하루만 한 칸 쉽게 시작해요.</li>
             </ul>
           </div>
           <div class="level-table">
             <h3>단계가 바꾸는 것</h3>
-            <p class="note">헷갈리는 보기 수, 아는 단어를 빨리 넘기는 기준, 새 단어의 등급 비율이 달라져요. 외웠다고 보는 기준은 어느 단계든 같아요.</p>
+            <table>
+              <thead><tr><th></th><th>쉽게</th><th>보통</th><th>어렵게</th></tr></thead>
+              <tbody>
+                <tr><th>헷갈리는 보기</th><td>1개</td><td>2개</td><td>3개</td></tr>
+                <tr><th>아는 단어 빨리 넘기기</th><td>안 함</td><td>1초</td><td>1.5초</td></tr>
+                <tr><th>새 단어 초 · 중 · 고</th><td>7 : 3 : 0</td><td>4 : 4 : 2</td><td>1.5 : 3.5 : 5</td></tr>
+              </tbody>
+            </table>
+            <p class="note">외웠다고 보는 기준(4초 · 양쪽 3번 연속)은 어느 단계든 같아요.</p>
             <p class="more"><a href="difficulty.html">난이도 자세히 보기 ›</a></p>
           </div>
         </div>
@@ -289,7 +302,7 @@
           <figure><img src="img/capsule.jpg" alt="캡슐 머신으로 다음 그림 뽑기" width="520" height="1131" loading="lazy"><figcaption>캡슐로 다음 그림</figcaption></figure>
           <figure><img src="img/complete.jpg" alt="탕후루 키링 완성" width="520" height="1131" loading="lazy"><figcaption>144칸이면 완성</figcaption></figure>
           <figure><img src="img/keyrings.jpg" alt="완성한 키링이 달린 사물함 카드" width="520" height="1131" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
-          <figure><img src="img/stats.jpg" alt="공부한 날 · 외운 단어 · 배지 기록" width="520" height="1131" loading="lazy"><figcaption>기록과 배지 52개</figcaption></figure>
+          <figure><img src="img/stats.jpg" alt="공부한 날 · 외운 단어 · 배지 기록" width="520" height="1131" loading="lazy"><figcaption>기록과 배지 58개</figcaption></figure>
         </div>
       </div>
     </section>
