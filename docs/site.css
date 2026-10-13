@@ -243,9 +243,18 @@
   .faq details div { font-size: 14.5px; }
   ul.list { font-size: 14.5px; }
   .mail { font-size: 16px; }
-  footer.site { padding: 36px 0 calc(96px + env(safe-area-inset-bottom)); }
-  .foot-cols { gap: 24px 36px; }
-  .foot-cols a { padding: 4px 0; }
+  /* 푸터는 작게(2026-10-13 사용자: 왜 이렇게 크지) — 받기 버튼은 아래 받기 바가 대신하고,
+     메뉴는 한 덩어리 링크 줄로. 아래 여백은 받기 바 높이만큼만. */
+  footer.site { padding: 28px 0 calc(84px + env(safe-area-inset-bottom)); }
+  .foot-top { gap: 18px; }
+  .foot-brand p, .foot-brand .store { display: none; }
+  .foot-brand .brand { font-size: 17px; }
+  .foot-brand .brand img { width: 28px; height: 28px; }
+  .foot-cols { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+  .foot-cols > div { display: contents; }
+  .foot-cols h4, .foot-cols .muted { display: none; }
+  .foot-cols a { display: inline; margin-top: 0; font-size: 14px; color: var(--muted); padding: 4px 0; }
+  .foot-bottom { margin-top: 18px; padding-top: 14px; gap: 6px; font-size: 12px; flex-direction: column; }
 
   /* 아래 받기 바 */
   /* 아래 받기 바: iOS에서 스크롤할 때 튀지 않게(2026-10-13 사용자) — 흐림 효과(backdrop-filter)를 빼고
