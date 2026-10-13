@@ -218,10 +218,16 @@
           margin: 10px -16px 0 !important; padding: 4px 16px 12px; scrollbar-width: none; }
   .snap::-webkit-scrollbar { display: none; }
   .snap > * { flex: 0 0 72%; scroll-snap-align: start; scroll-margin-left: 16px; }
-  .steps.snap li { flex-direction: column; align-items: stretch; gap: 12px; }
-  .steps.snap figure { flex: none; }
+  /* 한 화면에 사진과 설명이 같이 보이게(2026-10-13 사용자): 카드 한 장 = 왼쪽 앱 화면 + 오른쪽 설명.
+     작은 휴대폰(SE)에서도 카드 높이가 화면 절반쯤이라 위아래로 잘리지 않는다. */
+  .steps.snap > * { flex-basis: 86%; }
+  .steps.snap li { flex-direction: row; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 12px; }
+  .steps.snap figure { flex: 0 0 42%; }
+  .steps.snap figure img { border-radius: 14px; box-shadow: none; }
+  .steps.snap li > div { min-width: 0; }
+  .steps.snap .n { margin-bottom: 6px; }
   .steps figure img, .gallery img { border-radius: 20px; }
-  .gallery.snap > * { flex-basis: 56%; }
+  .gallery.snap > * { flex-basis: 44%; }
   .steps p { font-size: 14.5px; }
   .steps h3 { font-size: 17px; }
 
