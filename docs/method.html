@@ -221,7 +221,11 @@
       let ticking = false;
       const sync = () => {
         ticking = false;
-        const on = (hero ? hero.getBoundingClientRect().bottom < 0 : scrollY > 360) && (!foot || foot.getBoundingClientRect().top > innerHeight);
+        // 문턱 근처에서 켜졌다 꺼졌다 하지 않게 여유를 둔다(켤 때 · 끌 때 기준이 다름).
+        const was = dock.classList.contains('on');
+        const past = hero ? hero.getBoundingClientRect().bottom < (was ? 60 : 0) : scrollY > (was ? 280 : 360);
+        const atEnd = foot && foot.getBoundingClientRect().top < innerHeight - (was ? 0 : 80);
+        const on = past && !atEnd;
         if (dock.classList.contains('on') === on) return;
         dock.classList.toggle('on', on);
         dock.setAttribute('aria-hidden', String(!on));
