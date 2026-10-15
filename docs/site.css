@@ -53,6 +53,9 @@
     .store span { display: flex; flex-direction: column; line-height: 1.15; }
     .store small { font-size: 12px; opacity: .8; }
     .store b { font-size: 19px; }
+    .store.soon { background: transparent; color: var(--muted); box-shadow: none; border: 1.5px solid color-mix(in srgb, var(--faint) 70%, transparent); margin-left: 8px; cursor: default; }
+    .store.soon b { font-size: 16px; }
+    @media (max-width: 420px) { .store.soon { margin-left: 0; } }
     .facts { margin-top: 14px; font-size: 14px; color: var(--faint); }
     .reel { position: relative; justify-self: center; width: 300px; }
     .reel video { width: 100%; aspect-ratio: 9/16; border-radius: 30px; display: block; background: var(--sunk); box-shadow: var(--shadow); border: 1px solid var(--line); object-fit: cover; }
