@@ -1,7 +1,7 @@
     /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
     /* 제목 글꼴: 사이트에 쓰는 글자만 담은 마루부리(2026-10-16 SEO 점검: 휴대폰 첫 화면 16~20초 → 글꼴 정리).
        글자를 새로 쓰면 tool/subset_fonts.sh를 다시 돌린다. */
-    @font-face { font-family: 'MaruBuri'; src: url(fonts/MaruBuri-sub.woff2) format('woff2'); font-display: swap; }
+    @font-face { font-family: 'MaruBuri'; src: url(fonts/MaruBuri-sub.woff2?v=20261019) format('woff2'); font-display: swap; }
     :root {
       --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
       --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;

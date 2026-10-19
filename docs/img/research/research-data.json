@@ -1,0 +1,58 @@
+{
+  "kim_webb_2022": {
+    "doi": "10.1111/lang.12479",
+    "source_location": "Results, pp. 288–289; spaced vs. massed",
+    "metric": "Hedges g",
+    "rows": [
+      {
+        "test": "학습 직후",
+        "estimate": 0.58,
+        "lo": 0.16,
+        "hi": 1.0
+      },
+      {
+        "test": "시간이 지난 뒤",
+        "estimate": 0.8,
+        "lo": 0.44,
+        "hi": 1.17
+      }
+    ]
+  },
+  "nakata_2021": {
+    "doi": "10.1002/tesq.596",
+    "source_location": "Table 1, posttest; 3 weeks after last treatment",
+    "metric": "mean percent correct, unadjusted",
+    "noncumulative_n": 33,
+    "cumulative_n": 34,
+    "rows": [
+      {
+        "direction": "영어 → 뜻",
+        "group": "최근 단어만",
+        "mean": 26.4,
+        "lo": 21.7,
+        "hi": 31.1
+      },
+      {
+        "direction": "영어 → 뜻",
+        "group": "이전 단어도",
+        "mean": 50.9,
+        "lo": 43.1,
+        "hi": 58.6
+      },
+      {
+        "direction": "뜻 → 영어",
+        "group": "최근 단어만",
+        "mean": 12.1,
+        "lo": 8.8,
+        "hi": 15.5
+      },
+      {
+        "direction": "뜻 → 영어",
+        "group": "이전 단어도",
+        "mean": 38.5,
+        "lo": 29.9,
+        "hi": 47.2
+      }
+    ]
+  }
+}
