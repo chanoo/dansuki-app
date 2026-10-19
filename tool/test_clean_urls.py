@@ -4,7 +4,7 @@ Run: uv run --with playwright python tool/test_clean_urls.py [base_url]
 import sys
 from playwright.sync_api import sync_playwright,expect
 BASE=(sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8767').rstrip('/')
-SLUGS=['method','difficulty','privacy','spaced-review']
+SLUGS=['method','difficulty','privacy','spaced-review','help','android']
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True)
     page=browser.new_page(viewport={'width':390,'height':844})

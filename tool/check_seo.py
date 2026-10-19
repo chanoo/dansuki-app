@@ -7,7 +7,7 @@ from urllib.parse import urljoin,urlsplit,unquote
 import json,sys,urllib.request,xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 D=Path(__file__).resolve().parent.parent/'docs';SITE='https://dansuki.com/'
-PAGES=['index.html','method/index.html','difficulty/index.html','spaced-review/index.html','privacy/index.html','404.html']
+PAGES=['index.html','method/index.html','difficulty/index.html','spaced-review/index.html','privacy/index.html','help/index.html','android/index.html','404.html']
 def route(name):
  return '' if name=='index.html' else name.removesuffix('index.html') if name.endswith('/index.html') else name
 base=sys.argv[1].rstrip('/')+'/' if len(sys.argv)>1 else None

@@ -4,7 +4,7 @@ Run: uv run --with playwright python tool/test_study_navigation.py [base_url]
 import re, sys
 from playwright.sync_api import sync_playwright, expect
 BASE=(sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8767').rstrip('/')
-PAGES=['/','/method/','/spaced-review/','/difficulty/','/privacy/','/404.html']
+PAGES=['/','/method/','/spaced-review/','/difficulty/','/privacy/','/help/','/android/','/404.html']
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True)
     context=browser.new_context()
