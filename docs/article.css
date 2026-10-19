@@ -89,3 +89,10 @@
   .research-article .research-chart, .research-article .study, .research-article .article-app { break-inside: avoid; }
   .research-article h2 { break-after: avoid; }
 }
+
+.article-toc { padding: 20px 24px; margin: 0 0 32px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.research-article .article-toc p { margin: 0 0 10px; font-weight: 700; font-size: 14px; }
+.article-toc ol { padding-left: 20px; color: var(--muted); font-size: 14px; line-height: 1.85; }
+.article-toc li + li { margin-top: 7px; }
+.research-article h2[id] { scroll-margin-top: 125px; }
+@media (max-width:600px) { .article-toc { padding: 18px 20px; } }
