@@ -8,8 +8,16 @@ SRC=${SRC:-/tmp/MaruBuri-Regular.woff2}
 [ -f "$SRC" ] || curl -s -o "$SRC" https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2
 PY=${PY:-python3}
 $PY - <<'PYEOF' > /tmp/dansuki-chars.txt
-import glob, html, re
-t = ''.join(open(f, encoding='utf-8').read() for f in glob.glob('docs/*.html'))
+import html, re
+from pathlib import Path
+from urllib.parse import urlsplit
+import xml.etree.ElementTree as ET
+docs = Path('docs')
+paths = [docs / '404.html']
+for node in ET.parse(docs / 'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
+    path = docs / urlsplit(node.text).path.lstrip('/')
+    paths.append(path / 'index.html' if path.is_dir() else path)
+t = ''.join(p.read_text(encoding='utf-8') for p in paths)
 t = html.unescape(re.sub(r'<[^>]+>', ' ', t))
 # 한글 음절 전부 + 기본 라틴 · 숫자 · 기호
 chars = set(t) | set(chr(c) for c in range(0x20, 0x7f)) | set('·→←…“”‘’—–')

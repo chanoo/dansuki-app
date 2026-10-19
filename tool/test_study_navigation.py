@@ -4,7 +4,7 @@ Run: uv run --with playwright python tool/test_study_navigation.py [base_url]
 import re, sys
 from playwright.sync_api import sync_playwright, expect
 BASE=(sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8767').rstrip('/')
-PAGES=['/','/method.html','/spaced-review.html','/difficulty.html','/privacy.html','/404.html']
+PAGES=['/','/method/','/spaced-review/','/difficulty/','/privacy/','/404.html']
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True)
     context=browser.new_context()
@@ -28,11 +28,11 @@ with sync_playwright() as p:
             page.keyboard.press('Escape');expect(research).to_be_hidden();expect(toggle).to_be_focused()
             page.keyboard.press('Space');expect(research).to_be_visible()
             page.mouse.click(width-2,800);expect(research).to_be_hidden()
-            toggle.click();research.click();expect(page).to_have_url(re.compile('/spaced-review.html$'))
+            toggle.click();research.click();expect(page).to_have_url(re.compile('/spaced-review/$'))
             article_nav=page.locator('nav.top');article_toggle=article_nav.get_by_role('button',name='공부 방법',exact=True).filter(visible=True)
             article_toggle.click();current=article_nav.locator('a[aria-current="page"]').filter(visible=True)
-            expect(current).to_have_attribute('href',re.compile('spaced-review.html$'))
-    page.goto(BASE+'/method.html',wait_until='load')
+            expect(current).to_have_attribute('href',re.compile('/spaced-review/$'))
+    page.goto(BASE+'/method/',wait_until='load')
     page.set_viewport_size({'width':1440,'height':900})
     page.get_by_role('button',name='공부 방법',exact=True).filter(visible=True).click()
     page.set_viewport_size({'width':390,'height':900})

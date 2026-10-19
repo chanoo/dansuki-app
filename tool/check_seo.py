@@ -7,14 +7,16 @@ from urllib.parse import urljoin,urlsplit,unquote
 import json,sys,urllib.request,xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 D=Path(__file__).resolve().parent.parent/'docs';SITE='https://dansuki.com/'
-PAGES=['index.html','method.html','difficulty.html','spaced-review.html','privacy.html','404.html']
+PAGES=['index.html','method/index.html','difficulty/index.html','spaced-review/index.html','privacy/index.html','404.html']
+def route(name):
+ return '' if name=='index.html' else name.removesuffix('index.html') if name.endswith('/index.html') else name
 base=sys.argv[1].rstrip('/')+'/' if len(sys.argv)>1 else None
 errors=[];out=[];seen_titles=set();seen_desc=set()
 def check(ok,message):
  if not ok:errors.append(message)
 def load(name):
  if base:
-  url=base+('' if name=='index.html' else name)
+  url=base+route(name)
   with urllib.request.urlopen(url,timeout=20) as response:return response.read().decode()
  return (D/name).read_text()
 for name in PAGES:
@@ -31,7 +33,7 @@ for name in PAGES:
   continue
  description=soup.select_one('meta[name="description"]');description=description.get('content','') if description else ''
  check(bool(description),prefix+'missing description');check(description not in seen_desc,prefix+'duplicate description');seen_desc.add(description)
- canonical=SITE+('' if name=='index.html' else name)
+ canonical=SITE+route(name)
  tags=soup.select('link[rel="canonical"]');check(len(tags)==1 and tags[0].get('href')==canonical,prefix+'incorrect canonical')
  check('noindex' not in robot_value,prefix+'unexpected noindex')
  check('max-image-preview:large' in robot_value,prefix+'large image preview not allowed explicitly')
@@ -51,10 +53,11 @@ for name in PAGES:
   value=el.get('href') or el.get('src') or el.get('srcset');url=urljoin(canonical,value);u=urlsplit(url)
   if u.netloc!='dansuki.com':continue
   file=D/(unquote(u.path).lstrip('/') or 'index.html')
+  if file.is_dir():file=file/'index.html'
   check(file.exists(),prefix+'missing local target '+value)
   if u.fragment and file.suffix=='.html':
    target=BeautifulSoup(file.read_text(),'html.parser');check(target.find(id=u.fragment) is not None,prefix+'missing fragment '+value)
- if name=='spaced-review.html':
+ if name=='spaced-review/index.html':
   article=next((n for n in nodes if n.get('@type') in ['Article','BlogPosting']),None)
   check(bool(article),prefix+'missing article schema')
   check(bool(soup.select('.article-toc a[href^="#"]')),prefix+'missing article navigation')
@@ -64,7 +67,7 @@ for name in PAGES:
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9','image':'http://www.google.com/schemas/sitemap-image/1.1'}
 sitemap=load('sitemap.xml');root=ET.fromstring(sitemap)
 urls=[e.text for e in root.findall('s:url/s:loc',ns)]
-check(set(urls)=={SITE+('' if n=='index.html' else n) for n in PAGES if n!='404.html'},'Sitemap canonical URL set mismatch')
+check(set(urls)=={SITE+route(n) for n in PAGES if n!='404.html'},'Sitemap canonical URL set mismatch')
 for e in root.findall('s:url/image:image/image:loc',ns):check((D/urlsplit(e.text).path.lstrip('/')).exists(),'Missing sitemap image '+e.text)
 check('Sitemap: '+SITE+'sitemap.xml' in load('robots.txt'),'robots sitemap reference missing')
 report={'scope':'live' if base else 'local','pages':out,'errors':errors,'status':'PASS' if not errors else 'FAIL'}

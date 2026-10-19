@@ -17,11 +17,11 @@
     </image:image>
   </url>
   <url>
-    <loc>https://dansuki.com/privacy.html</loc>
+    <loc>https://dansuki.com/privacy/</loc>
     <lastmod>2026-10-16</lastmod>
   </url>
   <url>
-    <loc>https://dansuki.com/method.html</loc>
+    <loc>https://dansuki.com/method/</loc>
     <lastmod>2026-10-19</lastmod>
     <image:image>
       <image:loc>https://dansuki.com/img/flash.jpg</image:loc>
@@ -34,11 +34,11 @@
     </image:image>
   </url>
   <url>
-    <loc>https://dansuki.com/difficulty.html</loc>
+    <loc>https://dansuki.com/difficulty/</loc>
     <lastmod>2026-10-19</lastmod>
   </url>
   <url>
-    <loc>https://dansuki.com/spaced-review.html</loc>
+    <loc>https://dansuki.com/spaced-review/</loc>
     <lastmod>2026-10-19</lastmod>
     <image:image>
       <image:loc>https://dansuki.com/img/research/spacing-effect.svg</image:loc>
