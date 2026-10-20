@@ -1,9 +1,9 @@
 {
   "vocabVersion": "csat_v2",
-  "contentRevision": 15,
+  "contentRevision": 16,
   "minBuild": 27,
-  "url": "csat_v2.r15.json",
-  "sha256": "87842273f19289074d7a5b318da2394d39a5ff7a835a2c265e61b694e0eea014",
-  "bytes": 4531412,
+  "url": "csat_v2.r16.json",
+  "sha256": "a5fa83f7577275b41412f6395d224bb685ac9d79e3d2bff31e4a3f4f9dfb3a0d",
+  "bytes": 4556104,
   "words": 4079
 }
