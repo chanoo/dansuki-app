@@ -32,7 +32,7 @@
   <link rel="preload" href="/reel-poster.jpg" as="image" fetchpriority="high">
   <link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261020" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/site.css?v=20261020">
+  <link rel="stylesheet" href="/site.css?v=20261029">
 
   <script type="application/ld+json">
 {
@@ -127,7 +127,15 @@
      "name": "예비 고1도 쓸 수 있나요?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "네. 단숙이는 기초 단어부터 다시 채우려는 학생을 위해 만들었어요. 쉬운 등급 단어부터 하루 30개씩 나오고, 푸는 걸 보고 난이도를 알아서 맞춰요. 중학 단어에 빈 곳이 있는 예비 고1 · 고1이 겨울방학에 고등 기본 어휘를 한 번 훑기에 알맞아요."
+      "text": "네. 단숙이는 기초 단어부터 다시 채우려는 학생을 위해 만들었어요. 쉬운 등급 단어부터 하루 단어 20개 · 숙어 5개씩 나오고, 푸는 걸 보고 난이도를 알아서 맞춰요. 중학 단어에 빈 곳이 있는 예비 고1 · 고1이 겨울방학에 고등 기본 어휘를 한 번 훑기에 알맞아요."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "이야기 탭은 뭔가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "셜록 홈스, 오즈의 마법사, 백만 파운드 지폐 같은 이야기 19편을 중학 · 고등 영어로 다시 써서 앱에 넣었어요. 앱 단어 3,306개 중 3,202개가 이야기 어딘가에 나와요. 책마다 외운 단어로 글의 몇 %가 읽히는지 보여 주고, 외울수록 올라가요. 모르는 단어는 누르면 뜻이 나오고, 외운 단어는 형광펜으로 칠해 볼 수 있어요. 끊어 읽기를 켜면 의미 덩어리마다 사선이 그어지고 해석도 덩어리마다 붙어요. 문장마다 AI 목소리로 들을 수도 있어요."
      }
     },
     {
@@ -135,7 +143,7 @@
      "name": "다른 영단어 앱과 뭐가 달라요?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "보자마자 떠오르는 단어만 외운 걸로 쳐요. 새 단어는 4초 안에, 영어 → 뜻과 뜻 → 영어를 각각 3번 연속 맞혀야 해요. 외운 뒤에도 2 · 7 · 21일 뒤 다시 물어 오래 남게 하고, 난이도는 85% 안팎으로 맞히도록 알아서 바꿔요. 모두 무료이고 광고 · 가입이 없어요."
+      "text": "보자마자 떠오르는 단어만 외운 걸로 쳐요. 새 단어는 4초 안에, 영어 → 뜻과 뜻 → 영어를 각각 3번 연속 맞혀야 해요. 외운 뒤에도 2 · 7 · 21일 뒤 다시 물어 오래 남게 하고, 난이도는 85% 안팎으로 맞히도록 알아서 바꿔요. 외운 단어는 이야기 19편에서 다시 만나요. 모두 무료이고 광고 · 가입이 없어요."
      }
     },
     {
@@ -232,13 +240,38 @@
     </section>
 
     <!-- 누구를 위한 앱 -->
+    <section class="band" id="promise">
+      <div class="wrap">
+        <h2>단숙이가 <span class="mark">지키는 세 가지</span></h2>
+        <div class="trio principles">
+          <div class="tile"><i>01</i><b>보자마자 떠오를 때까지</b><span>외웠다고 치는 기준은 하나예요. 4초 안에, 영어 → 뜻 · 뜻 → 영어를 각각 3번 연속. 그리고 2 · 7 · 21일 뒤에 다시 물어봐요.</span></div>
+          <div class="tile"><i>02</i><b>공부는 돈으로 사지 않아요</b><span>광고도 가입도 없어요. 키링은 공부로만 모으고, 기록은 내 폰과 내 iCloud에만 남아요.</span></div>
+          <div class="tile"><i>03</i><b>외운 단어는 이야기에서</b><span>단어에서 끝나지 않게, 외운 만큼 읽히는 이야기 19편을 넣었어요. 외울수록 술술 읽혀요.</span></div>
+        </div>
+      </div>
+    </section>
+    <section id="stories">
+      <div class="wrap">
+        <h2>외운 단어로 <span class="mark">이야기를 읽어요</span></h2>
+        <p class="sub">셜록 홈스, 오즈의 마법사, 백만 파운드 지폐… 이야기 19편을 중학 · 고등 영어로 다시 썼어요. 앱 단어 3,306개 중 3,202개가 이야기 어딘가에 나와요.</p>
+        <p class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요 →</p>
+        <div class="gallery snap">
+          <figure><img src="/img/story-list.jpg" alt="이야기 탭: 책마다 외운 단어로 몇 % 읽히는지" width="520" height="1131" loading="lazy"><figcaption>외운 만큼 읽혀요</figcaption></figure>
+          <figure><img src="/img/story-read.jpg" alt="외운 단어에 형광펜이 칠해진 셜록 홈스 본문" width="520" height="1131" loading="lazy"><figcaption>외운 단어는 형광펜</figcaption></figure>
+          <figure><img src="/img/story-sheet.jpg" alt="모르는 단어를 누르면 뜻과 그 문장이 나오는 창" width="520" height="1131" loading="lazy"><figcaption>모르는 말은 눌러서</figcaption></figure>
+          <figure><img src="/img/story-listen.jpg" alt="의미 덩어리마다 사선이 그어진 본문과 듣기 플레이어" width="520" height="1131" loading="lazy"><figcaption>끊어 읽기 · 듣기</figcaption></figure>
+        </div>
+        <p class="note">듣기는 문장마다 AI 목소리로 읽어 주고, 0.8 ~ 1.5배로 속도를 바꿀 수 있어요. iPhone은 화면을 꺼도 이어서 들려줘요.</p>
+      </div>
+    </section>
+
     <section class="band" id="for">
       <div class="wrap">
         <h2>기초 단어부터<br><span class="mark">다시 채워요</span></h2>
         <p class="sub">지문을 읽다 모르는 단어에서 자꾸 멈춘다면, 여기서부터 시작하면 돼요. <b>예비 고1 · 고1</b>이 고등 영어 기초를 다시 채우기에 알맞아요.</p>
         <div class="trio">
           <div class="tile"><b>3,306</b><span>교육부 기본 어휘(+기출 · 기초 보충)와 <br>숙어 510개</span></div>
-          <div class="tile"><b>하루 30개</b><span>쉬운 등급부터, 내 실력에 맞춰 <br>난이도도 알아서</span></div>
+          <div class="tile"><b>하루 20개</b><span>단어 20개 · 숙어 5개, 쉬운 등급부터 <br>난이도도 알아서</span></div>
           <div class="tile"><b>1분만 해도</b><span>바쁜 날엔 1분만 해도 하루로 쳐요. <br>쉬어도 칠한 칸은 그대로</span></div>
         </div>
       </div>
@@ -305,12 +338,12 @@
     <section id="keyring">
       <div class="wrap">
         <h2>키링은 <span class="mark">공부로만</span> 모아요</h2>
-        <p class="sub">캡슐 머신으로 도안을 뽑고, 무슨 그림인지는 외워야 보여요. 144칸을 채우면 키링 완성. 지금 58종이에요.</p>
+        <p class="sub">캡슐 머신으로 도안을 뽑고, 무슨 그림인지는 외워야 보여요. 100칸을 채우면 키링 완성. 지금 58종이에요.</p>
         <p class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요 →</p>
         <div class="gallery snap">
           <figure><img src="/img/capsule.jpg" alt="캡슐 머신으로 다음 그림 뽑기" width="520" height="1131" loading="lazy"><figcaption>캡슐로 다음 그림</figcaption></figure>
-          <figure><img src="/img/complete.jpg" alt="탕후루 키링 완성" width="520" height="1131" loading="lazy"><figcaption>144칸이면 완성</figcaption></figure>
-          <figure><img src="/img/keyrings.jpg" alt="완성한 키링 네 개가 달린 단풍 가지 카드, 뒤로 가을 장면" width="520" height="1131" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
+          <figure><img src="/img/complete.jpg" alt="다 칠한 딸기 키링" width="520" height="1131" loading="lazy"><figcaption>100칸이면 완성</figcaption></figure>
+          <figure><img src="/img/keyrings.jpg" alt="완성한 키링이 걸린 단풍 가지 카드" width="520" height="1131" loading="lazy"><figcaption>내 키링 카드</figcaption></figure>
           <figure><img src="/img/stats.jpg" alt="공부한 날 · 외운 단어 · 배지 기록" width="520" height="1131" loading="lazy"><figcaption>기록과 배지 62개</figcaption></figure>
         </div>
       </div>
@@ -343,11 +376,15 @@
         </details>
           <details>
           <summary>예비 고1도 쓸 수 있나요?</summary>
-          <div><p>네. 단숙이는 기초 단어부터 다시 채우려는 학생을 위해 만들었어요. 쉬운 등급 단어부터 하루 30개씩 나오고, 푸는 걸 보고 난이도를 알아서 맞춰요. 중학 단어에 빈 곳이 있는 예비 고1 · 고1이 겨울방학에 고등 기본 어휘를 한 번 훑기에 알맞아요.</p></div>
+          <div><p>네. 단숙이는 기초 단어부터 다시 채우려는 학생을 위해 만들었어요. 쉬운 등급 단어부터 하루 단어 20개 · 숙어 5개씩 나오고, 푸는 걸 보고 난이도를 알아서 맞춰요. 중학 단어에 빈 곳이 있는 예비 고1 · 고1이 겨울방학에 고등 기본 어휘를 한 번 훑기에 알맞아요.</p></div>
+        </details>
+          <details>
+          <summary>이야기 탭은 뭔가요?</summary>
+          <div><p>셜록 홈스, 오즈의 마법사, 백만 파운드 지폐 같은 이야기 19편을 중학 · 고등 영어로 다시 써서 앱에 넣었어요. 앱 단어 3,306개 중 3,202개가 이야기 어딘가에 나와요. 책마다 외운 단어로 글의 몇 %가 읽히는지 보여 주고, 외울수록 올라가요. 모르는 단어는 누르면 뜻이 나오고, 외운 단어는 형광펜으로 칠해 볼 수 있어요. 끊어 읽기를 켜면 의미 덩어리마다 사선이 그어지고 해석도 덩어리마다 붙어요. 문장마다 AI 목소리로 들을 수도 있어요.</p></div>
         </details>
           <details>
           <summary>다른 영단어 앱과 뭐가 달라요?</summary>
-          <div><p>보자마자 떠오르는 단어만 외운 걸로 쳐요. 새 단어는 4초 안에, 영어 → 뜻과 뜻 → 영어를 각각 3번 연속 맞혀야 해요. 외운 뒤에도 2 · 7 · 21일 뒤 다시 물어 오래 남게 하고, 난이도는 85% 안팎으로 맞히도록 알아서 바꿔요. 모두 무료이고 광고 · 가입이 없어요.</p></div>
+          <div><p>보자마자 떠오르는 단어만 외운 걸로 쳐요. 새 단어는 4초 안에, 영어 → 뜻과 뜻 → 영어를 각각 3번 연속 맞혀야 해요. 외운 뒤에도 2 · 7 · 21일 뒤 다시 물어 오래 남게 하고, 난이도는 85% 안팎으로 맞히도록 알아서 바꿔요. 외운 단어는 이야기 19편에서 다시 만나요. 모두 무료이고 광고 · 가입이 없어요.</p></div>
         </details>
           <details>
           <summary>어떤 단어가 나오나요?</summary>

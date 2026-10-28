@@ -392,3 +392,12 @@ section.reviews { padding: 8px 0 72px; }
   .review { padding: 16px 18px; border-radius: 16px; }
   .review blockquote { font-size: 14.5px; }
 }
+
+/* 단숙이가 지키는 세 가지(2026-10-29) */
+.principles .tile i { display: block; font-style: normal; font-size: 13px; letter-spacing: .08em; color: var(--faint); margin-bottom: 10px; }
+.principles .tile b { font-size: 22px; line-height: 1.35; }
+@media (max-width: 640px) {
+  .principles .tile { display: block; padding: 18px 18px; }
+  .principles .tile b { font-size: 18px; }
+  .principles .tile span { margin-top: 6px; }
+}
