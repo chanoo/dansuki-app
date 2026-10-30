@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://dansuki.com/try/">
 <meta property="og:image" content="https://dansuki.com/og.jpg">
 <link rel="icon" href="/icon.png">
-<link rel="preload" href="/fonts/Literata-try.woff?v=20261031d" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/fonts/Literata-try.woff?v=20261031e" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
@@ -27,8 +27,8 @@ try {
 } catch (e) {}
 </script>
 <style>
-@font-face { font-family: Literata; src: url(/fonts/Literata-try.woff?v=20261031d) format('woff'); font-display: swap; }
-@font-face { font-family: MaruBuri; font-weight: 700; src: url(/fonts/MaruBuri-try.woff?v=20261031d) format('woff'); font-display: swap; }
+@font-face { font-family: Literata; src: url(/fonts/Literata-try.woff?v=20261031e) format('woff'); font-display: swap; }
+@font-face { font-family: MaruBuri; font-weight: 700; src: url(/fonts/MaruBuri-try.woff?v=20261031e) format('woff'); font-display: swap; }
 :root {
   --canvas:#F6F1E7; --surface:#FCFAF4; --sunk:#EEE7D9; --panel:#F4EFE4; --text:#23211E; --muted:#6A645B; --faint:#98918A;
   --line:#E6DECF; --empty:#E3DACB; --hl:#F3D66B; --hlsoft:rgba(243,214,107,.30); --gold:#C9A436; --caution:#A9532F;
@@ -54,7 +54,9 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .mk { background: linear-gradient(transparent 58%, var(--hl) 58%, var(--hl) 92%, transparent 92%); }
 .primary { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 58px; border-radius: 29px; background: var(--accent); color: var(--onaccent); font-size: 18px; font-weight: 700; text-decoration: none; }
 .primary small { font-size: 14px; font-weight: 400; opacity: .82; margin-top: 2px; }
-.primary:active { transform: scale(.98); }
+.primary:active, .secondary:active { transform: scale(.98); }
+.secondary { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 58px; margin-top: 10px; border-radius: 29px; background: var(--surface); border: 1.5px solid var(--line); color: var(--text); font-size: 17px; font-weight: 700; text-decoration: none; }
+.secondary small { font-size: 13px; font-weight: 400; color: var(--muted); margin-top: 2px; }
 .link { display: block; width: 100%; text-align: center; color: var(--muted); font-size: 15px; padding: 12px 0; }
 .ms { width: 22px; height: 22px; }
 
@@ -665,7 +667,7 @@ function end() {
     </div>
     <div class="bottom">
       <a class="primary" id="store" href="https://apps.apple.com/kr/app/id6819707350">App Store에서 받기</a>
-      <p class="end small" style="padding:0">Android는 비공개 테스트 중이에요 · <a id="android" href="https://dansuki.com/android/">먼저 써 보기 신청</a></p>
+      <a class="secondary" id="android" href="https://dansuki.com/android/">Android 먼저 써 보기<small>비공개 테스트 중 · 신청하면 테스터로 등록해 드려요</small></a>
       <button class="link" id="again">처음부터 다시</button>
     </div>
   `);
