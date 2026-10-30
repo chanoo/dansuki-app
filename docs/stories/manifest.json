@@ -1,0 +1,145 @@
+{
+ "format": 1,
+ "minBuild": 32,
+ "books": [
+  {
+   "id": "red_headed_league",
+   "revision": 1,
+   "url": "red_headed_league.r1.json",
+   "sha256": "3104e0c4f675a88cfa9335350642bbe831edc4413bc298ec8102bd45f1725a4a",
+   "bytes": 423847
+  },
+  {
+   "id": "wizard_of_oz",
+   "revision": 1,
+   "url": "wizard_of_oz.r1.json",
+   "sha256": "27589c4daa3ead0d5d418a275f7dc739b47d4d8ef9e45864ce198bca8fcc4ce9",
+   "bytes": 541343
+  },
+  {
+   "id": "million_pound_note",
+   "revision": 1,
+   "url": "million_pound_note.r1.json",
+   "sha256": "0508789e01aebd1643c2479464d093112b88ca5b6d479eef6f497033d1080df8",
+   "bytes": 332647
+  },
+  {
+   "id": "time_machine",
+   "revision": 1,
+   "url": "time_machine.r1.json",
+   "sha256": "adf9b20d48b2d3309f6e210be43aab8f14e02e12550c5bcd627a43150e65edaa",
+   "bytes": 413039
+  },
+  {
+   "id": "o_henry_stories",
+   "revision": 1,
+   "url": "o_henry_stories.r1.json",
+   "sha256": "7dadd3c2d3f5737e87fe70f6d6c9136eafcb4ef9afb44a2c7781ff5f104080b6",
+   "bytes": 299289
+  },
+  {
+   "id": "canterville_ghost",
+   "revision": 1,
+   "url": "canterville_ghost.r1.json",
+   "sha256": "34890dcf4a9328b3e49c30929c03d8e6e7895b3c1909c992e7e1f53cd9c72bb8",
+   "bytes": 388339
+  },
+  {
+   "id": "eighty_days",
+   "revision": 1,
+   "url": "eighty_days.r1.json",
+   "sha256": "1f579a14eaa41d4dc7774542678df08f83c0d787e93d087584bb86329a2b5210",
+   "bytes": 522307
+  },
+  {
+   "id": "christmas_carol",
+   "revision": 1,
+   "url": "christmas_carol.r1.json",
+   "sha256": "1828ff42103390197c00fc1b62f65301c0eb1e2cd3bd4a6cb98f302e51396665",
+   "bytes": 568083
+  },
+  {
+   "id": "gold_bug",
+   "revision": 1,
+   "url": "gold_bug.r1.json",
+   "sha256": "4f511483046558056f5894ed8862b9252e7115047622c6ae22d5ec1c967e0a50",
+   "bytes": 484307
+  },
+  {
+   "id": "jungle_book",
+   "revision": 1,
+   "url": "jungle_book.r1.json",
+   "sha256": "95fae3ef16a5b41a8c532e16274c79b8dea56dc793a43a4190a279c729b93468",
+   "bytes": 392222
+  },
+  {
+   "id": "sleepy_hollow",
+   "revision": 1,
+   "url": "sleepy_hollow.r1.json",
+   "sha256": "65791f7e727e21ce14cc90f9e94f6169d70812ad52e11ba70b27ea8b22180b3e",
+   "bytes": 358668
+  },
+  {
+   "id": "jekyll_hyde",
+   "revision": 1,
+   "url": "jekyll_hyde.r1.json",
+   "sha256": "7cf72668828c290a60cad9e1c661b2f8e2431c399d0ea6db4cc7d35475e4da66",
+   "bytes": 669690
+  },
+  {
+   "id": "anne_modern",
+   "revision": 1,
+   "url": "anne_modern.r1.json",
+   "sha256": "9b54b370b3783c3ebce9b767f957990ea53a0fb6b24974ac50f299df493f53f4",
+   "bytes": 498425
+  },
+  {
+   "id": "sherlock_modern",
+   "revision": 1,
+   "url": "sherlock_modern.r1.json",
+   "sha256": "113bb6a4649d1396c7e20fe9a5a02f681d173d64f11d7565cd82fc888406f162",
+   "bytes": 415162
+  },
+  {
+   "id": "o_henry_city",
+   "revision": 1,
+   "url": "o_henry_city.r1.json",
+   "sha256": "8f10283cc9db5c526cc2592cff2f58b4be53f3373175479af4d00cf0cb71dae0",
+   "bytes": 393575
+  },
+  {
+   "id": "moon_mission",
+   "revision": 1,
+   "url": "moon_mission.r1.json",
+   "sha256": "b8ca68a6c6ee80bf596b20359ca37972c1eca859bdfdd6152b747de9162d8d80",
+   "bytes": 437566
+  },
+  {
+   "id": "prince_pauper",
+   "revision": 1,
+   "url": "prince_pauper.r1.json",
+   "sha256": "06e6c44adc2e49ba0da3326c1e9d392899f09f4a78fe2027acec9aae22d19c0d",
+   "bytes": 456098
+  },
+  {
+   "id": "invisible_man",
+   "revision": 1,
+   "url": "invisible_man.r1.json",
+   "sha256": "2b4a0faacdd53aa5a6b90f5f883e67d6816b51943407a8fcb476d2421abf2321",
+   "bytes": 457725
+  },
+  {
+   "id": "tom_sawyer_modern",
+   "revision": 1,
+   "url": "tom_sawyer_modern.r1.json",
+   "sha256": "2d77e545a894d4f723cdd86ae8ef12d8d595d6112a39d8fda3fe2fb4fa0f9b38",
+   "bytes": 817233
+  }
+ ],
+ "terms": {
+  "revision": 1,
+  "url": "grammar_terms.r1.json",
+  "sha256": "74abbc2d126f353433b99bdfa426827b58447d9beabb6c11105516adbdcb4f14",
+  "bytes": 7896
+ }
+}
