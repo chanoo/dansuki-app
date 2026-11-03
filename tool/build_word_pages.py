@@ -376,56 +376,127 @@ def build_test_data():
 
 
 TEST_CSS = '''<style>
-.quiz{margin:28px 0 8px;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--shadow);padding:24px}
+/* 영단어 테스트(2026-11-04 다시 만듦): 표지 → 집중 풀이 화면 → 채점된 결과표 */
+.quiz{scroll-margin-top:84px;--ok:#2F7D4F;--ok-bg:#DDEFE3;--no:#B8324E;--no-bg:#F7DDE2;margin:0 0 8px;border:1px solid var(--line);border-radius:28px;background:var(--surface);box-shadow:var(--shadow);padding:32px 28px 26px}
+@media (prefers-color-scheme:dark){.quiz{--ok:#7FCB9A;--ok-bg:#1E3527;--no:#F09AAB;--no-bg:#3E2027}}
 .quiz [hidden]{display:none!important}
-.quiz h2{margin:0;font-size:24px}
-.quiz .lead{color:var(--muted);margin:10px 0 0;font-size:15.5px}
-.quiz .facts{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
-.quiz .facts li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:baseline;font-size:15.5px}
-.quiz .facts span{text-align:left;color:var(--muted)}
-.quiz .facts b{text-align:left;font-family:'MaruBuri',serif;font-weight:400;font-size:18px}
-.quiz .go{margin-top:24px;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:16px;padding:16px 20px;background:var(--text);color:var(--canvas);cursor:pointer;width:100%}
-.quiz .go:focus-visible,.quiz .opt:focus-visible,.quiz .skip:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
-.quiz .friend{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:var(--mark);font-weight:600;font-size:15px}
-.quiz .top{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.quiz .bar{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
-.quiz .bar i{display:block;height:100%;width:0;background:var(--text);border-radius:99px;transition:width .3s}
-.quiz .word{margin:34px 0 6px;text-align:center;font-family:'MaruBuri',serif;font-size:44px;line-height:1.2;overflow-wrap:anywhere}
-.quiz .hint{text-align:center;color:var(--faint);font-size:13.5px;min-height:1.5em}
-.quiz .timer{height:4px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 16px}
-.quiz .timer i{display:block;height:100%;width:100%;background:var(--highlight);transform-origin:left}
-.quiz .opts{display:grid;gap:10px}
-.quiz .opt{font:inherit;font-size:16px;text-align:left;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--canvas);color:var(--text);cursor:pointer;min-height:54px;word-break:keep-all}
+.quiz .qtag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.02em;padding:6px 13px;border-radius:999px;background:var(--text);color:var(--canvas)}
+.quiz .go:focus-visible,.quiz .opt:focus-visible,.quiz .skip:focus-visible,.quiz .x:focus-visible,.quiz .acts button:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+/* 표지 */
+.cover{text-align:center}
+.cover .friend{margin:0 0 18px;padding:12px 14px;border-radius:14px;background:var(--mark);font-weight:600;font-size:15px}
+.cover h1{margin:18px 0 0;font-size:clamp(30px,7vw,42px);line-height:1.32;word-break:keep-all}
+.cover .mascot{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px auto 0;max-width:430px}
+.cover .mascot img{width:60px;height:60px;border-radius:17px;flex:0 0 auto;box-shadow:var(--shadow)}
+.cover .bubble{position:relative;margin:0;text-align:left;font-size:15px;line-height:1.55;padding:11px 14px;border-radius:16px;background:var(--canvas);border:1px solid var(--line);word-break:keep-all}
+.cover .bubble::before{content:'';position:absolute;left:-7px;top:50%;width:12px;height:12px;margin-top:-6px;background:var(--canvas);border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.spec{display:grid;grid-template-columns:repeat(3,1fr);margin:26px 0 0;border:1px solid var(--line);border-radius:18px;background:var(--canvas)}
+.spec div{padding:14px 6px 12px}
+.spec div+div{border-left:1px dashed var(--line)}
+.spec dt{font-size:13px;color:var(--muted)}
+.spec dd{margin:2px 0 0;font-family:'MaruBuri',serif;font-size:28px;line-height:1.3;font-variant-numeric:tabular-nums}
+.spec dd small{font-size:15px;margin-left:2px}
+.quiz .rules{display:block;margin:22px 0 0;text-align:left;grid-template-columns:none}
+.rules h2{margin:0 0 10px;font-size:15px;font-family:inherit;font-weight:700;letter-spacing:0}
+.rules ol{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.rules li{display:flex;gap:10px;align-items:baseline;font-size:15px;line-height:1.55;color:var(--muted);word-break:keep-all}
+.rules li b{flex:0 0 auto;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--highlight);color:#23211E;font-size:12.5px}
+.rules li strong{color:var(--text);font-weight:600}
+.quiz .go{margin-top:24px;font:inherit;font-weight:700;font-size:17.5px;border:0;border-radius:18px;padding:18px 20px;background:var(--text);color:var(--canvas);cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+.quiz .go svg{width:20px;height:20px}
+.quiz .go[disabled]{opacity:.6;cursor:progress}
+.research-article .cover .fine{display:block;margin:12px 0 0;padding:0;border:0;font-size:13px;line-height:1.6;color:var(--muted)}
+.research-article .cover .fine span{margin:0 5px}
+.quiz .err{color:var(--no);font-size:15px;margin:14px 0 0}
+/* 풀이: 시작하면 화면 전체를 덮는다(메뉴 · 받기 띠 · 아래 글은 안 보이게) */
+body.testing{overflow:hidden}
+body.testing .quiz{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0;box-shadow:none;padding:0;background:var(--canvas);overflow-y:auto;overscroll-behavior:contain}
+.solve{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;max-width:600px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 20px max(18px,env(safe-area-inset-bottom))}
+.qhead{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px}
+.quiz .x{width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:0}
+.quiz .x svg{width:22px;height:22px}
+.qmeta{text-align:center;font-variant-numeric:tabular-nums}
+.qmeta .qn{font-size:15px;color:var(--muted)}
+.qmeta .qn b{font-size:17px;color:var(--text)}
+.ring{position:relative;width:44px;height:44px}
+.ring svg{width:44px;height:44px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:3.5}
+.ring .trk{stroke:var(--line)}
+.ring .arc{stroke:var(--text);stroke-linecap:round;stroke-dasharray:119.4;stroke-dashoffset:0}
+.ring.low .arc{stroke:var(--no)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.ring.low span{color:var(--no)}
+.dots{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;list-style:none;margin:12px 0 0;padding:0}
+.dots li{height:6px;border-radius:99px;background:var(--line)}
+.dots li.now{background:var(--text)}
+.dots li.ok{background:var(--ok)}
+.dots li.no{background:var(--no)}
+.dots li.sk{background:var(--faint)}
+.qstage{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 0 22px;min-height:190px}
+.qstage .lv{font-size:13px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:var(--surface)}
+.quiz .word{margin:18px 0 0;font-family:'MaruBuri',serif;font-size:52px;line-height:1.2;overflow-wrap:anywhere}
+.quiz .hint{margin:12px 0 0;color:var(--muted);font-size:15px;min-height:1.6em}
+.quiz .hint.ok{color:var(--ok);font-weight:700}
+.quiz .hint.no{color:var(--no);font-weight:700}
+.opts{display:grid;gap:10px}
+.opts.wait,.skip.wait{visibility:hidden}
+.quiz .opt{font:inherit;font-size:16.5px;text-align:left;border:1.5px solid var(--line);border-radius:16px;padding:12px 16px 12px 12px;background:var(--surface);color:var(--text);cursor:pointer;min-height:60px;word-break:keep-all;display:flex;align-items:center;gap:12px;transition:border-color .15s,background-color .15s}
+.quiz .opt .k{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--muted);background:var(--canvas)}
+@media (hover:hover){.quiz .opt:not([disabled]):hover{border-color:var(--text)}}
 .quiz .opt[disabled]{cursor:default}
-.quiz .opt.ok{background:#DDEFE3;border-color:#7FB894;color:#1E3A28}
-.quiz .opt.no{background:#F7DDE2;border-color:#E08A9A;color:#4A1E27}
-.quiz .skip{display:block;margin:14px auto 0;font:inherit;font-size:15px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:8px}
-.quiz .big{margin:6px 0 0;font-family:'MaruBuri',serif;font-size:56px;line-height:1.15;font-variant-numeric:tabular-nums}
-.quiz .big small{font-size:22px;margin-left:4px}
-.quiz .of{color:var(--muted);font-size:15.5px}
-.quiz .tiers{display:grid;gap:12px;margin:22px 0 0}
-.quiz .tier{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;font-size:14.5px}
-.quiz .tier .tb{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
-.quiz .tier .tb i{display:block;height:100%;width:0;background:var(--text);border-radius:99px;transition:width .8s ease-out}
-.quiz .tier span:last-child{color:var(--muted);font-variant-numeric:tabular-nums;min-width:92px;text-align:right}
-.quiz .read{margin:22px 0 0;padding:16px;border-radius:16px;background:var(--canvas);border:1px solid var(--line)}
-.quiz .read b{font-family:'MaruBuri',serif;font-weight:400;font-size:26px}
-.quiz .read p{margin:4px 0 0;font-size:15px;color:var(--muted)}
-.quiz .next{margin:16px 0 0;font-size:15.5px}
-.quiz .acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.quiz .acts button{font:inherit;font-weight:700;font-size:15.5px;border-radius:14px;padding:14px 12px;cursor:pointer;border:1px solid var(--text)}
-.quiz .acts .share{background:var(--highlight);border-color:var(--highlight);color:#23211E}
-.quiz .acts .again{background:none;color:var(--text)}
-.quiz .done{min-height:1.4em;margin:8px 0 0;font-size:13.5px;color:var(--muted)}
-.quiz details{margin-top:16px;font-size:15px}
-.quiz details summary{cursor:pointer;font-weight:600}
-.quiz details ul{list-style:none;margin:8px 0 0;padding:0}
-.quiz details li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
-.quiz details li b{flex:0 0 auto}
-.quiz details li span{color:var(--muted)}
-.quiz .err{color:var(--muted)}
-@media (max-width:600px){.quiz{padding:20px 18px;border-radius:20px;margin:20px -4px 8px}.quiz .facts li{grid-template-columns:64px minmax(0,1fr);gap:10px}.quiz .word{font-size:38px;margin-top:26px}.quiz .big{font-size:48px}}
-@media (prefers-reduced-motion:reduce){.quiz .bar i,.quiz .tier .tb i{transition:none}}
+.quiz .opt.ok{background:var(--ok-bg);border-color:var(--ok)}
+.quiz .opt.ok .k{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.quiz .opt.no{background:var(--no-bg);border-color:var(--no)}
+.quiz .opt.no .k{background:var(--no);border-color:var(--no);color:var(--surface)}
+.quiz .opt.dim{opacity:.55}
+.quiz .skip{margin:12px 0 0;font:inherit;font-weight:600;font-size:16px;border:1.5px dashed var(--line);border-radius:16px;background:none;color:var(--muted);cursor:pointer;padding:14px;width:100%}
+@media (min-width:640px){.opts{grid-template-columns:1fr 1fr}.quiz .word{font-size:60px}.qstage{flex:0 0 auto;padding:11vh 0 44px}}
+/* 결과표 */
+.report .rtop{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px dashed var(--line)}
+.report .rtop time{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.report .of{margin:20px 0 0;color:var(--muted);font-size:15.5px}
+.report .big{margin:4px 0 0;font-family:'MaruBuri',serif;font-size:60px;line-height:1.15;font-variant-numeric:tabular-nums}
+.report .big small{font-size:22px;margin-left:4px}
+.report .stage-l{margin:12px 0 0;display:inline-flex;gap:8px;align-items:center;font-size:15px;padding:7px 13px;border-radius:12px;background:var(--mark)}
+.report .stage-l b{font-weight:700}
+.sheet{margin:22px 0 0;padding:16px 14px 12px;border-radius:18px;background:var(--canvas);border:1px solid var(--line)}
+.sheet .sh-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:15px;padding:0 4px}
+.sheet .sh-h span{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.sheet ol{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(10,1fr);row-gap:6px}
+.sheet li{display:grid;justify-items:center;gap:5px;padding:6px 0;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mk{display:block;position:relative;width:18px;height:18px}
+.mk.m-ok{border:2.5px solid var(--ok);border-radius:50%}
+.mk.m-no::before,.mk.m-no::after{content:'';position:absolute;left:50%;top:-1px;width:2.5px;height:20px;margin-left:-1.25px;background:var(--no);border-radius:2px;transform:rotate(45deg)}
+.mk.m-no::after{transform:rotate(-45deg)}
+.mk.m-skip::before{content:'';position:absolute;left:3px;right:3px;top:50%;height:2.5px;margin-top:-1.25px;background:var(--faint);border-radius:2px}
+.sheet .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.sheet .legend span{display:inline-flex;align-items:center;gap:6px}
+.sheet .legend .mk{width:13px;height:13px}
+.sheet .legend .mk.m-ok{border-width:2px}
+.sheet .legend .mk.m-no::before,.sheet .legend .mk.m-no::after{height:15px;width:2px;margin-left:-1px}
+.report .tiers{display:grid;gap:12px;margin:22px 0 0}
+.report .tier{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;font-size:14.5px}
+.report .tier .tb{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.report .tier .tb i{display:block;height:100%;width:0;background:var(--text);border-radius:99px;transition:width .8s ease-out}
+.report .tier span:last-child{color:var(--muted);font-variant-numeric:tabular-nums;min-width:92px;text-align:right}
+.report .read{margin:22px 0 0;padding:16px;border-radius:16px;background:var(--canvas);border:1px solid var(--line)}
+.report .read b{font-family:'MaruBuri',serif;font-weight:400;font-size:26px}
+.report .read p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.report .next{margin:16px 0 0;font-size:15.5px}
+.report .acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.report .acts button{font:inherit;font-weight:700;font-size:15.5px;border-radius:14px;padding:15px 12px;cursor:pointer;border:1px solid var(--text)}
+.report .acts .share{background:var(--highlight);border-color:var(--highlight);color:#23211E}
+.report .acts .again{background:none;color:var(--text)}
+.report .done{min-height:1.4em;margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.report details{margin-top:12px;font-size:15px}
+.report details summary{cursor:pointer;font-weight:600}
+.report details ul{list-style:none;margin:8px 0 0;padding:0}
+.report details li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.report details li b{flex:0 0 auto}
+.report details li span{color:var(--muted)}
+.report .note{margin:16px 0 0;font-size:13px;color:var(--muted)}
+@media (max-width:600px){.quiz{padding:26px 18px 20px;border-radius:22px;margin:0 -4px 8px}.cover h1{font-size:30px}.spec dd{font-size:25px}.report .big{font-size:50px}.sheet{padding:14px 8px 10px}}
+@media (prefers-reduced-motion:reduce){.report .tier .tb i,.quiz .opt{transition:none}}
 </style>'''
 
 TEST_JS = r'''<script>
@@ -438,10 +509,11 @@ TEST_JS = r'''<script>
   const fmt = (n) => n.toLocaleString('ko-KR');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TIERS = [['elementary', '초등'], ['middle', '중학'], ['high', '고등']];
+  const TNAME = Object.fromEntries(TIERS);
   const ORDER = ['elementary', 'elementary', 'middle', 'elementary', 'middle', 'middle', 'elementary', 'middle', 'high', 'middle',
     'elementary', 'high', 'middle', 'high', 'middle', 'elementary', 'high', 'high', 'middle', 'high'];
-  const LIMIT = 4000, SHOW_AFTER = 700;
-  let data = null, qs = [], i = 0, res = [], timer = 0, t0 = 0, raf = 0, locked = false;
+  const LIMIT = 4000, SHOW_AFTER = 700, RING = 119.4;
+  let data = null, qs = [], i = 0, res = [], timer = 0, t0 = 0, raf = 0, locked = true, popIgnore = false;
 
   // 친구가 보낸 결과(?r=1240) — 0~3000만 믿는다.
   const r = parseInt(new URLSearchParams(location.search).get('r'), 10);
@@ -458,48 +530,79 @@ TEST_JS = r'''<script>
     return ORDER.map((t) => { const [w, m, d] = bags[t].pop(); return { t, w, m, opts: shuffle([m, ...shuffle(d.slice()).slice(0, 3)]) }; });
   };
 
+  // 집중 화면: 휴대폰 뒤로 가기는 테스트만 닫는다.
+  const enter = () => { document.body.classList.add('testing'); try { history.pushState({ dq: 1 }, ''); } catch (e) {} };
+  const leave = () => {
+    document.body.classList.remove('testing');
+    if (history.state && history.state.dq) { popIgnore = true; history.back(); }
+  };
+  const stop = () => { locked = true; clearTimeout(timer); cancelAnimationFrame(raf); };
+  const top = () => root.scrollIntoView({ block: 'start' });
+  addEventListener('popstate', () => {
+    if (popIgnore) { popIgnore = false; top(); return; }
+    if (document.body.classList.contains('testing')) { stop(); document.body.classList.remove('testing'); view('start'); $('#q-start-btn').disabled = false; top(); }
+  });
+
   const start = () => {
-    $('#q-start-btn').disabled = true;
-    load().then(() => { qs = pick(); i = 0; res = []; view('q'); root.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); ask(); })
-      .catch(() => { $('#q-start-err').hidden = false; $('#q-start-btn').disabled = false; });
+    const btn = $('#q-start-btn'); btn.disabled = true; $('#q-start-err').hidden = true;
+    load().then(() => {
+      qs = pick(); i = 0; res = [];
+      $('#q-dots').innerHTML = qs.map(() => '<li></li>').join('');
+      view('q'); enter(); root.scrollTop = 0; root.focus({ preventScroll: true }); ask();
+    }).catch(() => { $('#q-start-err').hidden = false; btn.disabled = false; });
+  };
+
+  const setRing = (left) => {
+    $('#q-ring').style.strokeDashoffset = `${RING * (1 - left)}`;
+    $('#q-sec').textContent = Math.ceil(left * LIMIT / 1000);
+    $('#q-clock').classList.toggle('low', left > 0 && left <= 0.375);
   };
 
   const ask = () => {
-    const q = qs[i]; locked = false;
-    $('#q-n').textContent = `${i + 1} / ${qs.length}`;
-    $('#q-bar').style.width = `${(i / qs.length) * 100}%`;
+    const q = qs[i]; locked = true;
+    $('#q-n').textContent = i + 1;
+    $('#q-lv').textContent = `${TNAME[q.t]} 단어`;
+    [...$('#q-dots').children].forEach((d, k) => d.classList.toggle('now', k === i));
     $('#q-word').textContent = q.w;
-    $('#q-hint').textContent = '먼저 뜻을 떠올려 보세요';
-    const box = $('#q-opts'); box.innerHTML = ''; box.hidden = true; $('#q-skip').hidden = true;
-    const tb = $('#q-timer'); tb.style.transform = 'scaleX(1)';
+    const h = $('#q-hint'); h.className = 'hint'; h.textContent = '뜻을 먼저 떠올려 보세요';
+    const box = $('#q-opts'); box.innerHTML = ''; box.classList.add('wait'); $('#q-skip').classList.add('wait');
+    setRing(1);
     q.opts.forEach((m, k) => {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = m;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.dataset.m = m; b.tabIndex = -1;
+      b.innerHTML = `<span class="k" aria-hidden="true">${k + 1}</span><span>${esc(m)}</span>`;
       b.addEventListener('click', () => answer(m, b)); box.appendChild(b);
     });
     clearTimeout(timer); cancelAnimationFrame(raf);
     timer = setTimeout(() => {
-      box.hidden = false; $('#q-skip').hidden = false; $('#q-hint').textContent = matchMedia('(hover: hover)').matches ? '4초 안에 골라요 · 키보드 1~4' : '4초 안에 골라요';
+      locked = false;
+      box.classList.remove('wait'); $('#q-skip').classList.remove('wait');
+      box.querySelectorAll('.opt').forEach((b) => b.tabIndex = 0);
+      h.textContent = matchMedia('(hover: hover)').matches ? '4초 안에 골라요 · 키보드 1~4' : '4초 안에 골라요';
       t0 = performance.now();
-      const tick = (now) => { const left = Math.max(0, 1 - (now - t0) / LIMIT); tb.style.transform = `scaleX(${left})`; if (left > 0 && !locked) raf = requestAnimationFrame(tick); };
+      const tick = (now) => { const left = Math.max(0, 1 - (now - t0) / LIMIT); setRing(left); if (left > 0 && !locked) raf = requestAnimationFrame(tick); };
       raf = requestAnimationFrame(tick);
       timer = setTimeout(() => answer(null, null, true), LIMIT);
     }, SHOW_AFTER);
   };
 
   const answer = (m, btn, timeout = false) => {
-    if (locked) return; locked = true; clearTimeout(timer); cancelAnimationFrame(raf);
+    if (locked) return; stop();
     const q = qs[i], ok = m === q.m, skip = m === null;
     res.push({ t: q.t, w: q.w, m: q.m, ok, skip });
-    const opts = [...$('#q-opts').children];
-    opts.forEach((b) => { b.disabled = true; if (b.textContent === q.m && (!ok)) b.classList.add('ok'); });
-    if (btn) btn.classList.add(ok ? 'ok' : 'no');
-    $('#q-hint').textContent = ok ? '맞았어요' : timeout ? '시간이 지났어요' : skip ? '괜찮아요, 다음 단어' : '아쉬워요';
-    setTimeout(() => { i++; if (i < qs.length) ask(); else finish(); }, ok ? 380 : 950);
+    const dot = $('#q-dots').children[i]; dot.classList.remove('now'); dot.classList.add(ok ? 'ok' : skip ? 'sk' : 'no');
+    for (const b of $('#q-opts').children) {
+      b.disabled = true;
+      if (b.dataset.m === q.m) { b.classList.add('ok'); b.querySelector('.k').textContent = '✓'; }
+      else if (b === btn) { b.classList.add('no'); b.querySelector('.k').textContent = '✕'; }
+      else b.classList.add('dim');
+    }
+    const h = $('#q-hint');
+    h.className = 'hint ' + (ok ? 'ok' : 'no');
+    h.textContent = ok ? '맞았어요' : timeout ? '시간이 지났어요' : skip ? '괜찮아요, 다음 단어' : '아쉬워요';
+    setTimeout(() => { i++; if (i < qs.length) ask(); else finish(); }, ok ? 420 : 1000);
   };
 
   const finish = () => {
-    $('#q-bar').style.width = '100%';
-    root.scrollIntoView({ block: 'start' });
     const p = {}; let est = 0;
     for (const [t] of TIERS) {
       const a = res.filter((x) => x.t === t), R = a.filter((x) => x.ok).length, W = a.filter((x) => !x.ok && !x.skip).length;
@@ -509,17 +612,26 @@ TEST_JS = r'''<script>
     est = Math.round(est / 10) * 10;
     const c = data.book.count, tot = c.elementary + c.middle + c.high;
     const read = Math.round(100 * (c.elementary * p.elementary + c.middle * p.middle + c.high * p.high) / tot);
-    view('r');
+    view('r'); leave(); top();
+    $('#r-date').textContent = new Date().toLocaleDateString('ko-KR');
     const big = $('#r-big');
     if (reduce) big.textContent = fmt(est); else {
       const s = performance.now(); const run = (now) => { const k = Math.min(1, (now - s) / 900); big.textContent = fmt(Math.round(est * (1 - Math.pow(1 - k, 3)) / 10) * 10); if (k < 1) requestAnimationFrame(run); }; requestAnimationFrame(run);
     }
+    const where = p.elementary < 0.8 ? ['초등 단어 채우는 중', '초등 단어부터 채우면 좋아요.', 'elem', '초등 기본 어휘']
+      : p.middle < 0.7 ? ['중학 단어 쌓는 중', '다음은 중학 단어(**) 차례예요.', 'middle', '중학 기본 어휘']
+      : p.high < 0.6 ? ['고등 단어 넓히는 중', '고등 단어로 넓혀 갈 때예요.', 'high', '고등 기본 어휘']
+      : ['기본 어휘 거의 다 앎', '남은 고등 단어만 채우면 돼요.', 'high', '고등 기본 어휘'];
+    $('#r-stage').textContent = where[0];
+    const nOk = res.filter((x) => x.ok).length, nNo = res.filter((x) => !x.ok && !x.skip).length, nSkip = res.length - nOk - nNo;
+    $('#r-score').textContent = `${res.length}문제 중 ${nOk}개 맞힘`;
+    $('#r-sheet').innerHTML = res.map((x, k) => `<li title="${esc(x.w)}"><span class="mk ${x.ok ? 'm-ok' : x.skip ? 'm-skip' : 'm-no'}"></span>${k + 1}</li>`).join('');
+    $('#r-legend').innerHTML = `<span><i class="mk m-ok"></i>맞힘 ${nOk}</span><span><i class="mk m-no"></i>틀림 ${nNo}</span><span><i class="mk m-skip"></i>모름 · 시간 초과 ${nSkip}</span>`;
     $('#r-tiers').innerHTML = TIERS.map(([t, n]) => `<div class="tier"><span>${n}</span><span class="tb"><i data-w="${Math.round(p[t] * 100)}"></i></span><span>${fmt(Math.round(data.N[t] * p[t] / 10) * 10)} / ${fmt(data.N[t])}</span></div>`).join('');
     requestAnimationFrame(() => requestAnimationFrame(() => root.querySelectorAll('.tier .tb i').forEach((x) => x.style.width = x.dataset.w + '%')));
     $('#r-read').textContent = `${read}%`;
     $('#r-book').textContent = `셜록 홈스 「${data.book.title}」에 나오는 기본 어휘 중 이만큼을 알 것 같아요.`;
-    const where = p.elementary < 0.8 ? ['초등 단어부터 채우면 좋아요.', 'elem', '초등 기본 어휘'] : p.middle < 0.7 ? ['다음은 중학 단어(**) 차례예요.', 'middle', '중학 기본 어휘'] : ['고등 단어로 넓혀 갈 때예요.', 'high', '고등 기본 어휘'];
-    $('#r-next').innerHTML = `${where[0]} <a href="/basic-words/#${where[1]}">${where[2]} 목록 보기</a>`;
+    $('#r-next').innerHTML = `${where[1]} <a href="/basic-words/#${where[2]}">${where[3]} 목록 보기</a>`;
     const miss = res.filter((x) => !x.ok);
     $('#r-miss').hidden = !miss.length;
     $('#r-miss-n').textContent = miss.length;
@@ -537,13 +649,19 @@ TEST_JS = r'''<script>
     catch (e) { $('#r-done').textContent = `이 주소를 보내 주세요: ${url}`; }
   };
 
+  const quit = () => { stop(); view('start'); $('#q-start-btn').disabled = false; leave(); top(); };
   $('#q-start-btn').addEventListener('click', start);
+  $('#q-exit').addEventListener('click', quit);
   $('#q-skip').addEventListener('click', () => answer(null, null));
   $('#r-share').addEventListener('click', share);
-  $('#r-again').addEventListener('click', () => { view('start'); $('#q-start-btn').disabled = false; root.scrollIntoView({ block: 'start' }); });
+  $('#r-again').addEventListener('click', () => { view('start'); $('#q-start-btn').disabled = false; top(); });
   addEventListener('keydown', (e) => {
-    const box = $('#q-opts'); if (box.hidden || locked) return;
-    const k = parseInt(e.key, 10); if (k >= 1 && k <= 4 && box.children[k - 1]) { e.preventDefault(); box.children[k - 1].click(); }
+    if (!document.body.classList.contains('testing')) return;
+    if (e.key === 'Escape') { e.preventDefault(); quit(); return; }
+    if (locked) return;
+    const box = $('#q-opts'), k = parseInt(e.key, 10);
+    if (k >= 1 && k <= 4 && box.children[k - 1]) { e.preventDefault(); box.children[k - 1].click(); }
+    else if (e.key === '0') { e.preventDefault(); answer(null, null); }
   });
   view('start');
 })();
@@ -559,24 +677,37 @@ def build_test():
     headline = '기본 영단어 3,000개 중, 나는 몇 개 알까?'
     data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='영단어 테스트', og='test-og.png',
               keywords=['영단어 테스트', '영어 어휘력 테스트', '중학생 영단어 테스트', '기본 어휘 테스트', '영단어 레벨 테스트', '영어 단어 실력'])
-    quiz = f'''<section class="quiz" id="quiz" aria-label="영단어 테스트">
-<div data-view="start"><p class="friend" id="q-friend" hidden></p><h2>20문제, 2분이면 돼요</h2><p class="lead">영어 단어를 보고 4초 안에 뜻을 골라요. 모르면 '모르겠어요'를 눌러요. 찍어서 맞힌 몫은 빼고 어림해요.</p>
-<ul class="facts"><li><b>20문제</b><span>초등 6 · 중학 8 · 고등 6, 기본 어휘에서 무작위로</span></li><li><b>4초</b><span>보자마자 떠오르는 단어만 아는 단어로 쳐요</span></li><li><b>결과</b><span>아는 단어 수 · 학교급별 · 셜록 홈스를 몇 % 읽을 수 있는지</span></li></ul>
+    play = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1 1 0 0 0 1.5.86l10.2-6.4a1 1 0 0 0 0-1.72L9.5 4.74A1 1 0 0 0 8 5.6z"/></svg>'
+    close = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>'
+    quiz = f'''<section class="quiz" id="quiz" aria-label="영단어 테스트" tabindex="-1" data-own-style>
+<div data-view="start" class="cover"><p class="friend" id="q-friend" hidden></p>
+<span class="qtag">영단어 레벨 테스트</span>
+<h1>기본 영단어 3,000개 중, <br><span class="mark">나는 몇 개 알까?</span></h1>
+<div class="mascot"><img src="/icon.png" alt="단숙이" width="60" height="60"><p class="bubble">보자마자 떠오르는 단어만 세요. 모르면 찍지 말고 '모르겠어요'!</p></div>
+<dl class="spec"><div><dt>문항</dt><dd>20<small>문제</small></dd></div><div><dt>걸리는 시간</dt><dd>2<small>분</small></dd></div><div><dt>문항당</dt><dd>4<small>초</small></dd></div></dl>
+<div class="rules"><h2>푸는 방법</h2><ol><li><b>1</b><span><strong>영어 단어가 먼저 떠요.</strong> 보기가 나오기 전에 뜻을 떠올려 보세요.</span></li><li><b>2</b><span><strong>보기 4개 중 4초 안에</strong> 골라요. 시간이 지나면 다음 문제로 넘어가요.</span></li><li><b>3</b><span><strong>찍어서 맞힌 몫은 빼고</strong> 어림해요. 모르면 '모르겠어요'가 더 정확해요.</span></li></ol></div>
 <p class="err" id="q-start-err" hidden>단어를 불러오지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.</p>
-<button class="go" type="button" id="q-start-btn">테스트 시작</button></div>
-<div data-view="q" hidden><div class="top"><span id="q-n">1 / 20</span><span class="bar"><i id="q-bar"></i></span></div><p class="word" id="q-word" lang="en" aria-live="polite"></p><p class="hint" id="q-hint" aria-live="polite"></p><div class="timer" aria-hidden="true"><i id="q-timer"></i></div><div class="opts" id="q-opts"></div><button class="skip" type="button" id="q-skip" hidden>모르겠어요</button></div>
-<div data-view="r" hidden><p class="of">기본 영단어 3,000개 중 아는 단어</p><p class="big" aria-live="polite">약 <span id="r-big">0</span><small>개</small></p>
+<button class="go" type="button" id="q-start-btn">{play}테스트 시작하기</button>
+<p class="fine byline">초등 6 · 중학 8 · 고등 6문제 <span aria-hidden="true">·</span> 가입 없음 · 무료 <span aria-hidden="true">·</span> <time datetime="{DAY}">2026년 11월 3일</time></p></div>
+<div data-view="q" class="solve" hidden><div class="qhead"><button class="x" type="button" id="q-exit" aria-label="테스트 그만하기">{close}</button><div class="qmeta"><span class="qn"><b id="q-n">1</b> / 20</span></div><div class="ring" id="q-clock" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" id="q-ring" cx="22" cy="22" r="19"/></svg><span id="q-sec">4</span></div></div>
+<ol class="dots" id="q-dots" aria-hidden="true"></ol>
+<div class="qstage"><span class="lv" id="q-lv">초등 단어</span><p class="word" id="q-word" lang="en" aria-live="polite"></p><p class="hint" id="q-hint" aria-live="polite"></p></div>
+<div class="opts" id="q-opts"></div><button class="skip" type="button" id="q-skip">모르겠어요</button></div>
+<div data-view="r" class="report" hidden><div class="rtop"><span class="qtag">결과표</span><time id="r-date"></time></div>
+<p class="of">기본 영단어 3,000개 중 아는 단어</p><p class="big" aria-live="polite">약 <span id="r-big">0</span><small>개</small></p>
+<p class="stage-l">지금 단계 <b id="r-stage"></b></p>
+<div class="sheet"><div class="sh-h"><b>채점</b><span id="r-score"></span></div><ol id="r-sheet"></ol><p class="legend" id="r-legend"></p></div>
 <div class="tiers" id="r-tiers"></div>
 <div class="read"><b id="r-read">0%</b><p id="r-book"></p></div>
 <p class="next" id="r-next"></p>
 <div class="acts"><button class="share" type="button" id="r-share">친구에게 자랑하기</button><button class="again" type="button" id="r-again">다시 하기</button></div><p class="done" id="r-done" aria-live="polite"></p>
 <details id="r-miss"><summary>몰랐던 단어 <span id="r-miss-n">0</span>개 다시 보기</summary><ul id="r-miss-list"></ul></details>
-<p class="of" style="margin-top:14px;font-size:13px">20문제로 어림한 값이라, 다시 하면 조금 달라질 수 있어요. 결과는 이 화면에서만 계산하고 어디에도 저장하거나 보내지 않아요.</p></div>
+<p class="note">20문제로 어림한 값이라, 다시 하면 조금 달라질 수 있어요. 결과는 이 화면에서만 계산하고 어디에도 저장하거나 보내지 않아요.</p></div>
 <noscript><p>테스트는 자바스크립트를 켜야 할 수 있어요.</p></noscript>
 </section>'''
     tot = sum(cnt.values())
     body = f'''<main class="research-main"><article class="wrap narrow research-article" id="post">
-<header class="article-head"><p class="crumb"><a href="/">단숙이</a> › <a href="/method/">공부 방법</a> › 영단어 테스트</p><div class="series">영단어 테스트 · 2분</div><h1>기본 영단어 3,000개 중, <br><span class="mark">나는 몇 개 알까?</span></h1><p class="deck">20문제를 4초 안에 풀면 아는 단어 수를 어림해 드려요. <br>셜록 홈스 이야기를 몇 % 읽을 수 있는지도요.</p><div class="byline">단숙이 <span aria-hidden="true">·</span> <time datetime="{DAY}">2026년 11월 3일</time> <span aria-hidden="true">·</span> 가입 없음 · 무료</div></header>
+<p class="crumb"><a href="/">단숙이</a> › <a href="/method/">공부 방법</a> › 영단어 테스트</p>
 {quiz}
 <h2 id="how">이 테스트는 <br>이렇게 어림해요</h2>
 <p>문제는 교육부 기본 어휘(2022 개정) 3,000개에서 나와요. 초등 권장 단어(*) {N["elementary"]:,}개, 중학교 · 고1 공통과목 권장 단어(**) {N["middle"]:,}개, 나머지 {N["high"]:,}개에서 각각 6 · 8 · 6개를 무작위로 골라요. 학교급마다 맞힌 비율을 그 학교급 단어 수에 곱해 더한 값이 결과예요.</p>

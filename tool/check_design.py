@@ -70,7 +70,8 @@ PROBE = r'''() => {
     if (!/MaruBuri/.test(getComputedStyle(el).fontFamily)) continue;
     for (const n of el.childNodes) if (n.nodeType === 3) out.serif += n.textContent;
   }
-  const pick = (sel) => { const el = art.querySelector(sel); if (!el) return null; const s = getComputedStyle(el); return [s.fontFamily.split(',')[0], s.fontSize, s.lineHeight, s.fontWeight].join(' / '); };
+  const pick = (sel) => { const el = art.querySelector(sel); if (!el || el.closest('[data-own-style]')) return null;  // 테스트처럼 자기 모양이 있는 부분은 비교하지 않음
+    const s = getComputedStyle(el); return [s.fontFamily.split(',')[0], s.fontSize, s.lineHeight, s.fontWeight].join(' / '); };
   out.styles = {h1: pick('h1'), h2: pick(':scope > h2'), p: pick(':scope > p:not([class])'), li: pick('.study li')};
   return out;
 }'''
