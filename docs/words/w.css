@@ -1,0 +1,24 @@
+/* 단어별 페이지(/words/…) 공통 — tool/build_word_pages.py가 만든다 */
+.entry .def{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:6px 0 4px}
+.entry .def .w{font-family:'MaruBuri',serif;font-size:40px;line-height:1.2}
+.entry .def .m{font-size:22px;font-weight:700;line-height:1.45}
+.entry .say{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:5px 12px;cursor:pointer}
+.entry .say:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+.entry .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.entry .tags span,.entry .tags a{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--muted)}
+.entry .senses{margin:12px 0 0;padding-left:20px}
+.entry .ex{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.entry .ex li p{margin:0}
+.entry .ex li{padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.entry .ex .en{font-size:17px;line-height:1.6}
+.entry .ex mark{background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 1px}
+.entry .ex .ko{margin-top:4px;color:var(--muted);font-size:15px}
+.entry .ex .src{margin-top:6px;color:var(--faint);font-size:12.5px}
+.entry .rel{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:0}
+.entry .rel li{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.entry .rel li b{flex:0 0 auto;font-weight:700}
+.entry .rel li span{color:var(--muted)}
+.entry .near{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.entry .near a{padding:6px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-decoration:none;font-weight:600}
+.entry .near a small{color:var(--muted);font-weight:400;margin-left:4px}
+@media (max-width:600px){.entry .def .m{font-size:19px}}

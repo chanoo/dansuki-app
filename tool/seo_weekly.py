@@ -99,6 +99,15 @@ def main():
         if not title or not desc:
             problems.append(f'{u} 제목 · 설명 없음')
         lines.append(f'| {u.replace(SITE, "/")}{flag} | {code} | {ms:.0f}ms | {len(body) / 1024:.0f}KB | {len(title)} | {len(desc)} |')
+    # 단어별 페이지: 사이트맵 개수와 무작위 10개 응답
+    wc, _, wsm = get(SITE + 'sitemap-words.xml')
+    wurls = re.findall(r'<loc>([^<]+)</loc>', wsm.decode('utf-8', 'replace')) if wc == 200 else []
+    import random
+    sample = random.sample(wurls, min(10, len(wurls)))
+    bad = [u for u in sample if get(u)[0] != 200]
+    lines += ['', f'단어별 페이지: 사이트맵 {len(wurls):,}개, 무작위 {len(sample)}개 중 응답 실패 {len(bad)}개' + (' ✅' if not bad else ' ❌')]
+    if wc != 200 or bad:
+        problems.append(f'단어 페이지 문제({wc}, 실패 {len(bad)})')
     lines.append('')
 
     # 3) 속도

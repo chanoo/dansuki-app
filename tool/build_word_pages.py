@@ -83,6 +83,10 @@ N = {k: len(v) for k, v in by.items()}
 assert sum(N.values()) == len(cur) == 3000, N
 
 
+def wslug(word):
+    return re.sub(r'[^a-z0-9-]', '', word.lower().replace(' ', '-'))
+
+
 def deriv(w):
     d = DERIV.get(w['word'])
     return f' <small class="deriv">({e(", ".join(sorted(d)))})</small>' if d else ''
@@ -97,7 +101,7 @@ def word_list(ws, slug):
     out = [f'<nav class="az" aria-label="알파벳으로 찾기">{letters}</nav>']
     for c, g in groups.items():
         items = ''.join(
-            f'<li><b lang="en">{e(w["word"])}{deriv(w)}</b><span>{e(w["meaning"])}</span></li>' for w in g)
+            (f'<li><b lang="en"><a href="/words/{wslug(w["word"])}/">{e(w["word"])}</a>{deriv(w)}</b><span>{e(w["meaning"])}</span></li>' if w.get('cell2022') else f'<li><b lang="en">{e(w["word"])}{deriv(w)}</b><span>{e(w["meaning"])}</span></li>') for w in g)
         out.append(f'<div class="wgroup" style="--h1:{len(g) * 37 + 49}px;--h2:{(len(g) + 1) // 2 * 38 + 49}px"><h4 id="{slug}-{c.lower()}">{c}</h4><ul class="wlist">{items}</ul></div>')
     return ''.join(out)
 
@@ -592,4 +596,210 @@ def build_test():
 
 test_sizes = build_test()
 print('test pool', test_sizes)
+# ── /words/<단어>/ 단어별 페이지(2026-11-03 SEO 자동화) ─────────────────
+# 예문은 단숙이가 직접 쓴 것만: 이야기 19편 속 문장(덩어리 해석을 이어 붙인 한국어) + 자체 작성 예문
+# (2015 초등 권장 800개 · 2022 신규 단어). 다른 예문은 바깥 자료라 싣지 않는다(이용 허락 미확인, 2026-11-03 사용자 결정).
+import re as _re
+
+TIER_KO = {'elementary': ('초등', '*', 'elem'), 'middle': ('중학', '**', 'middle'), 'high': ('고등', '', 'high')}
+WORD_LABELS = '뜻 발음 듣기 이야기 속 문장 예문 헷갈리는 단어 비슷한 말 반대말 같은 칸 단어 같은 학교급 단어 기본 어휘 목록으로'
+
+
+
+def story_examples():
+    """칸 단어 → [(문장 en 조각들, 한국어, 책 제목, 장 번호)] 후보."""
+    man = json.loads((DOCS / 'stories/manifest.json').read_text(encoding='utf-8'))
+    byid = {w['id']: w for w in words}
+    cell_word = {}
+    for w in words:
+        if w.get('cell2022'):
+            cell_word[w['id']] = w['word']
+        elif w.get('grade2022'):
+            c = cell_of.get(fam_key(w))
+            if c:
+                cell_word[w['id']] = c
+    out = {}
+    for b in man['books']:
+        book = json.loads((DOCS / 'stories' / b['url']).read_text(encoding='utf-8'))
+        btitle = book['titleKo']
+        for ch in book['chapters']:
+            for para in ch['paragraphs']:
+                toks = para['en']
+                text = ''.join(t[0] for t in toks)
+                # 덩어리(영어 · 한국어)의 자리
+                spans, pos = [], 0
+                for c in para.get('chunks', []):
+                    i = text.find(c[0], pos)
+                    if i < 0:
+                        continue
+                    spans.append((i, i + len(c[0]), c[1])); pos = i + len(c[0])
+                # 문장 경계
+                ends = [m.end() for m in _re.finditer(r'(?<!\bMr)(?<!\bMrs)(?<!\bMs)(?<!\bDr)(?<!\bSt)(?<!\bMt)[.!?]["”’]?(?=\s|$)', text)] or [len(text)]
+                if ends[-1] < len(text.rstrip()):
+                    ends.append(len(text))
+                starts = [0] + ends[:-1]
+                off = 0
+                for t in toks:
+                    s0, e0 = off, off + len(t[0]); off = e0
+                    cw = cell_word.get(t[1]) if t[1] else None
+                    if not cw:
+                        continue
+                    k = next((j for j, e in enumerate(ends) if s0 < e), len(ends) - 1)
+                    ss, se = starts[k], ends[k]
+                    sent = text[ss:se].strip()
+                    if not (30 <= len(sent) <= 170):
+                        continue
+                    ko = ' '.join(c[2] for c in spans if c[0] < se and c[1] > ss)
+                    if not ko:
+                        continue
+                    lead = len(text[ss:se]) - len(text[ss:se].lstrip())
+                    a, z = s0 - ss - lead, e0 - ss - lead
+                    out.setdefault(cw, []).append((sent[:a], sent[a:z], sent[z:], ko, btitle, ch['n'], bool(byid[t[1]].get('cell2022'))))
+    return out
+
+
+WORDS_PAGE_CSS = '<link rel="stylesheet" href="/words/w.css?v=2">'
+W_CSS = '''/* 단어별 페이지(/words/…) 공통 — tool/build_word_pages.py가 만든다 */
+.entry .def{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:6px 0 4px}
+.entry .def .w{font-family:'MaruBuri',serif;font-size:40px;line-height:1.2}
+.entry .def .m{font-size:22px;font-weight:700;line-height:1.45}
+.entry .say{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:5px 12px;cursor:pointer}
+.entry .say:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+.entry .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.entry .tags span,.entry .tags a{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--muted)}
+.entry .senses{margin:12px 0 0;padding-left:20px}
+.entry .ex{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.entry .ex li p{margin:0}
+.entry .ex li{padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.entry .ex .en{font-size:17px;line-height:1.6}
+.entry .ex mark{background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 1px}
+.entry .ex .ko{margin-top:4px;color:var(--muted);font-size:15px}
+.entry .ex .src{margin-top:6px;color:var(--faint);font-size:12.5px}
+.entry .rel{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:0}
+.entry .rel li{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.entry .rel li b{flex:0 0 auto;font-weight:700}
+.entry .rel li span{color:var(--muted)}
+.entry .near{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.entry .near a{padding:6px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-decoration:none;font-weight:600}
+.entry .near a small{color:var(--muted);font-weight:400;margin-left:4px}
+@media (max-width:600px){.entry .def .m{font-size:19px}}
+'''
+SAY_JS = '''<script>
+// 발음 듣기: 브라우저에 들어 있는 영어 목소리로 읽는다(서버로 보내지 않음).
+(() => { const b = document.querySelector('.say'); if (!b) return;
+  if (!('speechSynthesis' in window)) { b.hidden = true; return; }
+  b.addEventListener('click', () => { const u = new SpeechSynthesisUtterance(b.dataset.w); u.lang = 'en-US'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); });
+})();
+</script>'''
+
+
+def link(x, index):
+    return f'<a href="/words/{wslug(x)}/">{e(x)}</a>' if x in index else e(x)
+
+
+def build_entries():
+    ex = story_examples()
+    alpha = {k: sorted(by[k], key=lambda w: w['word'].lower()) for k, _, _ in LEVELS}
+    index = {w['word']: w for w in cur}
+    (DOCS / 'words').mkdir(exist_ok=True)
+    (DOCS / 'words/w.css').write_text(W_CSS, encoding='utf-8')
+    urls, thin = [], 0
+    keep = set()
+    for k, _, _ in LEVELS:
+        lst = alpha[k]
+        for i, w in enumerate(lst):
+            word, sl = w['word'], wslug(w['word'])
+            keep.add(sl)
+            tko, mark_, anchor = TIER_KO[k]
+            own = w.get('grade2015') == 'elementary' or not w.get('grade2015')
+            # 이야기 문장: 짧은 것 위주로, 책이 겹치지 않게 최대 3개
+            cands = sorted(ex.get(word, []), key=lambda c: (not c[6], abs(len(c[0] + c[1] + c[2]) - 80)))
+            picked, books_seen = [], set()
+            for c in cands:
+                if c[4] in books_seen:
+                    continue
+                picked.append(c); books_seen.add(c[4])
+                if len(picked) == 3:
+                    break
+            own_ex = [(w['example'], w['exampleKo'])] if own and w.get('example') else []
+            if own and w.get('senses'):
+                own_ex = [(s['example'], s['exampleKo']) for s in w['senses'] if s.get('example')][:3] or own_ex
+            noindex = not picked and not own_ex
+            thin += noindex
+            path = f'words/{sl}/'
+            url = f'https://dansuki.com/{path}'
+            title = f'{word} 뜻 · 예문 | {tko} 기본 어휘 | 단숙이'
+            desc = (f"{word} 뜻: {w['meaning']}. 교육부 기본 어휘(2022 개정) {tko} 단어예요. "
+                    + (f'셜록 홈스 같은 이야기 속 문장 {len(picked)}개와 ' if picked else '')
+                    + '헷갈리는 단어, 발음까지 한 번에 봐요.')
+            data = {'@context': 'https://schema.org', '@graph': [
+                {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'ko-KR',
+                 'isPartOf': {'@id': 'https://dansuki.com/#website'}, 'mainEntity': {'@id': url + '#term'}, 'breadcrumb': {'@id': url + '#crumb'}},
+                {'@type': 'DefinedTerm', '@id': url + '#term', 'name': word, 'description': w['meaning'], 'inLanguage': 'en', 'url': url,
+                 'inDefinedTermSet': {'@type': 'DefinedTermSet', '@id': 'https://dansuki.com/basic-words/#set', 'name': '교육부 기본 어휘(2022 개정)', 'url': 'https://dansuki.com/basic-words/'}},
+                {'@type': 'BreadcrumbList', '@id': url + '#crumb', 'itemListElement': [
+                    {'@type': 'ListItem', 'position': 1, 'name': '단숙이', 'item': 'https://dansuki.com/'},
+                    {'@type': 'ListItem', 'position': 2, 'name': '기본 어휘 3000 목록', 'item': 'https://dansuki.com/basic-words/'},
+                    {'@type': 'ListItem', 'position': 3, 'name': word, 'item': url}]}]}
+            hd = head(path=path, title=title, desc=desc, og_alt=f'{word} 뜻', ld=data, og='basic-words-og.png', extra_css=WORDS_PAGE_CSS)
+            hd = hd.replace('<meta property="og:type" content="article">', '<meta property="og:type" content="website">')
+            if noindex:
+                hd = hd.replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex, follow">')
+            senses = ''
+            if len(w.get('senses') or []) > 1:
+                senses = '<ol class="senses">' + ''.join(f"<li>{e(s['meaning'])}</li>" for s in w['senses']) + '</ol>'
+            tags = [f'<a href="/basic-words/#{anchor}">{tko} 기본 어휘{(" " + mark_) if mark_ else ""}</a>']
+            tags.append('<span>2015 · 2022 개정 모두</span>' if w.get('grade2015') else '<span>2022 개정에서 새로 들어옴</span>')
+            if DERIV.get(word):
+                tags.append(f'<span>같은 칸: {e(", ".join(sorted(DERIV[word])))}</span>')
+            ex_html = ''
+            if picked:
+                ex_html = ('<h2>이야기 속 문장</h2><p class="muted">단숙이 이야기 탭에 나오는 문장이에요.</p><ul class="ex">'
+                           + ''.join(f'<li><p class="en" lang="en">{e(a)}<mark>{e(b_)}</mark>{e(z)}</p><p class="ko">{e(ko)}</p><p class="src">「{e(bt)}」 {n}장</p></li>'
+                                     for a, b_, z, ko, bt, n, _d in picked) + '</ul>')
+            if own_ex:
+                ex_html += ('<h2>예문</h2><ul class="ex">' + ''.join(
+                    f'<li><p class="en" lang="en">{e(x)}</p><p class="ko">{e(y)}</p></li>' for x, y in own_ex) + '</ul>')
+            rel = ''
+            conf = [c for c in (w.get('confusables') or []) if c.get('word')]
+            if conf:
+                rel += '<h2>헷갈리는 단어</h2><ul class="rel">' + ''.join(
+                    '<li><b lang="en">' + link(c['word'], index) + '</b><span>' + e(c['meaning']) + '</span></li>'
+                    for c in conf[:4]) + '</ul>'
+            for lab, key in (('비슷한 말', 'synonyms'), ('반대말', 'antonyms')):
+                xs = w.get(key) or []
+                if xs:
+                    rel += f'<h2>{lab}</h2><div class="near">' + ''.join(
+                        (f'<a href="/words/{wslug(x)}/" lang="en">{e(x)}<small>{e(index[x]["meaning"][:14])}</small></a>' if x in index else f'<span lang="en">{e(x)}</span>')
+                        for x in xs[:6]) + '</div>'
+            nb = [lst[j] for j in range(max(0, i - 3), min(len(lst), i + 4)) if j != i]
+            near = (f'<h2>같은 학교급 단어</h2><div class="near">' + ''.join(
+                f'<a href="/words/{wslug(x["word"])}/" lang="en">{e(x["word"])}<small>{e(x["meaning"][:12])}</small></a>' for x in nb)
+                + f'</div><p style="margin-top:14px"><a href="/basic-words/#{anchor}">{tko} 기본 어휘 {N[k]:,}개 목록으로</a></p>')
+            body = f'''<main class="research-main"><article class="wrap narrow research-article entry" id="post">
+<header class="article-head"><p class="crumb"><a href="/">단숙이</a> › <a href="/basic-words/">기본 어휘 3000 목록</a> › <a href="/basic-words/#{anchor}">{tko}</a></p><h1 lang="en">{e(word)} <span lang="ko">뜻</span></h1>
+<div class="def"><span class="m">{e(w['meaning'])}</span><button class="say" type="button" data-w="{e(word)}" aria-label="{e(word)} 발음 듣기">▶ 발음</button></div>
+{senses}<div class="tags">{''.join(tags)}</div></header>
+{ex_html}{rel}{near}
+{app_box(f"{e(word)}, 4초 안에 <br>떠올릴 수 있나요?", [f"단숙이는 {e(word)} 같은 교육부 기본 어휘를 4초 안에 떠올리는 방식으로 외우는 무료 영단어 · 숙어 앱이에요. 외운 단어는 2일 · 7일 · 21일 뒤에 다시 물어보고, 이야기 속에서 형광펜으로 다시 만나요.", '지금 몇 개 아는지 궁금하면 <a href="/test/">2분 영단어 테스트</a>부터 해 보세요.'])}
+</article></main>'''
+            page = hd + nav + body + tail.replace('</body>', SAY_JS + '</body>')
+            (DOCS / path).mkdir(parents=True, exist_ok=True)
+            (DOCS / path / 'index.html').write_text(page, encoding='utf-8')
+            if not noindex:
+                urls.append(url)
+    # 예전에 만들었다가 목록에서 빠진 단어 페이지는 지운다
+    import shutil
+    for d in (DOCS / 'words').iterdir():
+        if d.is_dir() and d.name not in keep:
+            shutil.rmtree(d)
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    sm += [f'  <url><loc>{u}</loc><lastmod>{DAY}</lastmod></url>' for u in urls]
+    sm.append('</urlset>')
+    (DOCS / 'sitemap-words.xml').write_text('\n'.join(sm) + '\n', encoding='utf-8')
+    return len(keep), len(urls), thin
+
+
+entry_stats = build_entries()
+print('word pages', entry_stats)
 print('ok', N, len(only2015), len(new2022))

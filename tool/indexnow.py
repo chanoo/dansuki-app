@@ -19,7 +19,12 @@ ENDPOINTS = ['https://api.indexnow.org/indexnow', 'https://searchadvisor.naver.c
 
 
 def sitemap_urls():
-    return re.findall(r'<loc>([^<]+)</loc>', (D / 'sitemap.xml').read_text(encoding='utf-8'))
+    out = []
+    for name in ('sitemap.xml', 'sitemap-words.xml'):
+        f = D / name
+        if f.exists():
+            out += re.findall(r'<loc>([^<]+)</loc>', f.read_text(encoding='utf-8'))
+    return out
 
 
 def url_of(path):

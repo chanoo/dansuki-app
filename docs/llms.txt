@@ -33,6 +33,8 @@
 
 - [교육부 기본 어휘 3000 목록](https://dansuki.com/basic-words/): 2022 개정 교육과정 기본 어휘 3,000개를 초등 800 · 중학 1,200 · 고등 1,000으로 나눠 뜻과 함께 정리(파생어는 대표 단어 옆 괄호, 고시 원문 방식). 2022 개정에서 빠진 100개도 함께
 
+- 단어별 페이지: https://dansuki.com/words/<단어>/ (예: /words/abandon/) — 뜻 · 학교급 · 이야기 속 문장과 해석 · 헷갈리는 단어. 전체 목록은 https://dansuki.com/sitemap-words.xml
+
 ## Optional
 
 - [자주 묻는 질문 · 문제 해결](https://dansuki.com/help/)
