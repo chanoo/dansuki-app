@@ -97,7 +97,7 @@ def word_list(ws, slug):
     for c, g in groups.items():
         items = ''.join(
             f'<li><b lang="en">{e(w["word"])}{deriv(w)}</b><span>{e(w["meaning"])}</span></li>' for w in g)
-        out.append(f'<div class="wgroup"><h4 id="{slug}-{c.lower()}">{c}</h4><ul class="wlist">{items}</ul></div>')
+        out.append(f'<div class="wgroup" style="--h1:{len(g) * 37 + 49}px;--h2:{(len(g) + 1) // 2 * 38 + 49}px"><h4 id="{slug}-{c.lower()}">{c}</h4><ul class="wlist">{items}</ul></div>')
     return ''.join(out)
 
 
@@ -113,6 +113,11 @@ WORDS_CSS = '''<style>
 .research-article .level>h3 small{font-family:inherit;font-size:14px;color:var(--muted);font-weight:500}
 .research-article .az{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 4px}
 .research-article .az a{min-width:28px;padding:4px 0;text-align:center;border-radius:8px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;background:var(--surface);border:1px solid var(--line)}
+/* 화면 밖 단어 묶음은 그리지 않는다(줄 수로 높이 어림, 한 번 그리면 실제 높이 기억). 부드러운 스크롤은 그리면서 높이가 바뀔 때
+   바로가기 자리를 놓쳐서 이 페이지만 끈다(2026-11-03 속도 점검). */
+html{scroll-behavior:auto}
+.research-article .wgroup{content-visibility:auto;contain-intrinsic-size:auto var(--h2,600px)}
+@media (max-width:640px){.research-article .wgroup{contain-intrinsic-size:auto var(--h1,1200px)}}
 .research-article .wgroup h4{margin:18px 0 6px;font-size:15px;color:var(--muted);scroll-margin-top:96px}
 .research-article .wlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
 .research-article .wlist li{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.45;min-width:0}
@@ -122,6 +127,7 @@ WORDS_CSS = '''<style>
 .research-article details.old{margin:36px 0 0;border:1px solid var(--line);border-radius:18px;padding:4px 18px 14px;background:var(--surface)}
 .research-article details.old summary{cursor:pointer;padding:12px 0;font-weight:700}
 [hidden]{display:none!important}
+.research-article.searching .wlist li:not(.hit),.research-article.searching .wgroup:not(.hit),.research-article.searching .level:not(.hit),.research-article.searching details.old:not(.hit),.research-article.searching .az{display:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .research-article .empty{display:none;padding:18px 0;color:var(--muted)}
 @media (max-width:640px){.research-article .wlist{grid-template-columns:1fr}}
@@ -129,25 +135,60 @@ WORDS_CSS = '''<style>
 
 FIND_JS = '''<script>
 // 단어 찾기: 영어나 뜻 일부로 거른다. 스크립트가 없어도 목록은 다 보인다(검색엔진 · 오래된 브라우저).
+// 3,213줄이라 빠르게(2026-11-03 속도 점검): 줄마다 숨기지 않고, 맞는 줄에만 .hit를 달고 글 전체에 .searching 하나를
+// 켠다(CSS가 나머지를 숨김). 지울 때는 .searching만 끈다. 찾기 목록은 처음 쓸 때 만들고, 바뀐 줄만 고친다.
 (() => {
   const box = document.getElementById('find'), info = document.getElementById('find-info');
   if (!box) return;
-  const items = [...document.querySelectorAll('.wlist li')];
-  items.forEach(li => li.dataset.k = li.textContent.toLowerCase());
-  const groups = [...document.querySelectorAll('.wgroup')], levels = [...document.querySelectorAll('.level, details.old')];
-  const empty = document.querySelector('.empty');
-  let t;
+  const root = document.getElementById('post'), empty = document.querySelector('.empty');
+  const groups = [...document.querySelectorAll('.wgroup')], secs = [...document.querySelectorAll('.level, details.old')];
+  const hint = info.textContent;
+  let idx = null, last = '', t;
+  const build = () => {
+    idx = [];
+    for (const g of groups) {
+      g._s = g.closest('.level, details.old'); g._on = false;
+      for (const li of g.querySelectorAll('li')) idx.push({ li, k: li.textContent.toLowerCase(), g, on: false });
+    }
+    for (const s of secs) s._on = false;
+  };
+  const mark = (o, on) => { if (o._on !== on) { o._on = on; (o.li || o).classList.toggle('hit', on); } };
   const run = () => {
     const q = box.value.trim().toLowerCase();
+    if (q === last) return;
+    last = q;
+    if (!q) { root.classList.remove('searching'); info.textContent = hint; empty.style.display = 'none'; return; }
+    if (!idx) build();
+    const liveG = new Set();
     let n = 0;
-    items.forEach(li => { const on = !q || li.dataset.k.includes(q); li.hidden = !on; if (on) n++; });
-    groups.forEach(g => g.hidden = !!q && !g.querySelector('li:not([hidden])'));
-    levels.forEach(l => { l.hidden = !!q && !l.querySelector('li:not([hidden])'); if (q && l.tagName === 'DETAILS' && !l.hidden) l.open = true; });
-    document.querySelectorAll('.az').forEach(a => a.hidden = !!q);
-    info.textContent = q ? (n ? `${n.toLocaleString()}개 찾았어요` : '') : '영어나 뜻 일부를 써 보세요. 예: environment, 환경';
-    empty.style.display = q && !n ? 'block' : 'none';
+    for (const o of idx) {
+      const on = o.k.includes(q);
+      if (o.on !== on) { o.on = on; o.li.classList.toggle('hit', on); }
+      if (on) { n++; liveG.add(o.g); }
+    }
+    const liveS = new Set();
+    for (const g of groups) { const on = liveG.has(g); mark(g, on); if (on) liveS.add(g._s); }
+    for (const s of secs) { const on = liveS.has(s); mark(s, on); if (on && s.tagName === 'DETAILS') s.open = true; }
+    root.classList.add('searching');
+    info.textContent = n ? `${n.toLocaleString()}개 찾았어요` : '';
+    empty.style.display = n ? 'none' : 'block';
+    // 목록 깊이 내려와 찾으면 목록이 짧아져 결과가 화면 위로 사라진다(찾기 칸은 붙어 따라오므로 그대로 보임)
+    // → 찾기 칸 바로 위 학교급 칩이 지나갔으면 그 자리로 올려, 찾기 칸 아래에 결과가 오게 한다.
+    const top = document.querySelector('.lv-chips');
+    if (top && top.getBoundingClientRect().bottom < 0) top.scrollIntoView({ block: 'start' });
   };
+  box.addEventListener('focus', () => { if (!idx) build(); }, { once: true });
   box.addEventListener('input', () => { clearTimeout(t); t = setTimeout(run, 120); });
+  // 바로가기(A~Z · 학교급)로 간 뒤, 그 사이 그려진 묶음의 높이가 어림과 달라 자리가 밀리면 한 번 더 맞춘다.
+  const settle = () => {
+    const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!el || !el.closest('.level, details.old')) return;
+    let n = 0;
+    const fix = () => { el.scrollIntoView({ block: 'start' }); if (++n < 3) requestAnimationFrame(() => requestAnimationFrame(fix)); };
+    requestAnimationFrame(fix);
+  };
+  addEventListener('hashchange', settle);
+  if (location.hash) addEventListener('load', settle, { once: true });
 })();
 </script>'''
 

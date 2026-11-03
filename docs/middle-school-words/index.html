@@ -10,6 +10,11 @@
 .research-article .level>h3 small{font-family:inherit;font-size:14px;color:var(--muted);font-weight:500}
 .research-article .az{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 4px}
 .research-article .az a{min-width:28px;padding:4px 0;text-align:center;border-radius:8px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;background:var(--surface);border:1px solid var(--line)}
+/* 화면 밖 단어 묶음은 그리지 않는다(줄 수로 높이 어림, 한 번 그리면 실제 높이 기억). 부드러운 스크롤은 그리면서 높이가 바뀔 때
+   바로가기 자리를 놓쳐서 이 페이지만 끈다(2026-11-03 속도 점검). */
+html{scroll-behavior:auto}
+.research-article .wgroup{content-visibility:auto;contain-intrinsic-size:auto var(--h2,600px)}
+@media (max-width:640px){.research-article .wgroup{contain-intrinsic-size:auto var(--h1,1200px)}}
 .research-article .wgroup h4{margin:18px 0 6px;font-size:15px;color:var(--muted);scroll-margin-top:96px}
 .research-article .wlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
 .research-article .wlist li{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.45;min-width:0}
@@ -19,6 +24,7 @@
 .research-article details.old{margin:36px 0 0;border:1px solid var(--line);border-radius:18px;padding:4px 18px 14px;background:var(--surface)}
 .research-article details.old summary{cursor:pointer;padding:12px 0;font-weight:700}
 [hidden]{display:none!important}
+.research-article.searching .wlist li:not(.hit),.research-article.searching .wgroup:not(.hit),.research-article.searching .level:not(.hit),.research-article.searching details.old:not(.hit),.research-article.searching .az{display:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .research-article .empty{display:none;padding:18px 0;color:var(--muted)}
 @media (max-width:640px){.research-article .wlist{grid-template-columns:1fr}}
