@@ -1,0 +1,82 @@
+# 푸시할 때마다 SEO 점검 → 사이트맵 날짜 맞추기 → 배포 끝나면 IndexNow로 바뀐 페이지 알리기(2026-11-03).
+# 점검이 실패하면 빨간 X와 메일로 알려 준다(배포 자체는 GitHub Pages가 따로 한다).
+name: SEO
+
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'tool/check_*.py', 'tool/update_sitemap_lastmod.py', 'tool/indexnow.py', '.github/workflows/seo.yml']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: '사이트맵 전체를 IndexNow로 보내기'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: seo-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install beautifulsoup4
+      - name: SEO 점검(제목 · 설명 · canonical · 구조화 데이터 · 사이트맵)
+        run: python tool/check_seo.py
+      - name: 사이트 안 깨진 링크
+        run: python tool/check_links.py
+
+  publish:
+    needs: check
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: 사이트맵 lastmod를 실제 바뀐 날로
+        id: lastmod
+        run: |
+          python tool/update_sitemap_lastmod.py
+          if ! git diff --quiet docs/sitemap.xml; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'chore(sitemap): lastmod 맞추기 [skip ci]' docs/sitemap.xml
+            git push
+            # GITHUB_TOKEN으로 한 푸시는 Pages 빌드를 깨우지 않아서 직접 요청한다.
+            gh api -X POST "repos/$REPO/pages/builds" >/dev/null || true
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: GitHub Pages 배포가 끝날 때까지 기다리기(최대 10분)
+        run: |
+          for i in $(seq 1 40); do
+            read -r status commit <<<"$(gh api "repos/$REPO/pages/builds/latest" --jq '.status + " " + .commit')"
+            echo "build: $status $commit"
+            if [ "$status" = built ] && [ "$commit" = "${{ steps.lastmod.outputs.sha }}" ]; then exit 0; fi
+            if [ "$status" = errored ]; then echo '::warning::Pages 빌드 오류'; exit 0; fi
+            sleep 15
+          done
+          echo '::warning::배포 확인 시간 초과 — 그래도 알림은 보낸다'
+
+      - name: IndexNow(Bing · 네이버 등)에 바뀐 페이지 알리기
+        run: |
+          if [ "${{ inputs.all }}" = true ] || [ "${{ github.event.before }}" = 0000000000000000000000000000000000000000 ] || [ -z "${{ github.event.before }}" ]; then
+            python tool/indexnow.py --all
+          else
+            files=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- docs | grep '\.html$' || true)
+            [ -n "$files" ] && python tool/indexnow.py $files || echo '바뀐 페이지 없음'
+          fi

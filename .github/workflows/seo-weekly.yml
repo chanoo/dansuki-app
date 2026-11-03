@@ -1,0 +1,33 @@
+# 매주 월요일 오전 9시(한국)에 실제 사이트를 둘러보고 GitHub 이슈로 리포트를 남긴다(2026-11-03).
+# 이슈가 새로 생기면 저장소 주인에게 GitHub 알림 · 메일이 간다. 지난 리포트 이슈는 닫는다.
+name: SEO weekly
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install beautifulsoup4
+      - name: 리포트 만들기
+        run: SEO_PROBLEMS_FILE=problems.txt python tool/seo_weekly.py > report.md
+      - name: 이슈로 남기기(지난 리포트는 닫기)
+        run: |
+          gh label create seo-report --color F3D66B --description '주간 SEO 리포트' 2>/dev/null || true
+          for n in $(gh issue list --label seo-report --state open --json number --jq '.[].number'); do gh issue close "$n" --comment '새 리포트가 올라와서 닫아요.'; done
+          p=$(cat problems.txt)
+          title="SEO 주간 리포트 $(TZ=Asia/Seoul date +%F)$([ "$p" != 0 ] && echo " · 문제 $p개")"
+          gh issue create --title "$title" --label seo-report --body-file report.md
