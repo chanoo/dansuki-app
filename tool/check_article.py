@@ -76,6 +76,13 @@ def main(path):
     need(refs and re.search(r'href="https?://', refs.group(0)), '출처(section.article-refs)에 바깥 링크 없음')
     need(len(outer) >= 1, '바깥 출처 링크 0개')
 
+    # 메뉴 · 푸터는 사이트 공통(공부 글 모음 페이지와 똑같아야 함). 새 글이 메뉴에 칸을 늘리지 않게.
+    ref = (D / 'articles/index.html').read_text(encoding='utf-8')
+    nav_of = lambda x: re.sub(r'\s+|aria-current="page"', '', (re.search(r'<nav class="top">.*?</nav>', x, re.S) or [''])[0])
+    foot_of = lambda x: re.sub(r'\s+', '', (re.search(r'<footer class="site">.*?</footer>', x, re.S) or [''])[0])
+    need(nav_of(s) == nav_of(ref), '상단 메뉴가 사이트 공통 메뉴와 다름(메뉴는 고치지 말 것)')
+    need(foot_of(s) == foot_of(ref), '푸터가 사이트 공통 푸터와 다름(푸터는 고치지 말 것)')
+
     # 금지 표현
     whole = text_of(art)
     for pat, why in FORBIDDEN:

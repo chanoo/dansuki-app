@@ -4,14 +4,14 @@
     @font-face { font-family: 'MaruBuri'; src: url(fonts/MaruBuri-sub.woff2?v=73b3e1a0) format('woff2'); font-display: swap; }
     :root {
       --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
-      --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;
+      --text: #23211E; --muted: #6A645B; --faint: #726B63; --line: #E6DECF;
       --highlight: #F3D66B; --mark: rgba(243, 214, 107, .85);
       --shadow: 0 1px 2px rgba(35,33,30,.04), 0 10px 28px -12px rgba(35,33,30,.16);
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --canvas: #181613; --surface: #221F1B; --sunk: #1C1A17;
-        --text: #EDE7DB; --muted: #A8A094; --faint: #79726A; --line: #302C27;
+        --text: #EDE7DB; --muted: #A8A094; --faint: #8E877C; --line: #302C27;
         --mark: rgba(243, 214, 107, .35);
         --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -12px rgba(0,0,0,.6);
       }

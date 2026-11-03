@@ -69,7 +69,7 @@
   .research-article .stats { gap: 8px; }
   .research-article .stat { padding: 14px 10px; border-radius: 14px; }
   .research-article .stat b { font-size: 25px; }
-  .research-article .stat span { font-size: 11.5px; }
+  .research-article .stat span { font-size: 12.5px; line-height: 1.45; }
   .research-article .study { padding: 20px; }
   .research-article .mapping { grid-template-columns: minmax(0,1fr); }
   .research-article .research-chart { padding: 19px 13px; }
@@ -78,7 +78,7 @@
   .research-article .timeline { gap: 8px; }
   .research-article .time { padding: 16px 8px; border-radius: 14px; }
   .research-article .time strong { font-size: 23px; }
-  .research-article .time small { font-size: 11px; }
+  .research-article .time small { font-size: 12px; }
   .research-article .article-app { padding: 22px; }
   .research-article .endline { font-size: 21px; }
 }
