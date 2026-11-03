@@ -18,6 +18,8 @@ for node in ET.parse(docs / 'sitemap.xml').iter('{http://www.sitemaps.org/schema
     path = docs / urlsplit(node.text).path.lstrip('/')
     paths.append(path / 'index.html' if path.is_dir() else path)
 t = ''.join(p.read_text(encoding='utf-8') for p in paths)
+# 단어 목록(basic-words의 뜻 3,000여 개)은 본문 글꼴(Pretendard)이라 빼 둔다. 넣으면 글꼴이 70 → 104KB로 커진다(2026-11-03).
+t = re.sub(r'<ul class="wlist"[^>]*>.*?</ul>', ' ', t, flags=re.S)
 t = html.unescape(re.sub(r'<[^>]+>', ' ', t))
 # 한글 음절 전부 + 기본 라틴 · 숫자 · 기호
 chars = set(t) | set(chr(c) for c in range(0x20, 0x7f)) | set('·→←…“”‘’—–')
