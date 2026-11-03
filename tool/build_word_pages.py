@@ -345,7 +345,7 @@ TEST_N = {'elementary': 6, 'middle': 8, 'high': 6}
 def build_test_data():
     pool = {k: [] for k, _, _ in LEVELS}
     for w in cur:
-        if len(w['word']) < 3 or w['meaning'].startswith('~'):
+        if len(w['word']) < 3 or w['meaning'].startswith('~') or w['word'].startswith(('twenty-', 'thirty-')):  # 서수 풀어 쓴 말은 문제로 뜻이 적다
             continue
         d = w['distractors']
         near = d['enKo'][:d.get('nearEnKo', 0)]
@@ -376,15 +376,15 @@ def build_test_data():
 
 
 TEST_CSS = '''<style>
-.quiz{margin:28px 0 8px;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--shadow);padding:22px;min-height:420px;display:flex;flex-direction:column}
+.quiz{margin:28px 0 8px;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--shadow);padding:24px}
 .quiz [hidden]{display:none!important}
 .quiz h2{margin:0;font-size:24px}
 .quiz .lead{color:var(--muted);margin:10px 0 0;font-size:15.5px}
 .quiz .facts{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
-.quiz .facts li{display:flex;gap:10px;align-items:baseline;font-size:15.5px}
-.quiz .facts span{flex:1;text-align:left}
-.quiz .facts b{flex:0 0 auto;min-width:64px;font-family:'MaruBuri',serif;font-weight:400;font-size:18px}
-.quiz .go{margin-top:auto;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:16px;padding:16px 20px;background:var(--text);color:var(--canvas);cursor:pointer;width:100%}
+.quiz .facts li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:baseline;font-size:15.5px}
+.quiz .facts span{text-align:left;color:var(--muted)}
+.quiz .facts b{text-align:left;font-family:'MaruBuri',serif;font-weight:400;font-size:18px}
+.quiz .go{margin-top:24px;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:16px;padding:16px 20px;background:var(--text);color:var(--canvas);cursor:pointer;width:100%}
 .quiz .go:focus-visible,.quiz .opt:focus-visible,.quiz .skip:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
 .quiz .friend{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:var(--mark);font-weight:600;font-size:15px}
 .quiz .top{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -424,7 +424,7 @@ TEST_CSS = '''<style>
 .quiz details li b{flex:0 0 auto}
 .quiz details li span{color:var(--muted)}
 .quiz .err{color:var(--muted)}
-@media (max-width:600px){.quiz{padding:18px 16px;border-radius:20px;margin:20px -4px 8px}.quiz .word{font-size:38px;margin-top:26px}.quiz .big{font-size:48px}}
+@media (max-width:600px){.quiz{padding:20px 18px;border-radius:20px;margin:20px -4px 8px}.quiz .facts li{grid-template-columns:64px minmax(0,1fr);gap:10px}.quiz .word{font-size:38px;margin-top:26px}.quiz .big{font-size:48px}}
 @media (prefers-reduced-motion:reduce){.quiz .bar i,.quiz .tier .tb i{transition:none}}
 </style>'''
 

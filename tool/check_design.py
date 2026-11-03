@@ -52,6 +52,18 @@ PROBE = r'''() => {
     const big = fs >= 24 || (fs >= 18.66 && parseInt(s.fontWeight) >= 700);
     if (ratio < (big ? 3 : 4.5)) out.contrast.push(name(el) + ' ' + ratio.toFixed(2) + ':1 "' + el.textContent.trim().slice(0, 18) + '"');
   }
+  // 카드(테두리 · 배경 · 둥근 모서리가 있는 상자) 안에 내용 아래로 휑하게 빈 곳
+  out.empty = [];
+  for (const el of art.querySelectorAll('*')) {
+    const st = getComputedStyle(el);
+    if (!el.offsetParent || parseFloat(st.borderTopLeftRadius) < 8 || st.borderTopWidth === '0px') continue;
+    const bg = rgb(st.backgroundColor); if (!bg || bg.a < 0.5) continue;
+    const kids = [...el.querySelectorAll('*')].filter((k) => k.offsetParent && k.getBoundingClientRect().height > 0);
+    if (!kids.length) continue;
+    const r = el.getBoundingClientRect(), bottom = Math.max(...kids.map((k) => k.getBoundingClientRect().bottom));
+    const gap = r.bottom - parseFloat(st.paddingBottom) - parseFloat(st.borderBottomWidth) - bottom;
+    if (gap > 96) out.empty.push(name(el) + ' 아래 ' + Math.round(gap) + 'px 빔');
+  }
   // 제목 글꼴(마루부리)로 그려지는 글자 모으기
   for (const el of document.querySelectorAll('body *')) {
     if (!el.offsetParent) continue;
@@ -112,6 +124,8 @@ def main():
                     bad.append(f'{tag}: 깨진 이미지 {x}')
                 for x in r['tiny'][:5]:
                     bad.append(f'{tag}: 너무 작은 글씨 {x}')
+                for x in r['empty'][:3]:
+                    bad.append(f'{tag}: 카드 안 빈 공간 {x}')
                 for x in r['contrast'][:5]:
                     bad.append(f'{tag}: 대비 낮음 {x}')
                 for x in errs[:3]:
