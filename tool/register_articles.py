@@ -30,8 +30,38 @@ def read_post(f, path, cat):
     if not pub:
         m = re.search(rf'<loc>{re.escape(SITE + path)}</loc>\s*<lastmod>([^<]+)</lastmod>', (D / 'sitemap.xml').read_text(encoding='utf-8'))
         pub = m.group(1) if m else '2026-10-01'
+    h1 = re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S)
+    deck = re.search(r'<p class="deck">(.*?)</p>', s, re.S)
     return {'file': f, 'path': path, 'url': SITE + path, 'title': title, 'desc': meta(s, name='description'),
-            'date': pub[:10], 'pub': pub, 'cat': cat}
+            'date': pub[:10], 'pub': pub, 'cat': cat,
+            'h1': strip(h1.group(1)) if h1 else title, 'deck': strip(deck.group(1)) if deck else '', 'paras': paragraphs(s)}
+
+
+def strip(x):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<br\s*/?>', ' ', re.sub(r'<(?!br)[^>]+>', '', x)))).strip()
+
+
+def paragraphs(s):
+    """본문 문단(머리 · 목차 · 상자 · 표 · 관련 글 · 출처를 뺀 <p>)만 순서대로."""
+    a, b = s.find('</header>', s.find('<article')), s.find('</article>')
+    if a < 0 or b < 0:
+        return []
+    body = s[a:b]
+    for pat in (r'<!-- blog:related -->.*?<!-- /blog:related -->', r'<nav class="article-toc".*?</nav>',
+                r'<div class="article-app">.*?</div>\s*(?=<section|<p class="endline"|$)', r'<section class="article-refs".*?</section>',
+                r'<div class="(study|stats|quote|chart-table-wrap|scope)".*?</div>\s*</div>|<div class="(study|stats|quote|chart-table-wrap|scope)".*?</div>',
+                r'<figure.*?</figure>', r'<ul.*?</ul>', r'<ol.*?</ol>', r'<table.*?</table>'):
+        body = re.sub(pat, ' ', body, flags=re.S)
+    out = []
+    for m in re.finditer(r'<p(?: class="opening")?>(.*?)</p>', body, re.S):
+        t = strip(m.group(1))
+        if len(t) > 20:
+            out.append(t)
+    return out
+
+
+def clip(t, n):
+    return t if len(t) <= n else t[:n].rsplit(' ', 1)[0] + '…'
 
 
 def posts():
@@ -63,6 +93,26 @@ CARD_CSS = '''<style>
 .cats a{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text);font-size:14px;font-weight:600}
 .cats a[aria-current]{background:var(--text);color:var(--canvas);border-color:var(--text)}
 .pager{display:flex;justify-content:space-between;gap:16px;margin-top:22px;font-weight:600}
+.blog-list{padding-top:28px}
+.blog-head{display:flex;align-items:baseline;gap:10px;margin:0}
+.blog-head h1{margin:0;font-size:30px;line-height:1.3}
+.blog-head span{color:var(--faint);font-size:14px}
+.blog-list .cats{margin-top:14px}
+@media (max-width:600px){.blog-list{padding-top:18px}.blog-head h1{font-size:24px}.blog-list .cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.blog-list .cats::-webkit-scrollbar{display:none}.blog-list .cats a{flex:0 0 auto}}
+.feed{display:grid;gap:0;margin-top:22px}
+.feed>article{padding:26px 0;border-top:1px solid var(--line)}
+.feed>article:first-child{border-top:0;padding-top:6px}
+.feed .meta{margin:0;color:var(--faint);font-size:13.5px}
+.feed h2{margin:6px 0 0;font-size:24px;line-height:1.4}
+.feed h2 a{text-decoration:none;color:var(--text)}
+.feed h2 a:hover{text-decoration:underline;text-underline-offset:4px}
+.feed .feature h2{font-size:31px;line-height:1.35}
+.feed .feature .deck{margin:10px 0 0;color:var(--muted);font-size:17px}
+.feed .feature .body{margin-top:16px}
+.feed .feature .body p{margin:0 0 14px}
+.feed .entry p:not(.meta){margin:8px 0 0;color:var(--muted)}
+.feed .more{display:inline-block;margin-top:10px;font-weight:700;color:var(--text)}
+@media (max-width:600px){.feed .feature h2{font-size:25px}.feed h2{font-size:20px}}
 </style>'''
 
 
@@ -70,6 +120,25 @@ def card(p):
     cname = CATEGORIES[p['cat']][0]
     return (f'<li><a href="/{p["path"]}"><b>{e(p["title"])}</b><span>{e(p["desc"])}</span>'
             f'<small>{cname} · <time datetime="{p["date"]}">{p["date"].replace("-", ". ")}</time></small></a></li>')
+
+
+def when(p):
+    return f'{CATEGORIES[p["cat"]][0]} · <time datetime="{p["date"]}">{p["date"].replace("-", ". ")}</time>'
+
+
+def feature(p):
+    """블로그 첫 화면 맨 위: 최신 글의 앞부분을 그대로 읽게."""
+    paras = p['paras'][:4] or [p['desc']]
+    body = ''.join(f'<p>{e(clip(t, 420))}</p>' for t in paras)
+    return (f'<article class="feature"><p class="meta">{when(p)} · 새 글</p><h2><a href="/{p["path"]}">{e(p["h1"])}</a></h2>'
+            + (f'<p class="deck">{e(p["deck"])}</p>' if p['deck'] else '')
+            + f'<div class="body">{body}</div><a class="more" href="/{p["path"]}">이어서 읽기 →</a></article>')
+
+
+def entry(p):
+    first = p['paras'][0] if p['paras'] else p['desc']
+    return (f'<article class="entry"><p class="meta">{when(p)}</p><h2><a href="/{p["path"]}">{e(p["h1"])}</a></h2>'
+            f'<p>{e(clip(first, 190))}</p><a class="more" href="/{p["path"]}">읽기 →</a></article>')
 
 
 def chips(active):
@@ -102,11 +171,14 @@ def list_page(path, title, h1, deck, items, active, crumb, prev=None, nxt=None, 
     if prev or nxt:
         pager = '<div class="pager">' + (f'<a href="/{prev}">← 최신 글</a>' if prev else '<span></span>') + (f'<a href="/{nxt}">지난 글 →</a>' if nxt else '') + '</div>'
     crumbs = ' › '.join(f'<a href="/{u}">{n}</a>' if i < len(crumb) - 1 else n for i, (n, u) in enumerate(crumb))
-    body = f'''<main class="research-main"><article class="wrap narrow research-article" id="post">
-<header class="article-head"><p class="crumb">{crumbs}</p><div class="series">단숙이 블로그 · {len(items)}편</div><h1>{h1}</h1><p class="deck">{deck}</p></header>
-{chips(active)}<ul class="post-list">{"".join(card(p) for p in items)}</ul>{pager}
+    lead = active is None and prev is None and items
+    feed_html = (feature(items[0]) + ''.join(entry(p) for p in items[1:])) if lead else ''.join(entry(p) for p in items)
+    body = f'''<main class="research-main"><article class="wrap narrow research-article blog-list" id="post">
+<header class="blog-head"><h1>{h1}</h1><span>{len(items)}편</span></header>
+{chips(active)}<div class="feed">{feed_html}</div>{pager}
 <p style="margin-top:28px">지금 몇 개 아는지 궁금하면 <a href="/test/">2분 영단어 테스트</a>, 전체 단어는 <a href="/basic-words/">교육부 기본 어휘 3000 목록</a>에서 볼 수 있어요. 새 글은 <a href="/blog/rss.xml">RSS</a>로도 받아 볼 수 있어요.</p>
 </article></main>'''
+    nav = nav.replace('<a href="/blog/">블로그</a>', '<a href="/blog/" aria-current="page">블로그</a>')
     f = D / path / 'index.html'
     f.parent.mkdir(parents=True, exist_ok=True)
     f.write_text(head + nav + body + tail, encoding='utf-8')
@@ -120,7 +192,7 @@ def build_lists(ps):
         prev = None if n == 1 else ('blog/' if n == 2 else f'blog/page/{n - 1}/')
         nxt = f'blog/page/{n + 1}/' if n < len(pages) else None
         list_page(path, '단숙이 블로그 · 영단어 공부법 글' + ('' if n == 1 else f' {n}쪽') + ' | 단숙이',
-                  '단숙이 <span class="mark">블로그</span>', '영단어 외우는 법, 하루 분량, 기초 다지기까지. <br>단숙이가 정리한 영단어 공부 글이에요.',
+                  '단숙이 블로그', '영단어 외우는 법, 하루 분량, 기초 다지기까지. 단숙이가 정리한 영단어 공부 글이에요.',
                   chunk, None, [('단숙이', ''), ('블로그', 'blog/')], prev, nxt, noindex=n > 1)
     shutil.rmtree(D / 'blog/category', ignore_errors=True)
     for k, (n, intro) in CATEGORIES.items():

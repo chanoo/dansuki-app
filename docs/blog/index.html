@@ -9,6 +9,26 @@
 .cats a{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text);font-size:14px;font-weight:600}
 .cats a[aria-current]{background:var(--text);color:var(--canvas);border-color:var(--text)}
 .pager{display:flex;justify-content:space-between;gap:16px;margin-top:22px;font-weight:600}
+.blog-list{padding-top:28px}
+.blog-head{display:flex;align-items:baseline;gap:10px;margin:0}
+.blog-head h1{margin:0;font-size:30px;line-height:1.3}
+.blog-head span{color:var(--faint);font-size:14px}
+.blog-list .cats{margin-top:14px}
+@media (max-width:600px){.blog-list{padding-top:18px}.blog-head h1{font-size:24px}.blog-list .cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.blog-list .cats::-webkit-scrollbar{display:none}.blog-list .cats a{flex:0 0 auto}}
+.feed{display:grid;gap:0;margin-top:22px}
+.feed>article{padding:26px 0;border-top:1px solid var(--line)}
+.feed>article:first-child{border-top:0;padding-top:6px}
+.feed .meta{margin:0;color:var(--faint);font-size:13.5px}
+.feed h2{margin:6px 0 0;font-size:24px;line-height:1.4}
+.feed h2 a{text-decoration:none;color:var(--text)}
+.feed h2 a:hover{text-decoration:underline;text-underline-offset:4px}
+.feed .feature h2{font-size:31px;line-height:1.35}
+.feed .feature .deck{margin:10px 0 0;color:var(--muted);font-size:17px}
+.feed .feature .body{margin-top:16px}
+.feed .feature .body p{margin:0 0 14px}
+.feed .entry p:not(.meta){margin:8px 0 0;color:var(--muted)}
+.feed .more{display:inline-block;margin-top:10px;font-weight:700;color:var(--text)}
+@media (max-width:600px){.feed .feature h2{font-size:25px}.feed h2{font-size:20px}}
 </style><script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -95,13 +115,13 @@
 </style></head><body><nav class="top">
     <div class="wrap row">
       <a class="brand" href="/"><img src="/icon.png" alt="" width="28" height="28">단숙이</a>
-      <div class="links"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
+      <div class="links"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/" aria-current="page">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
       <a class="get" href="https://apps.apple.com/kr/app/id6819707350">무료로 받기</a>
     </div>
-    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
-  </nav><main class="research-main"><article class="wrap narrow research-article" id="post">
-<header class="article-head"><p class="crumb"><a href="/">단숙이</a> › 블로그</p><div class="series">단숙이 블로그 · 5편</div><h1>단숙이 <span class="mark">블로그</span></h1><p class="deck">영단어 외우는 법, 하루 분량, 기초 다지기까지. <br>단숙이가 정리한 영단어 공부 글이에요.</p></header>
-<nav class="cats" aria-label="블로그 카테고리"><a href="/blog/" aria-current="page">전체</a><a href="/blog/category/memorize/">외우는 법</a><a href="/blog/category/daily/">하루 분량</a><a href="/blog/category/basics/">기초 다지기</a><a href="/blog/category/parents/">학부모</a></nav><ul class="post-list"><li><a href="/middle-school-words/"><b>중학 영단어 공부법 · 하루 몇 개, 어떻게 외울까</b><span>중학생 영단어는 하루 몇 개가 좋을까요? 교육부 기본 어휘 2,000개 기준, 복습량 계산표, 먼저 떠올리기와 간격 복습 연구, 자주 하는 실수와 하루 15분 공부 순서를 정리했어요.</span><small>하루 분량 · <time datetime="2026-11-03">2026. 11. 03</time></small></a></li><li><a href="/basic-words/"><b>교육부 기본 어휘 3000 목록 · 초등 · 중학 · 고등 영단어 뜻 정리</b><span>2022 개정 교육과정 영어 기본 어휘 3,000개를 초등 800 · 중학 1,200 · 고등 1,000개로 나눠 뜻과 함께 정리했어요. 2022 개정에서 빠진 단어와 파생어도 함께 정리했어요.</span><small>기초 다지기 · <time datetime="2026-11-03">2026. 11. 03</time></small></a></li><li><a href="/method/"><b>영단어 암기 공부법과 학습 연구 15편</b><span>영단어를 카드로 익히고, 뜻을 먼저 떠올리고, 날을 두고 다시 확인하는 단숙이 공부법. 인출 연습·간격 반복 등 설계에 참고한 학습·기억 연구 15편과 실제 학습 단계를 살펴보세요.</span><small>외우는 법 · <time datetime="2026-11-03">2026. 11. 03</time></small></a></li><li><a href="/difficulty/"><b>영단어 학습 난이도 자동 조절과 원리</b><span>문제 통과율, 틀린 단어와 며칠 뒤 기억을 살펴 영단어 학습 난이도를 조절해요. 쉽게·보통·어렵게가 달라지는 조건과 직접 설정하는 방법을 확인하세요.</span><small>외우는 법 · <time datetime="2026-11-03">2026. 11. 03</time></small></a></li><li><a href="/spaced-review/"><b>영단어 복습 간격, 왜 중요할까요?</b><span>외국어 학습 실험 48개·학습자 3,411명의 간격 학습 메타분석과 누적 복습 결과를 도표로 살펴봐요. 단숙이가 외운 영단어를 2일·7일·21일 간격으로 다시 확인하는 이유를 설명해요.</span><small>외우는 법 · <time datetime="2026-10-19">2026. 10. 19</time></small></a></li></ul>
+    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/" aria-current="page">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
+  </nav><main class="research-main"><article class="wrap narrow research-article blog-list" id="post">
+<header class="blog-head"><h1>단숙이 블로그</h1><span>5편</span></header>
+<nav class="cats" aria-label="블로그 카테고리"><a href="/blog/" aria-current="page">전체</a><a href="/blog/category/memorize/">외우는 법</a><a href="/blog/category/daily/">하루 분량</a><a href="/blog/category/basics/">기초 다지기</a><a href="/blog/category/parents/">학부모</a></nav><div class="feed"><article class="feature"><p class="meta">하루 분량 · <time datetime="2026-11-03">2026. 11. 03</time> · 새 글</p><h2><a href="/middle-school-words/">중학 영단어, 하루 20개를 오래 남기는 방법</a></h2><p class="deck">몇 개를 외워야 하는지, 하루에 얼마나 할지, 어떻게 해야 안 잊는지 차례로 정리했어요.</p><div class="body"><p>어제 외운 단어가 오늘 시험지에서 생각나지 않을 때가 있어요.</p><p>단어를 열심히 봤는데도 잘 떠오르지 않는다면, 외운 시간보다 외우는 방법을 바꿔 볼 때예요. 중학 영단어는 고등 영어의 바탕이 되니까, 지금 오래 남는 방식으로 쌓아 두면 나중이 훨씬 편해요.</p><p>기준으로 삼기 좋은 건 교육부가 영어과 교육과정과 함께 고시한 기본 어휘 목록이에요. 2022 개정 교육과정(교육부 고시 제2022-33호)의 기본 어휘는 3,000개이고, 원문은 그중 일부에 이렇게 표시해 두었어요.</p><p>* 표시 800개는 초등학교에서, ** 표시 1,200개는 중학교와 고등학교 공통과목(고1 공통영어 등)에서 쓰기를 권장해요. 교육과정은 따로 학년군마다 배울 학습 어휘 수도 정해 두었는데, 중학교 1~3학년은 1,500단어 이내예요.</p></div><a class="more" href="/middle-school-words/">이어서 읽기 →</a></article><article class="entry"><p class="meta">기초 다지기 · <time datetime="2026-11-03">2026. 11. 03</time></p><h2><a href="/basic-words/">교육부 기본 어휘 3,000개, 학교급별로 한눈에</a></h2><p>단어장마다 고른 단어가 달라서 무엇부터 외워야 할지 헷갈릴 때가 있어요.</p><a class="more" href="/basic-words/">읽기 →</a></article><article class="entry"><p class="meta">외우는 법 · <time datetime="2026-11-03">2026. 11. 03</time></p><h2><a href="/method/">학습 연구가 뒷받침하는 단숙이 공부법</a></h2><p>영단어를 카드로 익히고, 뜻을 먼저 떠올리고, 날을 두고 다시 확인하는 단숙이 공부법. 인출 연습·간격 반복 등 설계에 참고한 학습·기억 연구 15편과 실제 학습 단계를 살펴보세요.</p><a class="more" href="/method/">읽기 →</a></article><article class="entry"><p class="meta">외우는 법 · <time datetime="2026-11-03">2026. 11. 03</time></p><h2><a href="/difficulty/">난이도는 단숙이가 맞춰요</a></h2><p>문제 통과율, 틀린 단어와 며칠 뒤 기억을 살펴 영단어 학습 난이도를 조절해요. 쉽게·보통·어렵게가 달라지는 조건과 직접 설정하는 방법을 확인하세요.</p><a class="more" href="/difficulty/">읽기 →</a></article><article class="entry"><p class="meta">외우는 법 · <time datetime="2026-10-19">2026. 10. 19</time></p><h2><a href="/spaced-review/">오늘 외운 영단어를, 단숙이가 다시 묻는 이유</a></h2><p>단어 시험을 보고 나면 단어장도 다음 범위로 넘어가요.</p><a class="more" href="/spaced-review/">읽기 →</a></article></div>
 <p style="margin-top:28px">지금 몇 개 아는지 궁금하면 <a href="/test/">2분 영단어 테스트</a>, 전체 단어는 <a href="/basic-words/">교육부 기본 어휘 3000 목록</a>에서 볼 수 있어요. 새 글은 <a href="/blog/rss.xml">RSS</a>로도 받아 볼 수 있어요.</p>
 </article></main>  <!-- 휴대폰: 첫 화면을 지나면 아래에 받기 바(2026-10-13 사용자: 모바일 최적화) -->
   <div class="dock" aria-hidden="true">
@@ -125,7 +145,7 @@
           <div>
             <h4>단숙이</h4>
             <a href="/method/">공부 방법</a>
-            <a href="/difficulty/">난이도</a>
+            
             <a href="/spaced-review/">영단어 복습 연구</a>
             <a href="/test/">영단어 테스트</a>
             <a href="/basic-words/">기본 어휘 3000 목록</a>

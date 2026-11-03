@@ -129,13 +129,27 @@ html{scroll-behavior:auto}
 .cats a{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text);font-size:14px;font-weight:600}
 .cats a[aria-current]{background:var(--text);color:var(--canvas);border-color:var(--text)}
 .pager{display:flex;justify-content:space-between;gap:16px;margin-top:22px;font-weight:600}
+.feed{display:grid;gap:0;margin-top:26px}
+.feed>article{padding:26px 0;border-top:1px solid var(--line)}
+.feed>article:first-child{border-top:0;padding-top:6px}
+.feed .meta{margin:0;color:var(--faint);font-size:13.5px}
+.feed h2{margin:6px 0 0;font-size:24px;line-height:1.4}
+.feed h2 a{text-decoration:none;color:var(--text)}
+.feed h2 a:hover{text-decoration:underline;text-underline-offset:4px}
+.feed .feature h2{font-size:31px;line-height:1.35}
+.feed .feature .deck{margin:10px 0 0;color:var(--muted);font-size:17px}
+.feed .feature .body{margin-top:16px}
+.feed .feature .body p{margin:0 0 14px}
+.feed .entry p:not(.meta){margin:8px 0 0;color:var(--muted)}
+.feed .more{display:inline-block;margin-top:10px;font-weight:700;color:var(--text)}
+@media (max-width:600px){.feed .feature h2{font-size:25px}.feed h2{font-size:20px}}
 </style></head><body><nav class="top">
     <div class="wrap row">
       <a class="brand" href="/"><img src="/icon.png" alt="" width="28" height="28">단숙이</a>
-      <div class="links"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/" aria-current="page"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
+      <div class="links"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/" aria-current="page"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
       <a class="get" href="https://apps.apple.com/kr/app/id6819707350">무료로 받기</a>
     </div>
-    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/" aria-current="page"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
+    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/" aria-current="page"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
   </nav><main class="research-main"><article class="wrap narrow research-article" id="post">
 <header class="article-head"><p class="crumb"><a href="/">단숙이</a> › <a href="/method/">공부 방법</a> › 기본 어휘 목록</p><div class="series">교육부 기본 어휘 · 2022 개정 교육과정</div><h1>교육부 기본 어휘 3,000개,<br><span class="mark">학교급별로 한눈에</span></h1><p class="deck">초등 800 · 중학 1,200 · 고등 1,000.<br>뜻과 함께 정리하고, 찾아볼 수 있게 했어요.</p><div class="byline">글 · 단숙이를 만든 사람 <span aria-hidden="true">·</span> <time datetime="2026-11-03">2026년 11월 3일</time></div></header>
 <nav class="article-toc" aria-label="이 글의 내용"><p>이 글에서 살펴볼 내용</p><ol><li><a href="#what">기본 어휘가 뭔가요</a></li><li><a href="#count">학교급별로 몇 개인가요</a></li><li><a href="#diff">2015 개정과 무엇이 달라졌나요</a></li><li><a href="#list">3,000개 전체 목록</a></li><li><a href="#how">이 목록, 어떻게 외우면 좋을까요</a></li></ol></nav>
@@ -187,7 +201,7 @@ html{scroll-behavior:auto}
           <div>
             <h4>단숙이</h4>
             <a href="/method/">공부 방법</a>
-            <a href="/difficulty/">난이도</a>
+            
             <a href="/spaced-review/">영단어 복습 연구</a>
             <a href="/test/">영단어 테스트</a>
             <a href="/basic-words/">기본 어휘 3000 목록</a>

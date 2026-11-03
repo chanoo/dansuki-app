@@ -9,6 +9,26 @@
 .cats a{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text);font-size:14px;font-weight:600}
 .cats a[aria-current]{background:var(--text);color:var(--canvas);border-color:var(--text)}
 .pager{display:flex;justify-content:space-between;gap:16px;margin-top:22px;font-weight:600}
+.blog-list{padding-top:28px}
+.blog-head{display:flex;align-items:baseline;gap:10px;margin:0}
+.blog-head h1{margin:0;font-size:30px;line-height:1.3}
+.blog-head span{color:var(--faint);font-size:14px}
+.blog-list .cats{margin-top:14px}
+@media (max-width:600px){.blog-list{padding-top:18px}.blog-head h1{font-size:24px}.blog-list .cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.blog-list .cats::-webkit-scrollbar{display:none}.blog-list .cats a{flex:0 0 auto}}
+.feed{display:grid;gap:0;margin-top:22px}
+.feed>article{padding:26px 0;border-top:1px solid var(--line)}
+.feed>article:first-child{border-top:0;padding-top:6px}
+.feed .meta{margin:0;color:var(--faint);font-size:13.5px}
+.feed h2{margin:6px 0 0;font-size:24px;line-height:1.4}
+.feed h2 a{text-decoration:none;color:var(--text)}
+.feed h2 a:hover{text-decoration:underline;text-underline-offset:4px}
+.feed .feature h2{font-size:31px;line-height:1.35}
+.feed .feature .deck{margin:10px 0 0;color:var(--muted);font-size:17px}
+.feed .feature .body{margin-top:16px}
+.feed .feature .body p{margin:0 0 14px}
+.feed .entry p:not(.meta){margin:8px 0 0;color:var(--muted)}
+.feed .more{display:inline-block;margin-top:10px;font-weight:700;color:var(--text)}
+@media (max-width:600px){.feed .feature h2{font-size:25px}.feed h2{font-size:20px}}
 </style><script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,13 +90,13 @@
 </style></head><body><nav class="top">
     <div class="wrap row">
       <a class="brand" href="/"><img src="/icon.png" alt="" width="28" height="28">단숙이</a>
-      <div class="links"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
+      <div class="links"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/" aria-current="page">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
       <a class="get" href="https://apps.apple.com/kr/app/id6819707350">무료로 받기</a>
     </div>
-    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a><a href="/blog/"><strong>블로그</strong><span>영단어 공부 글 · 매일 새 글</span></a></div></details><a href="/difficulty/">난이도</a><a href="/help/">자주 묻는 질문</a></div>
-  </nav><main class="research-main"><article class="wrap narrow research-article" id="post">
-<header class="article-head"><p class="crumb"><a href="/">단숙이</a> › <a href="/blog/">블로그</a> › 학부모</p><div class="series">단숙이 블로그 · 0편</div><h1>학부모</h1><p class="deck">아이 영단어 공부를 곁에서 돕는 법.</p></header>
-<nav class="cats" aria-label="블로그 카테고리"><a href="/blog/">전체</a><a href="/blog/category/memorize/">외우는 법</a><a href="/blog/category/daily/">하루 분량</a><a href="/blog/category/basics/">기초 다지기</a><a href="/blog/category/parents/" aria-current="page">학부모</a></nav><ul class="post-list"></ul>
+    <div class="links mobile"><a class="try-link" href="/try/">1분 체험</a><a href="/blog/" aria-current="page">블로그</a><details class="study-menu"><summary role="button">공부 방법</summary><div class="study-dropdown"><a href="/test/"><strong>영단어 테스트</strong><span>기본 영단어 3,000개 중 몇 개 알까</span></a><a href="/method/"><strong>단숙이 공부법</strong><span>단어를 익히는 네 단계와 참고 연구</span></a><a href="/difficulty/"><strong>난이도 자동 조절</strong><span>맞힌 비율에 맞춰 문제를 고르는 원리</span></a><a href="/spaced-review/"><strong>복습 연구 이야기</strong><span>오늘 외운 단어를 다시 묻는 이유</span></a><a href="/basic-words/"><strong>기본 어휘 3000 목록</strong><span>교육부 기본 어휘를 학교급별로</span></a><a href="/middle-school-words/"><strong>중학 영단어 공부법</strong><span>하루 20개를 오래 남기는 순서</span></a></div></details><a href="/help/">자주 묻는 질문</a></div>
+  </nav><main class="research-main"><article class="wrap narrow research-article blog-list" id="post">
+<header class="blog-head"><h1>학부모</h1><span>0편</span></header>
+<nav class="cats" aria-label="블로그 카테고리"><a href="/blog/">전체</a><a href="/blog/category/memorize/">외우는 법</a><a href="/blog/category/daily/">하루 분량</a><a href="/blog/category/basics/">기초 다지기</a><a href="/blog/category/parents/" aria-current="page">학부모</a></nav><div class="feed"></div>
 <p style="margin-top:28px">지금 몇 개 아는지 궁금하면 <a href="/test/">2분 영단어 테스트</a>, 전체 단어는 <a href="/basic-words/">교육부 기본 어휘 3000 목록</a>에서 볼 수 있어요. 새 글은 <a href="/blog/rss.xml">RSS</a>로도 받아 볼 수 있어요.</p>
 </article></main>  <!-- 휴대폰: 첫 화면을 지나면 아래에 받기 바(2026-10-13 사용자: 모바일 최적화) -->
   <div class="dock" aria-hidden="true">
@@ -100,7 +120,7 @@
           <div>
             <h4>단숙이</h4>
             <a href="/method/">공부 방법</a>
-            <a href="/difficulty/">난이도</a>
+            
             <a href="/spaced-review/">영단어 복습 연구</a>
             <a href="/test/">영단어 테스트</a>
             <a href="/basic-words/">기본 어휘 3000 목록</a>
