@@ -30,6 +30,7 @@ def text_of(s):
 
 
 def body_of(s):
+    s = re.sub(r'<!-- blog:related -->.*?<!-- /blog:related -->', ' ', s, flags=re.S)
     a, b = s.find('<article'), s.find('</article>')
     return s[a:b] if a >= 0 and b > a else s
 
@@ -42,7 +43,8 @@ def grams(t, n=5):
 def main(path):
     f = Path(path)
     s = f.read_text(encoding='utf-8')
-    slug = f.parent.name
+    rel = f.resolve().parent.relative_to(D.resolve()).as_posix()  # 'blog/<slug>' 또는 예전 글 '<slug>'
+    slug = rel
     art = body_of(s)
     # 글 본문만(앱 소개 상자 · 출처는 빼고) 센다
     main_txt = text_of(re.sub(r'<div class="article-app">.*?</div>|<section class="article-refs".*?</section>', ' ', art, flags=re.S))
@@ -53,7 +55,7 @@ def main(path):
     desc = (re.search(r'<meta name="description" content="([^"]*)"', s) or [None, ''])[1]
     need(10 <= len(title) <= 60, f'제목 길이 {len(title)}자(10~60)')
     need(70 <= len(html.unescape(desc)) <= 130, f'설명 길이 {len(html.unescape(desc))}자(70~130)')
-    need(f'<link rel="canonical" href="https://dansuki.com/{slug}/">' in s, 'canonical 주소가 폴더와 다름')
+    need(f'<link rel="canonical" href="https://dansuki.com/{rel}/">' in s, 'canonical 주소가 폴더와 다름')
     need(len(re.findall(r'<h1[\s>]', s)) == 1, 'H1은 하나')
     need(len(re.findall(r'<h2[\s>]', art)) >= 4, 'H2 4개 이상')
     need('class="article-toc"' in art, '목차(nav.article-toc) 없음')
@@ -65,7 +67,7 @@ def main(path):
     # 구조화 데이터
     lds = [json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', s, re.S)]
     types = {n.get('@type') for d in lds for n in d.get('@graph', [d])}
-    need({'Article', 'BreadcrumbList'} <= types, f'구조화 데이터에 Article · BreadcrumbList 필요(지금 {sorted(t for t in types if t)})')
+    need(bool(types & {'Article', 'BlogPosting'}) and 'BreadcrumbList' in types, f'구조화 데이터에 BlogPosting(또는 Article) · BreadcrumbList 필요(지금 {sorted(t for t in types if t)})')
 
     # 링크: 사이트 안 3개 이상, 바깥 출처 1개 이상
     hrefs = re.findall(r'<a [^>]*href="([^"]+)"', art)
@@ -77,7 +79,7 @@ def main(path):
     need(len(outer) >= 1, '바깥 출처 링크 0개')
 
     # 메뉴 · 푸터는 사이트 공통(공부 글 모음 페이지와 똑같아야 함). 새 글이 메뉴에 칸을 늘리지 않게.
-    ref = (D / 'articles/index.html').read_text(encoding='utf-8')
+    ref = (D / 'blog/index.html').read_text(encoding='utf-8')
     nav_of = lambda x: re.sub(r'\s+|aria-current="page"', '', (re.search(r'<nav class="top">.*?</nav>', x, re.S) or [''])[0])
     foot_of = lambda x: re.sub(r'\s+', '', (re.search(r'<footer class="site">.*?</footer>', x, re.S) or [''])[0])
     need(nav_of(s) == nav_of(ref), '상단 메뉴가 사이트 공통 메뉴와 다름(메뉴는 고치지 말 것)')
@@ -92,8 +94,9 @@ def main(path):
 
     # 다른 글과 너무 비슷하면 안 됨(글자 5개 묶음 겹침)
     mine = grams(main_txt)
-    for g in D.glob('*/index.html'):
-        if g.parent.name in (slug, 'words', 'articles', 'test', 'try'):
+    for g in [*D.glob('*/index.html'), *D.glob('blog/*/index.html')]:
+        grel = g.resolve().parent.relative_to(D.resolve()).as_posix()
+        if grel == rel or g.parent.name in ('words', 'articles', 'test', 'try', 'blog', 'category', 'page'):
             continue
         other = grams(text_of(body_of(g.read_text(encoding='utf-8'))))
         if mine and other:

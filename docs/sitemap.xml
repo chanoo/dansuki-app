@@ -84,7 +84,19 @@
     </image:image>
   </url>
   <url>
-    <loc>https://dansuki.com/articles/</loc>
+    <loc>https://dansuki.com/blog/</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://dansuki.com/blog/category/memorize/</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://dansuki.com/blog/category/daily/</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://dansuki.com/blog/category/basics/</loc>
     <lastmod>2026-11-03</lastmod>
   </url>
 </urlset>

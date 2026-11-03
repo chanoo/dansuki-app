@@ -225,6 +225,16 @@
   .parents .send button { width: 100%; justify-content: center; margin-top: 14px; }
 }
 
+/* 홈 '블로그 새 글'(tool/register_articles.py가 채움) */
+.latest { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.latest-card { display: grid; align-content: start; gap: 6px; padding: 20px 22px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--text); }
+.latest-card:hover { border-color: var(--text); }
+.latest-card small { color: var(--faint); font-size: 13px; }
+.latest-card b { font-family: 'MaruBuri', serif; font-weight: 400; font-size: 19px; line-height: 1.4; }
+.latest-card span { color: var(--muted); font-size: 14.5px; }
+#blog-latest .more { margin-top: 18px; font-weight: 600; }
+@media (max-width: 880px) { .latest { grid-template-columns: minmax(0, 1fr); gap: 10px; } }
+
 /* 푸터 조각 줄(앱 아이콘의 키링 조각) */
 .pieces { display: flex; gap: 5px; margin-bottom: 14px; }
 .pieces i { width: 14px; height: 14px; border-radius: 4px; background: var(--c); box-shadow: inset 0 -3px 0 rgba(0,0,0,.14), inset 0 2px 0 rgba(255,255,255,.35); }

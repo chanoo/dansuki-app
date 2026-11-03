@@ -121,14 +121,14 @@ def main():
                     for k, v in r['styles'].items():
                         if v and ref_styles[view].get(k) and v != ref_styles[view][k]:
                             bad.append(f'{tag}: {k} 스타일이 기존 글과 다름({v} ≠ {ref_styles[view][k]})')
-                pg.screenshot(path=str(shots / f'{slug}-{tag}.png'), full_page=True)
+                pg.screenshot(path=str(shots / f'{slug.replace("/", "-")}-{tag}.png'), full_page=True)
                 pg.close()
         br.close()
     srv.shutdown()
     missing = sorted({c for c in seen_serif if not c.isspace() and ord(c) not in cmap})
     if missing:
         bad.append(f'제목 글꼴에 없는 글자 {len(missing)}개: {"".join(missing[:30])} → bash tool/subset_fonts.sh')
-    print(f'{slug}: 디자인 검수 — 휴대폰 · PC × 라이트 · 다크, 캡처 {shots}/{slug}-*.png')
+    print(f'{slug}: 디자인 검수 — 휴대폰 · PC × 라이트 · 다크, 캡처 {shots}/{slug.replace("/", "-")}-*.png')
     for b in bad:
         print('  ✗', b)
     if bad:

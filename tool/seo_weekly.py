@@ -125,7 +125,8 @@ def main():
     # 4) 이번 주 새로 올라간 공부 글(매일 글 루틴이 올린 것 포함)
     log = subprocess.run(['git', 'log', '--since=7.days', '--diff-filter=A', '--name-only', '--format=', '--', 'docs/*/index.html'],
                          cwd=R, capture_output=True, text=True).stdout.split()
-    new = sorted({Path(x).parent.name for x in log if x.count('/') == 2})
+    new = sorted({Path(x).parent.relative_to('docs').as_posix() for x in log if (x.count('/') == 2 or x.startswith('docs/blog/')) and x.count('/') <= 3
+                  and x != 'docs/blog/index.html' and not x.startswith(('docs/words/', 'docs/articles/', 'docs/blog/category/', 'docs/blog/page/'))})
     lines += ['## 이번 주 새 글', '']
     if new:
         for slug in new:
