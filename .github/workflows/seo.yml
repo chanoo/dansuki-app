@@ -6,6 +6,8 @@ on:
   push:
     branches: [main]
     paths: ['docs/**', 'tool/check_*.py', 'tool/update_sitemap_lastmod.py', 'tool/indexnow.py', '.github/workflows/seo.yml']
+  pull_request:
+    paths: ['docs/**', 'tool/**']
   workflow_dispatch:
     inputs:
       all:
@@ -26,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - run: pip install beautifulsoup4
@@ -33,6 +36,15 @@ jobs:
         run: python tool/check_seo.py
       - name: 사이트 안 깨진 링크
         run: python tool/check_links.py
+      - name: 새로 바뀐 공부 글 검수(PR일 때)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch -q origin "${{ github.base_ref }}"
+          fail=0
+          for f in $(git diff --name-only "origin/${{ github.base_ref }}"...HEAD -- 'docs/*/index.html'); do
+            if [ -f "$f" ] && grep -q 'property="og:type" content="article"' "$f"; then python tool/check_article.py "$f" || fail=1; fi
+          done
+          exit $fail
 
   publish:
     needs: check
@@ -47,14 +59,16 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
 
-      - name: 사이트맵 lastmod를 실제 바뀐 날로
+      - name: 캐시 버전(?v=)과 사이트맵 lastmod 맞추기
         id: lastmod
         run: |
+          python tool/bump_asset_versions.py
           python tool/update_sitemap_lastmod.py
-          if ! git diff --quiet docs/sitemap.xml; then
+          if ! git diff --quiet docs; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'chore(sitemap): lastmod 맞추기 [skip ci]' docs/sitemap.xml
+            git add docs tool/build_word_pages.py
+            git commit -m 'chore(site): ?v= · 사이트맵 lastmod 맞추기 [skip ci]'
             git push
             # GITHUB_TOKEN으로 한 푸시는 Pages 빌드를 깨우지 않아서 직접 요청한다.
             gh api -X POST "repos/$REPO/pages/builds" >/dev/null || true

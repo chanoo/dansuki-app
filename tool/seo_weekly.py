@@ -122,6 +122,20 @@ def main():
                 problems.append(f'/{p} 속도 {score}점')
     lines.append('')
 
+    # 4) 이번 주 새로 올라간 공부 글(매일 글 루틴이 올린 것 포함)
+    log = subprocess.run(['git', 'log', '--since=7.days', '--diff-filter=A', '--name-only', '--format=', '--', 'docs/*/index.html'],
+                         cwd=R, capture_output=True, text=True).stdout.split()
+    new = sorted({Path(x).parent.name for x in log if x.count('/') == 2})
+    lines += ['## 이번 주 새 글', '']
+    if new:
+        for slug in new:
+            f = R / 'docs' / slug / 'index.html'
+            t = re.sub(r'\s*\|\s*단숙이.*$', '', meta(f.read_text(encoding='utf-8'))[0]) if f.exists() else '(지워짐)'
+            lines.append(f'- [{t}]({SITE}{slug}/)')
+    else:
+        lines.append('- 이번 주에는 새 글이 없어요.')
+    lines.append('')
+
     lines += ['## 요약', ('- 이번 주 문제 없음 ✅' if not problems else '\n'.join(f'- ❌ {x}' for x in problems)), '',
               '검색 노출(Search Console · 네이버 서치어드바이저) 숫자는 아직 연결 전이에요. 연결하면 여기에 검색어 · 클릭 · 노출이 붙어요.']
     print('\n'.join(lines))

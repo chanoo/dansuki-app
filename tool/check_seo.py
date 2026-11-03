@@ -7,7 +7,14 @@ from urllib.parse import urljoin,urlsplit,unquote
 import json,sys,urllib.request,xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 D=Path(__file__).resolve().parent.parent/'docs';SITE='https://dansuki.com/'
-PAGES=['index.html','method/index.html','difficulty/index.html','spaced-review/index.html','privacy/index.html','help/index.html','android/index.html','basic-words/index.html','middle-school-words/index.html','try/index.html','test/index.html','404.html']
+def _sitemap_pages():
+ """sitemap.xml에 있는 주소 → docs 안 파일 이름(2026-11-03: 손으로 목록을 고치지 않아도 새 글이 점검되게)."""
+ names=[]
+ for node in ET.parse(D/'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
+  path=urlsplit(node.text).path.lstrip('/')
+  names.append('index.html' if not path else path+'index.html' if path.endswith('/') else path)
+ return names
+PAGES=_sitemap_pages()+['404.html']
 def route(name):
  return '' if name=='index.html' else name.removesuffix('index.html') if name.endswith('/index.html') else name
 base=sys.argv[1].rstrip('/')+'/' if len(sys.argv)>1 else None
