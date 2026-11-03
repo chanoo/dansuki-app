@@ -31,9 +31,9 @@
   <link rel="apple-touch-icon" href="/icon.png">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preload" href="/reel-poster.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103b" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103c" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/site.css?v=20261103b">
+  <link rel="stylesheet" href="/site.css?v=20261103c">
 
   <script type="application/ld+json">
 {
@@ -292,6 +292,22 @@
       </div>
     </section>
 
+    <!-- 부모님이 궁금해하는 것(2026-11-03): 사실은 개인정보 처리방침 · 앱 그대로. 감시 기능은 없다(공부는 혼자 하는 것). -->
+    <section class="band" id="parents">
+      <div class="wrap">
+        <h2>부모님이 궁금해하는 것</h2>
+        <p class="sub">아이에게 권하기 전에 확인할 것만 모았어요. 자세한 내용은 <a href="/privacy/">개인정보 처리방침</a>에 있어요.</p>
+        <div class="parents">
+          <div><h3>가입이 없어요</h3><p>이름 · 이메일 · 전화번호를 받지 않아요. 그래서 만 14세 미만도 보호자 동의 절차 없이 바로 쓸 수 있어요.</p></div>
+          <div><h3>광고도 결제도 없어요</h3><p>앱 안에 광고와 결제가 없고, 광고 ID도 쓰지 않아요. 키링은 돈으로는 못 뽑고 공부로만 모아요.</p></div>
+          <div><h3>하루 몫이 정해져 있어요</h3><p>단어 20개 · 숙어 5개가 하루 몫이에요. 바쁜 날엔 1분만 해도 공부한 날로 쳐서, 끊기지 않고 이어 가요.</p></div>
+          <div><h3>교과서 기본 단어부터</h3><p>교육부 기본 어휘 3,000개를 바탕으로 쉬운 단어부터 나와요. <a href="/basic-words/">기본 어휘 목록 보기</a></p></div>
+          <div><h3>기록은 아이 폰에만</h3><p>공부 기록은 기기와 본인 iCloud에만 저장돼서, 만든 사람도 볼 수 없어요. 오늘 몫을 끝낸 카드는 아이가 직접 보내 줄 수 있어요.</p></div>
+          <div class="send"><h3>아이에게 보내기</h3><p>링크를 보내 주면 아이가 1분 체험부터 해 볼 수 있어요.</p><span class="gap"></span><button type="button" id="send-kid">링크 보내기 <span aria-hidden="true">→</span></button><p class="done" id="send-done" aria-live="polite"></p></div>
+        </div>
+      </div>
+    </section>
+
     <!-- 키링 -->
     <section id="keyring">
       <div class="wrap">
@@ -459,6 +475,20 @@
       sound.setAttribute('aria-pressed', String(!video.muted));
     });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { video.removeAttribute('autoplay'); video.pause(); video.controls = true; }
+  </script>
+  <script>
+    // 아이에게 링크 보내기: 휴대폰은 공유 시트, 안 되면 링크 복사(2026-11-03).
+    (() => {
+      const b = document.getElementById('send-kid'), done = document.getElementById('send-done');
+      if (!b) return;
+      const data = { title: '단숙이 · 중고등 영단어 앱', text: '하루 단어 20개씩 외우는 무료 영단어 앱이야. 광고도 가입도 없어. 1분 체험부터 해 봐!', url: 'https://dansuki.com/try/' };
+      b.addEventListener('click', async () => {
+        if (window.__track) window.__track('parent_share');
+        if (navigator.share) { try { await navigator.share(data); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+        try { await navigator.clipboard.writeText(data.text + ' ' + data.url); done.textContent = '링크를 복사했어요. 메신저에 붙여 넣어 보내 주세요.'; }
+        catch (e) { done.textContent = '이 주소를 보내 주세요: dansuki.com/try/'; }
+      });
+    })();
   </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
     /* 단숙이 디자인 시스템(DESIGN.md): 상아색 종이 · 먹색 잉크 · 노란 형광펜 하나. */
     /* 제목 글꼴: 사이트에 쓰는 글자만 담은 마루부리(2026-10-16 SEO 점검: 휴대폰 첫 화면 16~20초 → 글꼴 정리).
        글자를 새로 쓰면 tool/subset_fonts.sh를 다시 돌린다. */
-    @font-face { font-family: 'MaruBuri'; src: url(fonts/MaruBuri-sub.woff2?v=20261103b) format('woff2'); font-display: swap; }
+    @font-face { font-family: 'MaruBuri'; src: url(fonts/MaruBuri-sub.woff2?v=20261103c) format('woff2'); font-display: swap; }
     :root {
       --canvas: #F6F1E7; --surface: #FCFAF4; --sunk: #EEE7D9;
       --text: #23211E; --muted: #6A645B; --faint: #98918A; --line: #E6DECF;
@@ -202,6 +202,28 @@
 .more { margin-top: 24px; font-weight: 700; }
 .more a { text-decoration: underline; text-decoration-color: var(--highlight); text-decoration-thickness: 3px; text-underline-offset: 4px; }
 .level-table h3 { font-size: 18px; }
+
+/* 부모님이 궁금해하는 것(2026-11-03 SEO 점검 · 학부모 페르소나): 카드 5장 + 아이에게 링크 보내기 */
+.parents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.parents > div { background: var(--canvas); border: 1px solid var(--line); border-radius: 22px; padding: 22px 22px 24px; }
+.parents h3 { font-family: 'MaruBuri', serif; font-size: 20px; line-height: 1.4; font-weight: 400; }
+.parents p { color: var(--muted); font-size: 15.5px; margin-top: 8px; }
+.parents p a { color: var(--text); }
+.parents .send { background: var(--text); color: var(--canvas); border-color: var(--text); display: flex; flex-direction: column; }
+.parents .send p { color: var(--canvas); opacity: .78; }
+.parents .send button { margin-top: auto; align-self: flex-start; font: inherit; font-weight: 700; font-size: 15.5px; cursor: pointer; border: 0; border-radius: 999px; padding: 11px 18px; background: var(--highlight); color: #23211E; display: inline-flex; gap: 8px; align-items: center; }
+.parents .send button:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
+.parents .send .done { min-height: 1.4em; margin-top: 10px; font-size: 13.5px; }
+.parents .send .gap { flex: 1 1 16px; }
+@media (max-width: 880px) { .parents { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .parents { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 20px; }
+  .parents > div { padding: 16px 18px 18px; border-radius: 16px; }
+  .parents h3 { font-size: 18px; }
+  .parents p { font-size: 14.5px; margin-top: 4px; }
+  .parents .send .gap { display: none; }
+  .parents .send button { width: 100%; justify-content: center; margin-top: 14px; }
+}
 
 /* 푸터 조각 줄(앱 아이콘의 키링 조각) */
 .pieces { display: flex; gap: 5px; margin-bottom: 14px; }
