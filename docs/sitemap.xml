@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://dansuki.com/try/</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://dansuki.com/privacy/</loc>
@@ -65,9 +65,15 @@
   <url>
     <loc>https://dansuki.com/basic-words/</loc>
     <lastmod>2026-11-03</lastmod>
+    <image:image>
+      <image:loc>https://dansuki.com/img/basic-words-og.png</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://dansuki.com/middle-school-words/</loc>
     <lastmod>2026-11-03</lastmod>
+    <image:image>
+      <image:loc>https://dansuki.com/img/middle-school-words-og.png</image:loc>
+    </image:image>
   </url>
 </urlset>

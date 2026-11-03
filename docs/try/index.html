@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>단숙이 1분 체험</title>
-<meta name="description" content="단어 5개를 4초 안에 떠올려 외우고, 셜록 홈스의 한마디에서 바로 만나 보세요.">
+<title>단숙이 1분 체험 · 영단어 5개 외우고 셜록 홈스 읽기</title>
+<meta name="description" content="단어 5개를 4초 안에 떠올려 외우고, 셜록 홈스 「빨간 머리 연맹」 첫 문단에서 바로 만나 보세요. 앱을 깔지 않고 1분이면 단숙이 공부법을 체험할 수 있어요.">
 <meta name="theme-color" content="#F6F1E7">
 <link rel="canonical" href="https://dansuki.com/try/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="단숙이 1분 체험">
-<meta property="og:description" content="단어 5개를 4초 안에 떠올려 외우고, 셜록 홈스 「빨간 머리 연맹」 첫 문단에서 바로 만나 보세요.">
+<meta property="og:title" content="단숙이 1분 체험 · 영단어 5개 외우고 셜록 홈스 읽기">
+<meta property="og:description" content="단어 5개를 4초 안에 떠올려 외우고, 셜록 홈스 「빨간 머리 연맹」 첫 문단에서 바로 만나 보세요. 앱을 깔지 않고 1분이면 단숙이 공부법을 체험할 수 있어요.">
 <meta property="og:url" content="https://dansuki.com/try/">
 <meta property="og:image" content="https://dansuki.com/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:site_name" content="단숙이"><meta property="og:locale" content="ko_KR"><meta name="twitter:card" content="summary_large_image"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="apple-itunes-app" content="app-id=6819707350"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "@id": "https://dansuki.com/try/#webpage", "url": "https://dansuki.com/try/", "name": "단숙이 1분 체험 · 영단어 5개 외우고 셜록 홈스 읽기", "description": "단어 5개를 4초 안에 떠올려 외우고, 셜록 홈스 「빨간 머리 연맹」 첫 문단에서 바로 만나 보세요. 앱을 깔지 않고 1분이면 단숙이 공부법을 체험할 수 있어요.", "inLanguage": "ko-KR", "isPartOf": {"@id": "https://dansuki.com/#website"}}</script>
+
 <link rel="icon" href="/icon.png">
 <link rel="preload" href="/fonts/Literata-try.woff?v=20261031e" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
@@ -282,7 +284,21 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 </style>
 </head>
 <body>
-<div class="app"><div id="view"></div></div>
+<!-- 첫 화면을 HTML에도 둔다(검색엔진은 스크립트를 잘 안 돌림). 스크립트가 돌면 intro()가 그대로 다시 그린다. 2026-11-03 SEO -->
+<div class="app"><div id="view"><div class="screen">
+    <div class="hero">
+      <div class="brand"><img src="/icon.png" alt="">단숙이</div>
+      <h1>단어 5개 외우고<br>셜록 홈스의 한마디에서<br>바로 만나 볼까요?</h1>
+      <p>앱에서 하루 공부하는 그대로, 1분으로 줄였어요.</p>
+      <div class="wordrow"><span>ordinary</span><span>crime</span><span>solve</span><span>recognize</span><span>matter</span></div>
+      <div class="flow">
+        <div><b>1</b><span>새 단어 카드 다섯 장<small>먼저 보고, 바로 문제로</small></span></div>
+        <div><b>2</b><span>4초 안에 떠올려 맞히기<small>영어 → 뜻, 뜻 → 영어 둘 다</small></span></div>
+        <div><b>3</b><span>「빨간 머리 연맹」 9장 한 문단 읽기<small>방금 외운 단어가 형광펜으로</small></span></div>
+      </div>
+      <noscript><p>체험은 자바스크립트를 켜야 할 수 있어요. 앱은 <a href="https://apps.apple.com/kr/app/id6819707350">App Store</a>에서 무료로 받을 수 있어요.</p></noscript>
+    </div>
+  </div></div></div>
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 <script>

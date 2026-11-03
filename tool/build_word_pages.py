@@ -25,20 +25,21 @@ tail = TPL[TPL.index('</article></main>') + len('</article></main>'):]
 store_btn = re.search(r'<a class="store" href="https://apps\.apple\.com[^"]*" aria-label="App Store에서 단숙이 받기">.*?</a>', TPL, re.S).group(0)
 
 
-def head(*, path, title, desc, og_alt, ld, extra_css=''):
+def head(*, path, title, desc, og_alt, ld, og, extra_css=''):
     url = f'https://dansuki.com/{path}'
-    return f'''<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}"><meta name="theme-color" content="#F6F1E7"><meta property="og:type" content="article"><meta property="og:site_name" content="단숙이"><meta property="og:locale" content="ko_KR"><meta property="og:url" content="{url}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="https://dansuki.com/og.jpg"><meta property="og:image:alt" content="{e(og_alt)}"><meta property="article:published_time" content="{NOW}"><meta property="article:modified_time" content="{NOW}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="https://dansuki.com/og.jpg"><meta name="twitter:image:alt" content="{e(og_alt)}"><meta name="apple-itunes-app" content="app-id=6819707350"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"><link rel="stylesheet" href="/site.css?v=20261103"><link rel="stylesheet" href="/article.css?v=20261019seo">{extra_css}<script type="application/ld+json">
+    return f'''<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}"><meta name="theme-color" content="#F6F1E7"><meta property="og:type" content="article"><meta property="og:site_name" content="단숙이"><meta property="og:locale" content="ko_KR"><meta property="og:url" content="{url}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="https://dansuki.com/img/{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{e(og_alt)}"><meta property="article:published_time" content="{NOW}"><meta property="article:modified_time" content="{NOW}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="https://dansuki.com/img/{og}"><meta name="twitter:image:alt" content="{e(og_alt)}"><meta name="apple-itunes-app" content="app-id=6819707350"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"><link rel="stylesheet" href="/site.css?v=20261103"><link rel="stylesheet" href="/article.css?v=20261019seo">{extra_css}<script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}
 </script><script src="/navigation.js?v=20261020" defer></script></head><body>'''
 
 
-def ld(*, path, title, desc, headline, crumb_name, extra=None):
+def ld(*, path, title, desc, headline, crumb_name, og, keywords, extra=None):
     url = f'https://dansuki.com/{path}'
     org = {'@id': 'https://dansuki.com/#org', '@type': 'Organization', 'name': '단숙이', 'url': 'https://dansuki.com/'}
     art = {
         '@type': 'Article', '@id': url + '#article', 'url': url, 'mainEntityOfPage': {'@id': url + '#webpage'},
         'headline': headline, 'description': desc, 'inLanguage': 'ko-KR', 'datePublished': NOW, 'dateModified': NOW,
-        'image': {'@type': 'ImageObject', 'url': 'https://dansuki.com/og.jpg'},
+        'image': {'@type': 'ImageObject', 'url': f'https://dansuki.com/img/{og}', 'width': 1200, 'height': 630},
+        'keywords': keywords,
         'author': org, 'publisher': {**org, 'logo': {'@type': 'ImageObject', 'url': 'https://dansuki.com/icon.png'}},
         'isPartOf': {'@id': 'https://dansuki.com/#website'},
     }
@@ -141,7 +142,8 @@ def build_words():
     desc = ('2022 개정 교육과정 영어 기본 어휘 3,000개를 초등 800 · 중학 1,200 · 고등 1,000개로 나눠 뜻과 함께 정리했어요. '
             '2015 개정에만 있던 213개도 함께 볼 수 있어요.')
     headline = '교육부 기본 어휘 3,000개, 학교급별로 한눈에'
-    data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='기본 어휘 3000 목록')
+    data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='기본 어휘 3000 목록', og='basic-words-og.png',
+              keywords=['교육부 기본 어휘', '기본 어휘 3000', '2022 개정 교육과정 기본 어휘', '중학 영단어', '고등 영단어', '초등 영단어'])
     chips = ''.join(f'<a href="#{s}">{n} <small>{N[k]:,}개</small></a>' for k, n, s in LEVELS)
     chips += f'<a href="#only-2015">2015에만 <small>{len(only2015)}개</small></a>'
     levels = ''
@@ -184,7 +186,7 @@ def build_words():
 {app_box("기본 어휘 3,000개,<br>하루 20개씩 단숙이로.", ["단숙이는 이 목록을 바탕으로 만든 무료 영단어 · 숙어 앱이에요. 하루 단어 20개를 먼저 떠올리고 고르는 방식으로 익히고, 외운 단어는 2일 · 7일 · 21일 뒤에 다시 물어봐요.", "외운 단어는 셜록 홈스, 오즈의 마법사 같은 이야기에서 다시 만나요. 광고와 가입 없이 바로 시작할 수 있어요."])}
 <section class="article-refs" aria-label="출처"><h2>출처</h2><p>교육부 고시 제2022-33호 영어과 교육과정의 기본 어휘 목록, 교육부 고시 제2015-74호 영어과 교육과정의 기본 어휘 목록.</p><p>뜻은 단숙이가 앱에서 쓰려고 정리한 것이에요. 학교급 나누기는 단숙이 기준이에요. 교육부, 한국교육과정평가원과는 관계없이 개인이 만든 페이지예요.</p></section>
 </article></main>'''
-    page = head(path=path, title=title, desc=desc, og_alt='교육부 기본 어휘 3,000개 학교급별 목록', ld=data, extra_css=WORDS_CSS) + nav + body + tail.replace('</body>', FIND_JS + '</body>')
+    page = head(path=path, title=title, desc=desc, og_alt='교육부 기본 어휘 3,000개 학교급별 목록', ld=data, og='basic-words-og.png', extra_css=WORDS_CSS) + nav.replace(f'<a href="/{path}">', f'<a href="/{path}" aria-current="page">') + body + tail.replace('</body>', FIND_JS + '</body>')
     (DOCS / path).mkdir(exist_ok=True)
     (DOCS / path / 'index.html').write_text(page, encoding='utf-8')
 
@@ -195,7 +197,8 @@ def build_middle():
     desc = ('중학생이 알아야 할 기본 영단어 2,000개를 하루 20개씩, 먼저 떠올리고 간격을 두고 다시 보는 방법으로 외우는 법을 정리했어요. '
             '바로 써먹을 수 있는 하루 공부 순서도 담았어요.')
     headline = '중학 영단어, 하루 20개를 오래 남기는 방법'
-    data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='중학 영단어 공부법')
+    data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='중학 영단어 공부법', og='middle-school-words-og.png',
+              keywords=['중학 영단어 공부법', '중학생 영단어', '영단어 외우는 법', '영단어 하루 몇 개', '간격 반복', '영단어 암기'])
     mid = by['middle']
     pick = ['achieve', 'environment', 'experience', 'opinion', 'prepare', 'communicate', 'decide', 'imagine']
     m = {w['word']: w['meaning'] for w in mid + by['elementary']}
@@ -231,8 +234,8 @@ def build_middle():
 <p class="endline">오늘 외운 스무 개가,<br>다음 주에도 떠오르도록.</p>
 <section class="article-refs" aria-label="더 읽기"><h2>더 읽기</h2><p><a href="/basic-words/">교육부 기본 어휘 3,000개 목록</a> · <a href="/method/">단숙이 공부법과 참고 연구</a> · <a href="/spaced-review/">복습 간격 연구 이야기</a></p><p>단숙이 개발자가 쓴 공부법 소개 글이에요. 앱을 쓰면 성적이 얼마나 오른다고 약속하는 글은 아니에요.</p></section>
 </article></main>'''
-    page = head(path=path, title=title, desc=desc, og_alt='중학 영단어 공부법: 하루 20개, 떠올리기와 간격 복습', ld=data,
-                extra_css=WORDS_CSS) + nav + body + tail
+    page = head(path=path, title=title, desc=desc, og_alt='중학 영단어 공부법: 하루 20개, 떠올리기와 간격 복습', ld=data, og='middle-school-words-og.png',
+                extra_css=WORDS_CSS) + nav.replace(f'<a href="/{path}">', f'<a href="/{path}" aria-current="page">') + body + tail
     (DOCS / path).mkdir(exist_ok=True)
     (DOCS / path / 'index.html').write_text(page, encoding='utf-8')
 
