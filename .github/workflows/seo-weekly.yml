@@ -29,5 +29,6 @@ jobs:
           gh label create seo-report --color F3D66B --description '주간 SEO 리포트' 2>/dev/null || true
           for n in $(gh issue list --label seo-report --state open --json number --jq '.[].number'); do gh issue close "$n" --comment '새 리포트가 올라와서 닫아요.'; done
           p=$(cat problems.txt)
-          title="SEO 주간 리포트 $(TZ=Asia/Seoul date +%F)$([ "$p" != 0 ] && echo " · 문제 $p개")"
+          title="SEO 주간 리포트 $(TZ=Asia/Seoul date +%F)"
+          if [ "$p" != 0 ]; then title="$title · 문제 ${p}개"; fi
           gh issue create --title "$title" --label seo-report --body-file report.md
