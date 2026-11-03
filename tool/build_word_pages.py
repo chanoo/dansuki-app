@@ -1,4 +1,5 @@
-"""dansuki.com 검색용 글 두 편을 만든다(2026-11-03).
+"""dansuki.com 검색용 페이지를 만든다(2026-11-03).
+- /test/                   영단어 테스트(+ test/words.json)
 - /basic-words/            교육부 기본 어휘 3000 목록(2022 개정, 학교급별 · 파생어 · 2022에서 빠진 100개)
 - /middle-school-words/    중학 영단어 공부법
 spaced-review/index.html의 머리 · 메뉴 · 푸터를 그대로 빌려 쓴다.
@@ -28,7 +29,7 @@ store_btn = re.search(r'<a class="store" href="https://apps\.apple\.com[^"]*" ar
 
 def head(*, path, title, desc, og_alt, ld, og, extra_css=''):
     url = f'https://dansuki.com/{path}'
-    return f'''<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}"><meta name="theme-color" content="#F6F1E7"><meta property="og:type" content="article"><meta property="og:site_name" content="단숙이"><meta property="og:locale" content="ko_KR"><meta property="og:url" content="{url}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="https://dansuki.com/img/{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{e(og_alt)}"><meta property="article:published_time" content="{PUBLISHED}"><meta property="article:modified_time" content="{NOW}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="https://dansuki.com/img/{og}"><meta name="twitter:image:alt" content="{e(og_alt)}"><meta name="apple-itunes-app" content="app-id=6819707350"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103d" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"><link rel="stylesheet" href="/site.css?v=20261103d"><link rel="stylesheet" href="/article.css?v=20261019seo">{extra_css}<script type="application/ld+json">
+    return f'''<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}"><meta name="theme-color" content="#F6F1E7"><meta property="og:type" content="article"><meta property="og:site_name" content="단숙이"><meta property="og:locale" content="ko_KR"><meta property="og:url" content="{url}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="https://dansuki.com/img/{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{e(og_alt)}"><meta property="article:published_time" content="{PUBLISHED}"><meta property="article:modified_time" content="{NOW}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="https://dansuki.com/img/{og}"><meta name="twitter:image:alt" content="{e(og_alt)}"><meta name="apple-itunes-app" content="app-id=6819707350"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preload" href="/fonts/MaruBuri-sub.woff2?v=20261103e" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"><link rel="stylesheet" href="/site.css?v=20261103e"><link rel="stylesheet" href="/article.css?v=20261019seo">{extra_css}<script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}
 </script><script src="/navigation.js?v=20261020" defer></script></head><body>'''
 
@@ -328,4 +329,267 @@ def build_middle():
 
 build_words()
 build_middle()
+# ── /test/ 영단어 테스트(2026-11-03) ──────────────────────────────
+# 기본 어휘 3,000개(2022 대표형)를 초등 6 · 중학 8 · 고등 6문제로 뽑아 아는 단어 수를 어림한다.
+# 찍기 보정: 맞힘 R, 틀림 W(모르겠어요 · 시간 초과는 빼고), 보기 4개 → 아는 비율 = max(0, (R - W/3) / n).
+# 단어 데이터는 시작할 때 /test/words.json으로 받는다(첫 화면 가볍게).
+import random as _random
+
+TEST_N = {'elementary': 6, 'middle': 8, 'high': 6}
+
+
+def build_test_data():
+    pool = {k: [] for k, _, _ in LEVELS}
+    for w in cur:
+        if len(w['word']) < 3 or w['meaning'].startswith('~'):
+            continue
+        d = w['distractors']
+        near = d['enKo'][:d.get('nearEnKo', 0)]
+        rest = d['enKo'][d.get('nearEnKo', 0):]
+        opts = []
+        for m in near[:1] + rest:
+            if m != w['meaning'] and m not in opts:
+                opts.append(m)
+            if len(opts) >= 4:
+                break
+        if len(opts) < 3:
+            continue
+        pool[w['grade2022']].append([w['word'], w['meaning'], opts])
+    # 「빨간 머리 연맹」 전체에서 기본 어휘가 나온 횟수(학교급별) → 읽히는 % 어림
+    byid = {w['id']: w for w in words}
+    book = json.loads((DOCS / 'stories/red_headed_league.r1.json').read_text(encoding='utf-8'))
+    cnt = {k: 0 for k, _, _ in LEVELS}
+    for c in book['chapters']:
+        for p in c['paragraphs']:
+            for tok in p['en']:
+                x = byid.get(tok[1]) if tok[1] else None
+                if x and x.get('grade2022'):
+                    cnt[x['grade2022']] += 1
+    out = {'v': 1, 'N': N, 'ask': TEST_N, 'pool': pool, 'book': {'title': book['titleKo'], 'count': cnt}}
+    (DOCS / 'test').mkdir(exist_ok=True)
+    (DOCS / 'test/words.json').write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    return {k: len(v) for k, v in pool.items()}, cnt
+
+
+TEST_CSS = '''<style>
+.quiz{margin:28px 0 8px;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--shadow);padding:22px;min-height:420px;display:flex;flex-direction:column}
+.quiz [hidden]{display:none!important}
+.quiz h2{margin:0;font-size:24px}
+.quiz .lead{color:var(--muted);margin:10px 0 0;font-size:15.5px}
+.quiz .facts{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.quiz .facts li{display:flex;gap:10px;align-items:baseline;font-size:15.5px}
+.quiz .facts span{flex:1;text-align:left}
+.quiz .facts b{flex:0 0 auto;min-width:64px;font-family:'MaruBuri',serif;font-weight:400;font-size:18px}
+.quiz .go{margin-top:auto;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:16px;padding:16px 20px;background:var(--text);color:var(--canvas);cursor:pointer;width:100%}
+.quiz .go:focus-visible,.quiz .opt:focus-visible,.quiz .skip:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+.quiz .friend{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:var(--mark);font-weight:600;font-size:15px}
+.quiz .top{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.quiz .bar{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.quiz .bar i{display:block;height:100%;width:0;background:var(--text);border-radius:99px;transition:width .3s}
+.quiz .word{margin:34px 0 6px;text-align:center;font-family:'MaruBuri',serif;font-size:44px;line-height:1.2;overflow-wrap:anywhere}
+.quiz .hint{text-align:center;color:var(--faint);font-size:13.5px;min-height:1.5em}
+.quiz .timer{height:4px;border-radius:99px;background:var(--line);overflow:hidden;margin:14px 0 16px}
+.quiz .timer i{display:block;height:100%;width:100%;background:var(--highlight);transform-origin:left}
+.quiz .opts{display:grid;gap:10px}
+.quiz .opt{font:inherit;font-size:16px;text-align:left;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--canvas);color:var(--text);cursor:pointer;min-height:54px;word-break:keep-all}
+.quiz .opt[disabled]{cursor:default}
+.quiz .opt.ok{background:#DDEFE3;border-color:#7FB894;color:#1E3A28}
+.quiz .opt.no{background:#F7DDE2;border-color:#E08A9A;color:#4A1E27}
+.quiz .skip{display:block;margin:14px auto 0;font:inherit;font-size:15px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:8px}
+.quiz .big{margin:6px 0 0;font-family:'MaruBuri',serif;font-size:56px;line-height:1.15;font-variant-numeric:tabular-nums}
+.quiz .big small{font-size:22px;margin-left:4px}
+.quiz .of{color:var(--muted);font-size:15.5px}
+.quiz .tiers{display:grid;gap:12px;margin:22px 0 0}
+.quiz .tier{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;font-size:14.5px}
+.quiz .tier .tb{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.quiz .tier .tb i{display:block;height:100%;width:0;background:var(--text);border-radius:99px;transition:width .8s ease-out}
+.quiz .tier span:last-child{color:var(--muted);font-variant-numeric:tabular-nums;min-width:92px;text-align:right}
+.quiz .read{margin:22px 0 0;padding:16px;border-radius:16px;background:var(--canvas);border:1px solid var(--line)}
+.quiz .read b{font-family:'MaruBuri',serif;font-weight:400;font-size:26px}
+.quiz .read p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.quiz .next{margin:16px 0 0;font-size:15.5px}
+.quiz .acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.quiz .acts button{font:inherit;font-weight:700;font-size:15.5px;border-radius:14px;padding:14px 12px;cursor:pointer;border:1px solid var(--text)}
+.quiz .acts .share{background:var(--highlight);border-color:var(--highlight);color:#23211E}
+.quiz .acts .again{background:none;color:var(--text)}
+.quiz .done{min-height:1.4em;margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.quiz details{margin-top:16px;font-size:15px}
+.quiz details summary{cursor:pointer;font-weight:600}
+.quiz details ul{list-style:none;margin:8px 0 0;padding:0}
+.quiz details li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.quiz details li b{flex:0 0 auto}
+.quiz details li span{color:var(--muted)}
+.quiz .err{color:var(--muted)}
+@media (max-width:600px){.quiz{padding:18px 16px;border-radius:20px;margin:20px -4px 8px}.quiz .word{font-size:38px;margin-top:26px}.quiz .big{font-size:48px}}
+@media (prefers-reduced-motion:reduce){.quiz .bar i,.quiz .tier .tb i{transition:none}}
+</style>'''
+
+TEST_JS = r'''<script>
+// 영단어 테스트: 결과는 이 브라우저 안에서만 계산하고 어디에도 보내거나 저장하지 않는다.
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const root = $('#quiz'); if (!root) return;
+  const view = (id) => root.querySelectorAll('[data-view]').forEach((v) => v.hidden = v.dataset.view !== id);
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmt = (n) => n.toLocaleString('ko-KR');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TIERS = [['elementary', '초등'], ['middle', '중학'], ['high', '고등']];
+  const ORDER = ['elementary', 'elementary', 'middle', 'elementary', 'middle', 'middle', 'elementary', 'middle', 'high', 'middle',
+    'elementary', 'high', 'middle', 'high', 'middle', 'elementary', 'high', 'high', 'middle', 'high'];
+  const LIMIT = 4000, SHOW_AFTER = 700;
+  let data = null, qs = [], i = 0, res = [], timer = 0, t0 = 0, raf = 0, locked = false;
+
+  // 친구가 보낸 결과(?r=1240) — 0~3000만 믿는다.
+  const r = parseInt(new URLSearchParams(location.search).get('r'), 10);
+  if (r >= 0 && r <= 3000) { const f = $('#q-friend'); f.textContent = `친구는 약 ${fmt(r)}개였어요. 나는 몇 개일까요?`; f.hidden = false; }
+
+  const load = () => data ? Promise.resolve(data) : fetch('/test/words.json?v=1').then((x) => { if (!x.ok) throw 0; return x.json(); }).then((d) => data = d);
+  // 첫 화면이 뜬 뒤 미리 받아 둔다(누르자마자 시작).
+  (window.requestIdleCallback || ((f) => setTimeout(f, 1200)))(() => load().catch(() => {}));
+
+  const shuffle = (a) => { for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
+  const pick = () => {
+    const bags = {};
+    for (const [t] of TIERS) bags[t] = shuffle(data.pool[t].slice()).slice(0, data.ask[t]);
+    return ORDER.map((t) => { const [w, m, d] = bags[t].pop(); return { t, w, m, opts: shuffle([m, ...shuffle(d.slice()).slice(0, 3)]) }; });
+  };
+
+  const start = () => {
+    $('#q-start-btn').disabled = true;
+    load().then(() => { qs = pick(); i = 0; res = []; view('q'); root.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); ask(); })
+      .catch(() => { $('#q-start-err').hidden = false; $('#q-start-btn').disabled = false; });
+  };
+
+  const ask = () => {
+    const q = qs[i]; locked = false;
+    $('#q-n').textContent = `${i + 1} / ${qs.length}`;
+    $('#q-bar').style.width = `${(i / qs.length) * 100}%`;
+    $('#q-word').textContent = q.w;
+    $('#q-hint').textContent = '먼저 뜻을 떠올려 보세요';
+    const box = $('#q-opts'); box.innerHTML = ''; box.hidden = true; $('#q-skip').hidden = true;
+    const tb = $('#q-timer'); tb.style.transform = 'scaleX(1)';
+    q.opts.forEach((m, k) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = m;
+      b.addEventListener('click', () => answer(m, b)); box.appendChild(b);
+    });
+    clearTimeout(timer); cancelAnimationFrame(raf);
+    timer = setTimeout(() => {
+      box.hidden = false; $('#q-skip').hidden = false; $('#q-hint').textContent = matchMedia('(hover: hover)').matches ? '4초 안에 골라요 · 키보드 1~4' : '4초 안에 골라요';
+      t0 = performance.now();
+      const tick = (now) => { const left = Math.max(0, 1 - (now - t0) / LIMIT); tb.style.transform = `scaleX(${left})`; if (left > 0 && !locked) raf = requestAnimationFrame(tick); };
+      raf = requestAnimationFrame(tick);
+      timer = setTimeout(() => answer(null, null, true), LIMIT);
+    }, SHOW_AFTER);
+  };
+
+  const answer = (m, btn, timeout = false) => {
+    if (locked) return; locked = true; clearTimeout(timer); cancelAnimationFrame(raf);
+    const q = qs[i], ok = m === q.m, skip = m === null;
+    res.push({ t: q.t, w: q.w, m: q.m, ok, skip });
+    const opts = [...$('#q-opts').children];
+    opts.forEach((b) => { b.disabled = true; if (b.textContent === q.m && (!ok)) b.classList.add('ok'); });
+    if (btn) btn.classList.add(ok ? 'ok' : 'no');
+    $('#q-hint').textContent = ok ? '맞았어요' : timeout ? '시간이 지났어요' : skip ? '괜찮아요, 다음 단어' : '아쉬워요';
+    setTimeout(() => { i++; if (i < qs.length) ask(); else finish(); }, ok ? 380 : 950);
+  };
+
+  const finish = () => {
+    $('#q-bar').style.width = '100%';
+    root.scrollIntoView({ block: 'start' });
+    const p = {}; let est = 0;
+    for (const [t] of TIERS) {
+      const a = res.filter((x) => x.t === t), R = a.filter((x) => x.ok).length, W = a.filter((x) => !x.ok && !x.skip).length;
+      p[t] = Math.max(0, Math.min(1, (R - W / 3) / a.length));
+      est += data.N[t] * p[t];
+    }
+    est = Math.round(est / 10) * 10;
+    const c = data.book.count, tot = c.elementary + c.middle + c.high;
+    const read = Math.round(100 * (c.elementary * p.elementary + c.middle * p.middle + c.high * p.high) / tot);
+    view('r');
+    const big = $('#r-big');
+    if (reduce) big.textContent = fmt(est); else {
+      const s = performance.now(); const run = (now) => { const k = Math.min(1, (now - s) / 900); big.textContent = fmt(Math.round(est * (1 - Math.pow(1 - k, 3)) / 10) * 10); if (k < 1) requestAnimationFrame(run); }; requestAnimationFrame(run);
+    }
+    $('#r-tiers').innerHTML = TIERS.map(([t, n]) => `<div class="tier"><span>${n}</span><span class="tb"><i data-w="${Math.round(p[t] * 100)}"></i></span><span>${fmt(Math.round(data.N[t] * p[t] / 10) * 10)} / ${fmt(data.N[t])}</span></div>`).join('');
+    requestAnimationFrame(() => requestAnimationFrame(() => root.querySelectorAll('.tier .tb i').forEach((x) => x.style.width = x.dataset.w + '%')));
+    $('#r-read').textContent = `${read}%`;
+    $('#r-book').textContent = `셜록 홈스 「${data.book.title}」에 나오는 기본 어휘 중 이만큼을 알 것 같아요.`;
+    const where = p.elementary < 0.8 ? ['초등 단어부터 채우면 좋아요.', 'elem', '초등 기본 어휘'] : p.middle < 0.7 ? ['다음은 중학 단어(**) 차례예요.', 'middle', '중학 기본 어휘'] : ['고등 단어로 넓혀 갈 때예요.', 'high', '고등 기본 어휘'];
+    $('#r-next').innerHTML = `${where[0]} <a href="/basic-words/#${where[1]}">${where[2]} 목록 보기</a>`;
+    const miss = res.filter((x) => !x.ok);
+    $('#r-miss').hidden = !miss.length;
+    $('#r-miss-n').textContent = miss.length;
+    $('#r-miss-list').innerHTML = miss.map((x) => `<li><b lang="en">${esc(x.w)}</b><span>${esc(x.m)}</span></li>`).join('');
+    root.dataset.est = est; root.dataset.read = read;
+    $('#r-done').textContent = '';
+  };
+
+  const share = async () => {
+    const est = +root.dataset.est, read = +root.dataset.read;
+    const url = `https://dansuki.com/test/?r=${est}`;
+    const text = `영단어 테스트 해 봤는데 기본 영단어 3,000개 중 약 ${fmt(est)}개 안대. 셜록 홈스도 ${read}% 읽을 수 있대! 너는 몇 개야?`;
+    if (navigator.share) { try { await navigator.share({ title: '단숙이 영단어 테스트', text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    try { await navigator.clipboard.writeText(`${text} ${url}`); $('#r-done').textContent = '결과와 링크를 복사했어요. 친구에게 붙여 넣어 보내 보세요.'; }
+    catch (e) { $('#r-done').textContent = `이 주소를 보내 주세요: ${url}`; }
+  };
+
+  $('#q-start-btn').addEventListener('click', start);
+  $('#q-skip').addEventListener('click', () => answer(null, null));
+  $('#r-share').addEventListener('click', share);
+  $('#r-again').addEventListener('click', () => { view('start'); $('#q-start-btn').disabled = false; root.scrollIntoView({ block: 'start' }); });
+  addEventListener('keydown', (e) => {
+    const box = $('#q-opts'); if (box.hidden || locked) return;
+    const k = parseInt(e.key, 10); if (k >= 1 && k <= 4 && box.children[k - 1]) { e.preventDefault(); box.children[k - 1].click(); }
+  });
+  view('start');
+})();
+</script>'''
+
+
+def build_test():
+    sizes, cnt = build_test_data()
+    path = 'test/'
+    title = '영단어 테스트 · 기본 영단어 3,000개 중 나는 몇 개 알까? | 단숙이'
+    desc = ('20문제 · 2분이면 교육부 기본 어휘 3,000개 중 아는 단어 수를 어림해요. 4초 안에 뜻을 떠올리는 방식이고, '
+            '셜록 홈스 이야기를 몇 % 읽을 수 있는지도 알려 줘요. 가입 없이 무료.')
+    headline = '기본 영단어 3,000개 중, 나는 몇 개 알까?'
+    data = ld(path=path, title=title, desc=desc, headline=headline, crumb_name='영단어 테스트', og='test-og.png',
+              keywords=['영단어 테스트', '영어 어휘력 테스트', '중학생 영단어 테스트', '기본 어휘 테스트', '영단어 레벨 테스트', '영어 단어 실력'])
+    quiz = f'''<section class="quiz" id="quiz" aria-label="영단어 테스트">
+<div data-view="start"><p class="friend" id="q-friend" hidden></p><h2>20문제, 2분이면 돼요</h2><p class="lead">영어 단어를 보고 4초 안에 뜻을 골라요. 모르면 '모르겠어요'를 눌러요. 찍어서 맞힌 몫은 빼고 어림해요.</p>
+<ul class="facts"><li><b>20문제</b><span>초등 6 · 중학 8 · 고등 6, 기본 어휘에서 무작위로</span></li><li><b>4초</b><span>보자마자 떠오르는 단어만 아는 단어로 쳐요</span></li><li><b>결과</b><span>아는 단어 수 · 학교급별 · 셜록 홈스를 몇 % 읽을 수 있는지</span></li></ul>
+<p class="err" id="q-start-err" hidden>단어를 불러오지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.</p>
+<button class="go" type="button" id="q-start-btn">테스트 시작</button></div>
+<div data-view="q" hidden><div class="top"><span id="q-n">1 / 20</span><span class="bar"><i id="q-bar"></i></span></div><p class="word" id="q-word" lang="en" aria-live="polite"></p><p class="hint" id="q-hint" aria-live="polite"></p><div class="timer" aria-hidden="true"><i id="q-timer"></i></div><div class="opts" id="q-opts"></div><button class="skip" type="button" id="q-skip" hidden>모르겠어요</button></div>
+<div data-view="r" hidden><p class="of">기본 영단어 3,000개 중 아는 단어</p><p class="big" aria-live="polite">약 <span id="r-big">0</span><small>개</small></p>
+<div class="tiers" id="r-tiers"></div>
+<div class="read"><b id="r-read">0%</b><p id="r-book"></p></div>
+<p class="next" id="r-next"></p>
+<div class="acts"><button class="share" type="button" id="r-share">친구에게 자랑하기</button><button class="again" type="button" id="r-again">다시 하기</button></div><p class="done" id="r-done" aria-live="polite"></p>
+<details id="r-miss"><summary>몰랐던 단어 <span id="r-miss-n">0</span>개 다시 보기</summary><ul id="r-miss-list"></ul></details>
+<p class="of" style="margin-top:14px;font-size:13px">20문제로 어림한 값이라, 다시 하면 조금 달라질 수 있어요. 결과는 이 화면에서만 계산하고 어디에도 저장하거나 보내지 않아요.</p></div>
+<noscript><p>테스트는 자바스크립트를 켜야 할 수 있어요.</p></noscript>
+</section>'''
+    tot = sum(cnt.values())
+    body = f'''<main class="research-main"><article class="wrap narrow research-article" id="post">
+<header class="article-head"><p class="crumb"><a href="/">단숙이</a> › <a href="/method/">공부 방법</a> › 영단어 테스트</p><div class="series">영단어 테스트 · 2분</div><h1>기본 영단어 3,000개 중, <br><span class="mark">나는 몇 개 알까?</span></h1><p class="deck">20문제를 4초 안에 풀면 아는 단어 수를 어림해 드려요. <br>셜록 홈스 이야기를 몇 % 읽을 수 있는지도요.</p><div class="byline">단숙이 <span aria-hidden="true">·</span> <time datetime="{DAY}">2026년 11월 3일</time> <span aria-hidden="true">·</span> 가입 없음 · 무료</div></header>
+{quiz}
+<h2 id="how">이 테스트는 <br>이렇게 어림해요</h2>
+<p>문제는 교육부 기본 어휘(2022 개정) 3,000개에서 나와요. 초등 권장 단어(*) {N["elementary"]:,}개, 중학교 · 고1 공통과목 권장 단어(**) {N["middle"]:,}개, 나머지 {N["high"]:,}개에서 각각 6 · 8 · 6개를 무작위로 골라요. 학교급마다 맞힌 비율을 그 학교급 단어 수에 곱해 더한 값이 결과예요.</p>
+<div class="study"><h3>정직하게 세려고 한 것</h3><ul><li><strong>4초 안에 골라야 맞힘</strong><br>한참 생각해야 떠오르는 단어는 글을 읽을 때 멈추게 해요. 그래서 단숙이 앱처럼 4초를 기준으로 했어요.</li><li><strong>찍어서 맞힌 몫은 빼기</strong><br>보기가 4개라 찍어도 4번에 1번은 맞아요. 틀린 답 3개마다 맞힌 1개를 빼서, 찍은 몫이 점수에 들어가지 않게 했어요. '모르겠어요'와 시간 초과는 빼지 않아요.</li><li><strong>보자마자 떠올리기</strong><br>보기는 0.7초 뒤에 나와요. 그 사이 뜻을 먼저 떠올려 보세요.</li></ul></div>
+<p>셜록 홈스 「빨간 머리 연맹」의 %는, 이 이야기에 기본 어휘가 나오는 {tot:,}번(초등 {cnt["elementary"]:,} · 중학 {cnt["middle"]:,} · 고등 {cnt["high"]:,}) 중 아는 단어일 것 같은 비율이에요. 단숙이 앱의 이야기 탭이 '외운 단어로 글의 몇 %가 읽히는지' 보여 주는 것과 같은 셈법이에요.</p>
+<p>20문제로 어림한 값이라 오차가 있어요. 정확한 실력 검사가 아니라, 어디서부터 공부할지 정하는 출발점으로 봐 주세요.</p>
+<h2 id="next">결과를 보고 <br>어디서부터 할까요?</h2>
+<p>초등 단어를 80% 넘게 알지 못했다면 <a href="/basic-words/#elem">초등 기본 어휘</a>부터 채우는 게 결국 더 빨라요. 초등 단어는 알고 중학 단어가 70%에 못 미치면 <a href="/basic-words/#middle">중학 기본 어휘</a>가 다음 차례예요. 하루에 몇 개씩, 어떤 순서로 할지는 <a href="/middle-school-words/">중학 영단어 공부법</a>에 정리해 뒀어요.</p>
+{app_box("모르는 단어부터, <br>하루 20개씩.", ["단숙이는 이 테스트와 같은 방식(4초 안에 떠올리기)으로 기본 어휘를 외우는 무료 영단어 · 숙어 앱이에요. 외운 단어는 2일 · 7일 · 21일 뒤에 다시 물어봐요.", "외운 단어는 셜록 홈스 같은 이야기에서 다시 만나고, 외울수록 읽히는 %가 올라가요. 광고와 가입 없이 바로 시작할 수 있어요."])}
+<section class="article-refs" aria-label="출처"><h2>출처</h2><p>문제 단어: 교육부 고시 제2022-33호 [별책 14] 영어과 교육과정 [별표 3] 기본 어휘 목록. 뜻과 보기는 단숙이 앱의 것을 썼어요. 교육부, 한국교육과정평가원과는 관계없이 개인이 만든 테스트예요.</p></section>
+</article></main>'''
+    page = head(path=path, title=title, desc=desc, og_alt='기본 영단어 3,000개 중 나는 몇 개 알까? 영단어 테스트', ld=data, og='test-og.png',
+                extra_css=TEST_CSS) + nav.replace(f'<a href="/{path}">', f'<a href="/{path}" aria-current="page">') + body + tail.replace('</body>', TEST_JS + '</body>')
+    (DOCS / path / 'index.html').write_text(page, encoding='utf-8')
+    return sizes
+
+
+test_sizes = build_test()
+print('test pool', test_sizes)
 print('ok', N, len(only2015), len(new2022))
