@@ -37,11 +37,12 @@ jobs:
       - name: 사이트 안 깨진 링크
         run: python tool/check_links.py
       - name: 새로 바뀐 공부 글 검수(PR일 때)
+        # 블로그 글(docs/blog/<글>/)과 새로 생긴 페이지만. 예전 글(basic-words 등)은 '함께 읽으면 좋은 글'만 자동으로 바뀌어도 diff에 들어와서 뺀다(2026-11-04 PR #2).
         if: github.event_name == 'pull_request'
         run: |
           git fetch -q origin "${{ github.base_ref }}"
           fail=0
-          for f in $(git diff --name-only "origin/${{ github.base_ref }}"...HEAD -- 'docs/*/index.html' 'docs/blog/*/index.html'); do
+          for f in $({ git diff --name-only "origin/${{ github.base_ref }}"...HEAD -- 'docs/blog/*/index.html'; git diff --name-only --diff-filter=A "origin/${{ github.base_ref }}"...HEAD -- 'docs/*/index.html'; } | sort -u); do
             if [ -f "$f" ] && grep -q 'property="og:type" content="article"' "$f"; then python tool/check_article.py "$f" || fail=1; fi
           done
           exit $fail
@@ -49,7 +50,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           arts=""
-          for f in $(git diff --name-only "origin/${{ github.base_ref }}"...HEAD -- 'docs/*/index.html' 'docs/blog/*/index.html'); do
+          for f in $({ git diff --name-only "origin/${{ github.base_ref }}"...HEAD -- 'docs/blog/*/index.html'; git diff --name-only --diff-filter=A "origin/${{ github.base_ref }}"...HEAD -- 'docs/*/index.html'; } | sort -u); do
             if [ -f "$f" ] && grep -q 'property="og:type" content="article"' "$f"; then d=$(dirname "$f"); arts="$arts ${d#docs/}"; fi
           done
           if [ -z "$arts" ]; then echo '바뀐 공부 글 없음'; exit 0; fi
