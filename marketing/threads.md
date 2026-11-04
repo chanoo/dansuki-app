@@ -23,7 +23,7 @@
 - 소재: 종이 단어장 말고 학원 단어 시험 · 시험 전날 벼락치기 같은 요즘 얘기.
 - '우리 애'로 쓴다(학년 · 성별은 실제와 맞을 때만 넣기).
 - 고등학생은 부모 말을 잘 안 듣는다(2026-10-12 사용자). '어떻게 시킬까'는 묻지 않는다. 묻는다면 '어느 방향이 맞을까'(기초부터 vs 문제 풀며 메우기 같은). 앱은 '시키는 것' 말고 '알아서 하고 싶게'로 소개한다.
-- 태그는 하나(수능 / 영어공부 / 개발). 링크는 반응 온 뒤 첫 답글에: `https://dansuki.com/?utm_source=threads`
+- 태그는 하나(수능 / 영어공부 / 개발). 링크는 글에 넣지 않고 프로필에만: `https://dansuki.com/?utm_source=threads` — 글에선 '프로필 링크'로 안내(2026-11-04 사용자)
 
 ---
 
@@ -245,8 +245,10 @@
 갤럭시로 써 보고 이상한 데 있으면 알려 줘
 안드로이드는 이제 막 나와서 고칠 게 많을 거야
 ```
-**링크 답글(반응 온 뒤 달고 고정):**
+**프로필 링크 안내(답글 2 끝에 한 줄 더하거나 따로 답글):**
 ```
-플레이스토어 https://play.google.com/store/apps/details?id=com.dansuki.android&referrer=utm_source%3Dthreads%26utm_campaign%3Dandroid_launch
-아이폰 https://apps.apple.com/kr/app/id6819707350
+받는 링크는 프로필에 있어
+갤럭시는 플레이스토어, 아이폰은 앱스토어로 알아서 가
 ```
+- 본문 · 답글에 링크를 넣으면 노출이 줄어든다는 얘기가 있어서 링크는 프로필에만 둔다(2026-11-04 사용자).
+- 프로필 링크: `https://dansuki.com/?utm_source=threads` — 홈의 받기 버튼이 Android 폰에선 Google Play로, 아이폰에선 App Store로 바뀐다(docs/navigation.js).
