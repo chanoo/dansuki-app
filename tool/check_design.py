@@ -77,6 +77,27 @@ PROBE = r'''() => {
 }'''
 
 
+def launch(p):
+    """Playwright 전용 Chromium이 없으면(클라우드 루틴에서 설치가 막힐 때) 깔려 있는 Chromium · Chrome을 쓴다."""
+    try:
+        return p.chromium.launch()
+    except Exception as first:
+        import glob, os, shutil
+        cands = [os.environ.get('CHROMIUM_PATH', '')]
+        cands += [shutil.which(n) or '' for n in ('chromium', 'chromium-browser', 'google-chrome', 'google-chrome-stable', 'chrome')]
+        cands += sorted(glob.glob(os.path.expanduser('~/.cache/ms-playwright/chromium*/chrome-*/chrome')), reverse=True)
+        cands += sorted(glob.glob('/ms-playwright/chromium*/chrome-*/chrome'), reverse=True)
+        cands += ['/opt/google/chrome/chrome', '/usr/bin/chromium', '/usr/lib/chromium/chromium']
+        for c in cands:
+            if c and os.path.exists(c):
+                try:
+                    print(f'  (Playwright 브라우저 대신 {c} 사용)')
+                    return p.chromium.launch(executable_path=c)
+                except Exception:
+                    continue
+        raise first
+
+
 def serve():
     h = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(D))
     http.server.SimpleHTTPRequestHandler.log_message = lambda *a: None
@@ -97,7 +118,7 @@ def main():
     base = f'http://127.0.0.1:{srv.server_address[1]}'
     bad, seen_serif = [], ''
     with sync_playwright() as p:
-        br = p.chromium.launch()
+        br = launch(p)
         ref_styles = {}
         for view, w, h in VIEWS:
             pg = br.new_page(viewport={'width': w, 'height': h}, color_scheme='light')
