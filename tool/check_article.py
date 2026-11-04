@@ -72,7 +72,7 @@ def main(path):
     # 링크: 사이트 안 3개 이상, 바깥 출처 1개 이상
     hrefs = re.findall(r'<a [^>]*href="([^"]+)"', art)
     inner = {h for h in hrefs if h.startswith('/') and not h.startswith('//')}
-    outer = {h for h in hrefs if h.startswith('http') and 'dansuki.com' not in h and 'apps.apple.com' not in h}
+    outer = {h for h in hrefs if h.startswith('http') and 'dansuki.com' not in h and 'apps.apple.com' not in h and 'play.google.com' not in h}
     need(len(inner) >= 3, f'사이트 안 링크 {len(inner)}개(3개 이상)')
     refs = re.search(r'<section class="article-refs".*?</section>', art, re.S)
     need(refs and re.search(r'href="https?://', refs.group(0)), '출처(section.article-refs)에 바깥 링크 없음')

@@ -683,13 +683,14 @@ function end() {
     </div>
     <div class="bottom">
       <a class="primary" id="store" href="https://apps.apple.com/kr/app/id6819707350">App Store에서 받기</a>
-      <a class="secondary" id="android" href="https://dansuki.com/android/">Android 먼저 써 보기<small>비공개 테스트 중 · 신청하면 테스터로 등록해 드려요</small></a>
+      <a class="secondary" id="android" href="https://play.google.com/store/apps/details?id=com.dansuki.android">Google Play에서 받기<small>Android 휴대폰이라면 여기서</small></a>
       <button class="link" id="again">처음부터 다시</button>
     </div>
   `);
   $('#again').onclick = () => { track('trial_restart'); intro(); };
   $('#store').onclick = () => track('trial_store_click');
   $('#android').onclick = () => track('trial_android_click');
+  if (/Android/i.test(navigator.userAgent)) { const st = $('#store'), an = $('#android'); st.href = 'https://play.google.com/store/apps/details?id=com.dansuki.android'; st.textContent = 'Google Play에서 받기'; an.remove(); }
   track('trial_end', { learned: learned.size });
 }
 

@@ -25,6 +25,7 @@ nav = TPL[TPL.index('<nav class="top">'):TPL.index('<main')]
 nav = nav.replace(' aria-current="page"', '')
 tail = TPL[TPL.index('</article></main>') + len('</article></main>'):]
 store_btn = re.search(r'<a class="store" href="https://apps\.apple\.com[^"]*" aria-label="App Store에서 단숙이 받기">.*?</a>', TPL, re.S).group(0)
+store_btn += ' ' + re.search(r'<a class="store gp" href="https://play\.google\.com[^"]*"[^>]*>.*?</a>', TPL, re.S).group(0)  # 2026-11-04 Google Play 출시
 
 
 def head(*, path, title, desc, og_alt, ld, og, extra_css=''):

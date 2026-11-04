@@ -170,6 +170,7 @@
     .foot-brand .brand img { border-radius: 9px; }
     .foot-brand .store { margin-top: 18px; padding: 10px 18px 10px 14px; }
     .foot-brand .store b { font-size: 16px; }
+    .foot-brand .store + .store, .cta .store + .store { margin-left: 8px; }
     .foot-cols { display: flex; gap: 56px; flex-wrap: wrap; }
     .foot-cols h4 { font-size: 13px; color: var(--faint); font-weight: 700; letter-spacing: .4px; margin-bottom: 12px; }
     .foot-cols a, .foot-cols span { display: block; font-size: 15px; margin-top: 8px; text-decoration: none; color: var(--text); }

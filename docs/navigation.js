@@ -47,23 +47,25 @@
   nav.addEventListener('focusin', () => nav.classList.remove('away'));
 })();
 
-/* Android 휴대폰: App Store 대신 테스터 신청 페이지로(Google Play 비공개 테스트, 2026-10-20). */
+/* Android 휴대폰: App Store 링크를 Google Play로(2026-11-04 Play 정식 출시). Google Play 배지가 옆에 따로 있으면 App Store 배지는 숨긴다. */
 (() => {
   if (!/Android/i.test(navigator.userAgent)) return;
+  const PLAY = 'https://play.google.com/store/apps/details?id=com.dansuki.android';
   const play = '<path d="M4.2 2.6c-.2.2-.3.6-.3 1v16.8c0 .4.1.8.3 1l9.4-9.4zM14.6 13l2.6 2.6-11.1 6.3c-.4.2-.8.3-1.1.2zm3.9-3.9 2.9 1.7c.8.5.8 1.8 0 2.3l-2.9 1.6-2.8-2.8zM6.1 2.1l11.1 6.3L14.6 11 5 1.9c.3-.1.7 0 1.1.2z"/>';
   document.querySelectorAll('a[href*="apps.apple.com"]').forEach(link => {
-    link.href = '/android/';
+    const box = link.parentElement;
+    if (link.classList.contains('store') && box && box.querySelector('.store.gp')) { link.hidden = true; link.style.display = 'none'; return; }
+    if (box && box.classList.contains('get-row') && box.querySelector('a[href*="play.google.com"]')) {
+      link.style.display = 'none';
+      const sep = link.nextElementSibling; if (sep && sep.tagName === 'SPAN') sep.style.display = 'none';
+      return;
+    }
+    link.href = PLAY;
     if (link.classList.contains('store')) {
-      link.setAttribute('aria-label', 'Android 먼저 써 보기 신청');
-      const svg = link.querySelector('svg'), small = link.querySelector('small'), b = link.querySelector('b');
+      link.setAttribute('aria-label', 'Google Play에서 단숙이 받기');
+      const svg = link.querySelector('svg'), small = link.querySelector('small');
       if (svg) svg.innerHTML = play;
-      if (small) small.textContent = 'Android';
-      if (b) b.textContent = '먼저 써 보기';
-    } else if (link.classList.contains('get')) link.textContent = '먼저 써 보기';
-    else if (link.closest('.dock')) link.textContent = '신청';
+      if (small) small.textContent = 'Google Play에서';
+    }
   });
-  // Android 사용자에겐 '먼저 써 보기' 배지가 위 버튼과 겹치므로 숨긴다.
-  document.querySelectorAll('.store.soon').forEach(el => { el.style.display = 'none'; });
-  const dockSmall = document.querySelector('.dock small');
-  if (dockSmall) dockSmall.textContent = 'Android 먼저 써 보기';
 })();

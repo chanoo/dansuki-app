@@ -51,7 +51,8 @@
 .research-article .article-app h2 { margin-top: 0; }
 .research-article .article-app p { margin-bottom: 0; }
 .research-article .article-app .store { margin-top: 0; }
-.research-article .article-app .store+ a { display: inline-block; font-size: 14px; margin-top: 16px; }
+.research-article .article-app .store+ a:not(.store) { display: inline-block; font-size: 14px; margin-top: 16px; }
+.research-article .article-app .store + .store { margin-left: 6px; }
 .research-article .endline { font-family: 'MaruBuri','AppleMyungjo',serif; font-size: 23px; line-height: 1.8; margin: 38px 0; }
 .research-article .article-refs { border-top: 1px solid var(--line); padding: 25px 0 0; margin-top: 40px; }
 .research-article .article-refs h2 { font-size: 19px; margin-top: 0; }
