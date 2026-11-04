@@ -247,8 +247,8 @@
 ```
 **프로필 링크 안내(답글 2 끝에 한 줄 더하거나 따로 답글):**
 ```
-받는 링크는 프로필에 있어
-갤럭시는 플레이스토어, 아이폰은 앱스토어로 알아서 가
+받는 링크는 프로필에 있는 단숙이 홈페이지에 있어
+갤럭시는 플레이스토어, 아이폰은 앱스토어 버튼 누르면 돼
 ```
 - 본문 · 답글에 링크를 넣으면 노출이 줄어든다는 얘기가 있어서 링크는 프로필에만 둔다(2026-11-04 사용자).
-- 프로필 링크: `https://dansuki.com/?utm_source=threads` — 홈의 받기 버튼이 Android 폰에선 Google Play로, 아이폰에선 App Store로 바뀐다(docs/navigation.js).
+- 프로필 링크: `https://dansuki.com/?utm_source=threads` — 홈 첫 화면에 'App Store에서 받기 · Google Play에서 받기'가 있고, Android 폰에선 받기 버튼들이 Google Play로 바뀐다(docs/navigation.js). 바로 스토어로 넘어가는 건 아니라 '버튼 누르면 돼'로 안내.
