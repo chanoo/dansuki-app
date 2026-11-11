@@ -18,7 +18,7 @@
 - [x] 깜지가 필요할 때 · 철자 외우는 법 — 철자를 정확히 써야 하는 경우(받아쓰기 · 서술형 · 헷갈리는 철자)에 쓰기를 어떻게 할지: 먼저 떠올린 뒤 가리고 써 보기, 소리와 철자 묶어 보기, 틀린 글자만 다시. '깜지는 효과가 없나요' 같은 효과 비교는 /blog/how-to-memorize-english-words/ 자주 묻는 질문에서 이미 다뤘으니 되풀이하지 말고 거기로 링크만 [카테고리 memorize] → /blog/how-to-memorize-english-spelling/
 - [x] 단어는 아는데 지문이 안 읽힐 때 — 어휘는 필요조건, 구문 · 끊어 읽기와 함께(과장 금지) [카테고리 basics] → /blog/words-known-but-reading-hard/
 - [x] 고등 영단어 하루 몇 개 — 복습량 계산(/middle-school-words/#per-day와 겹치지 않게 고등 기준으로) [카테고리 daily] → /blog/high-school-words-per-day/
-- [ ] 외웠는데 다음 날 까먹을 때 — 망각은 누구나, 다시 볼 날 정하기(수치심 덜기) [카테고리 memorize]
+- [x] 외웠는데 다음 날 까먹을 때 — 망각은 누구나, 다시 볼 날 정하기(수치심 덜기) [카테고리 memorize] → /blog/forgot-english-words-next-day/
 - [ ] 영단어 다의어 외우는 법 — 대표 뜻부터, 예문에서 더하기 [카테고리 memorize]
 - [ ] 숙어 외우는 법 — 통째로 · 예문 속 빈칸 [카테고리 memorize]
 - [ ] 영어 기초 다시 시작(영포자) — 중등 단어부터가 부끄럽지 않은 이유, 순서 [카테고리 basics]
@@ -36,3 +36,5 @@
 - [ ] 쉬운 이야기로 영어 읽기 시작하기 — 아는 단어로 대부분 읽히는 글 고르기, 하루 한 문단(작품 이름으로, 과장 금지) [카테고리 basics]
 - [ ] 밀린 영단어 복습 정리하는 법 — 며칠 쉬고 돌아왔을 때 새 단어를 멈추고 하루 양만큼 나눠 정리하기(자책 덜기, /blog/high-school-words-per-day/#backlog를 넘어 실제 정리 예시 위주) [카테고리 daily]
 - [ ] 내 하루 공부량 재는 법 — 사흘 동안 떠올리기 방식으로 몇 개를 하는지 세어 보고 새 단어 수를 거꾸로 정하기(시간 · 개수 숫자 지어내지 않기) [카테고리 daily]
+- [ ] 헷갈리는 짝 단어 외우는 법 — borrow · lend, rise · raise처럼 비슷한 단어를 예문으로 나란히 놓고 구분하기(규칙 과장 금지) [카테고리 basics]
+- [ ] 영단어 복습, 몇 분 뒤 한 번 더 — 같은 날 안에서 다른 단어를 사이에 두고 다시 떠올리는 법(Rawson & Dunlosky 2011 범위 안에서, /blog/forgot-english-words-next-day/와 겹치지 않게 첫날 공부 순서 위주) [카테고리 memorize]
