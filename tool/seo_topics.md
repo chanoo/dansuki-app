@@ -19,7 +19,7 @@
 - [x] 단어는 아는데 지문이 안 읽힐 때 — 어휘는 필요조건, 구문 · 끊어 읽기와 함께(과장 금지) [카테고리 basics] → /blog/words-known-but-reading-hard/
 - [x] 고등 영단어 하루 몇 개 — 복습량 계산(/middle-school-words/#per-day와 겹치지 않게 고등 기준으로) [카테고리 daily] → /blog/high-school-words-per-day/
 - [x] 외웠는데 다음 날 까먹을 때 — 망각은 누구나, 다시 볼 날 정하기(수치심 덜기) [카테고리 memorize] → /blog/forgot-english-words-next-day/
-- [ ] 영단어 다의어 외우는 법 — 대표 뜻부터, 예문에서 더하기 [카테고리 memorize]
+- [x] 영단어 다의어 외우는 법 — 대표 뜻부터, 예문에서 더하기 [카테고리 memorize] → /blog/memorize-multiple-meaning-words/
 - [ ] 숙어 외우는 법 — 통째로 · 예문 속 빈칸 [카테고리 memorize]
 - [ ] 영어 기초 다시 시작(영포자) — 중등 단어부터가 부끄럽지 않은 이유, 순서 [카테고리 basics]
 
@@ -38,3 +38,5 @@
 - [ ] 내 하루 공부량 재는 법 — 사흘 동안 떠올리기 방식으로 몇 개를 하는지 세어 보고 새 단어 수를 거꾸로 정하기(시간 · 개수 숫자 지어내지 않기) [카테고리 daily]
 - [ ] 늦게 떠오르는 단어, 외운 걸까 — 맞혔지만 한참 걸린 단어를 어떻게 다룰지(Perfetti 2007 범위 안에서, /blog/forgot-english-words-next-day/와 겹치지 않게 속도 확인 연습 위주) [카테고리 memorize]
 - [ ] 망각 곡선 숫자, 그대로 믿어도 될까 — 검색 상위 글에 흔한 '하루 뒤 67%' 같은 숫자를 단정하지 않고, 사람 · 내용마다 다르다는 점과 다시 보기의 의미(사이트 출처 범위 안에서, 새 숫자 만들지 않기) [카테고리 memorize]
+- [ ] 품사가 바뀌면 뜻도 바뀌는 영단어 — book · face · point처럼 문장 속 자리로 뜻 고르기(문법 용어 최소화, /blog/memorize-multiple-meaning-words/와 겹치지 않게 자리 찾기 연습 위주) [카테고리 basics]
+- [ ] 단어 시험 범위에 뜻이 여러 개일 때 — 학교 단어 시험 준비를 뜻마다 카드로 나눠 날을 두고 보기(시험일 압박 없이, 평소 공부 습관 위주) [카테고리 daily]
