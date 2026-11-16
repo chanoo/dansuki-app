@@ -20,7 +20,7 @@
 - [x] 고등 영단어 하루 몇 개 — 복습량 계산(/middle-school-words/#per-day와 겹치지 않게 고등 기준으로) [카테고리 daily] → /blog/high-school-words-per-day/
 - [x] 외웠는데 다음 날 까먹을 때 — 망각은 누구나, 다시 볼 날 정하기(수치심 덜기) [카테고리 memorize] → /blog/forgot-english-words-next-day/
 - [x] 영단어 다의어 외우는 법 — 대표 뜻부터, 예문에서 더하기 [카테고리 memorize] → /blog/memorize-multiple-meaning-words/
-- [ ] 숙어 외우는 법 — 통째로 · 예문 속 빈칸 [카테고리 memorize]
+- [x] 숙어 외우는 법 — 통째로 · 예문 속 빈칸 [카테고리 memorize] → /blog/how-to-memorize-english-idioms/
 - [ ] 영어 기초 다시 시작(영포자) — 중등 단어부터가 부끄럽지 않은 이유, 순서 [카테고리 basics]
 
 ## 새 주제 후보(루틴이 조사하며 더함)
@@ -40,3 +40,5 @@
 - [ ] 망각 곡선 숫자, 그대로 믿어도 될까 — 검색 상위 글에 흔한 '하루 뒤 67%' 같은 숫자를 단정하지 않고, 사람 · 내용마다 다르다는 점과 다시 보기의 의미(사이트 출처 범위 안에서, 새 숫자 만들지 않기) [카테고리 memorize]
 - [ ] 품사가 바뀌면 뜻도 바뀌는 영단어 — book · face · point처럼 문장 속 자리로 뜻 고르기(문법 용어 최소화, /blog/memorize-multiple-meaning-words/와 겹치지 않게 자리 찾기 연습 위주) [카테고리 basics]
 - [ ] 단어 시험 범위에 뜻이 여러 개일 때 — 학교 단어 시험 준비를 뜻마다 카드로 나눠 날을 두고 보기(시험일 압박 없이, 평소 공부 습관 위주) [카테고리 daily]
+- [ ] 같은 동사로 시작하는 숙어 나눠 보기 — look for · look after처럼 헷갈리는 짝을 문장 장면으로 구분(뜻 나열 금지, /blog/how-to-memorize-english-idioms/와 겹치지 않게 짝 비교 위주) [카테고리 basics]
+- [ ] 지문에서 막힌 문장으로 빈칸 카드 만들기 — 교과서 · 지문에서 고른 문장을 카드로 바꾸는 순서(단어 · 숙어 공통, 시험일 압박 없이) [카테고리 memorize]
