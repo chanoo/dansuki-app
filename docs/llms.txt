@@ -39,6 +39,7 @@
 
 - [단숙이 블로그](https://dansuki.com/blog/) · RSS https://dansuki.com/blog/rss.xml
 <!-- blog:start (tool/register_articles.py가 다시 씀) -->
+- [영포자 영어 기초 다시 시작 · 초등 단어부터 순서대로](https://dansuki.com/blog/restart-english-basics/): 영어를 놓았다가 다시 시작한다면 무엇부터 할까요? 지금 막히는 칸을 찾는 법, 초등 · 중학 기본 어휘 순서, 바로 떠올리기로 다시 외우는 법, 멈췄다가 이어 가는 법을 정리했어요.
 - [영어 숙어 외우는 법 · 통째로, 예문 빈칸으로](https://dansuki.com/blog/how-to-memorize-english-idioms/): 쉬운 단어로 된 영어 숙어가 왜 안 읽힐까요? 숙어를 한 덩어리로 외우는 법, 예문 속 빈칸으로 떠올려 보는 연습, 헷갈리는 숙어 나눠 보기와 날을 두고 다시 보는 법을 정리했어요.
 - [영단어 다의어 외우는 법 · 대표 뜻부터 하나씩](https://dansuki.com/blog/memorize-multiple-meaning-words/): 뜻이 여러 개인 영단어는 어떻게 외울까요? 대표 뜻 하나를 바로 떠오를 때까지 익히고, 예문에서 만난 다른 뜻을 문장째 더해 가는 순서와 뜻마다 따로 복습하는 법을 정리했어요.
 - [영단어 까먹었을 때 · 다음 날 다시 붙잡는 법](https://dansuki.com/blog/forgot-english-words-next-day/): 어제 외운 영단어가 다음 날 기억나지 않아도 처음부터 다시 할 필요는 없어요. 까먹은 단어를 나눠 보고, 다시 볼 날을 정하고, 내일 덜 잊도록 오늘 바꿀 것을 학습 연구로 정리했어요.
