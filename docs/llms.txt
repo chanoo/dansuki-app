@@ -39,6 +39,7 @@
 
 - [단숙이 블로그](https://dansuki.com/blog/) · RSS https://dansuki.com/blog/rss.xml
 <!-- blog:start (tool/register_articles.py가 다시 씀) -->
+- [영단어 발음 같이 외우는 법 · 듣고 따라 읽기부터](https://dansuki.com/blog/english-word-pronunciation/): 영단어를 뜻과 철자만 외우면 들을 때 놓치기 쉬워요. 발음을 같이 외워야 하는 이유, 외래어처럼 익숙해서 틀리기 쉬운 단어, 강세 짚기, 듣고 따라 읽고 소리 내어 떠올리는 순서를 정리했어요.
 - [영단어 카드 만드는 법 · 앞뒤 두 방향, 날짜 칸까지](https://dansuki.com/blog/how-to-make-word-flashcards/): 종이 영단어 카드는 어떻게 만들까요? 앞뒤에 무엇을 쓸지, 두 방향으로 넘기는 법, 맞힌 카드와 막힌 카드 나누기, 날짜 칸으로 간격 복습하는 법을 학습 연구와 함께 정리했어요.
 - [영포자 영어 기초 다시 시작 · 초등 단어부터 순서대로](https://dansuki.com/blog/restart-english-basics/): 영어를 놓았다가 다시 시작한다면 무엇부터 할까요? 지금 막히는 칸을 찾는 법, 초등 · 중학 기본 어휘 순서, 바로 떠올리기로 다시 외우는 법, 멈췄다가 이어 가는 법을 정리했어요.
 - [영어 숙어 외우는 법 · 통째로, 예문 빈칸으로](https://dansuki.com/blog/how-to-memorize-english-idioms/): 쉬운 단어로 된 영어 숙어가 왜 안 읽힐까요? 숙어를 한 덩어리로 외우는 법, 예문 속 빈칸으로 떠올려 보는 연습, 헷갈리는 숙어 나눠 보기와 날을 두고 다시 보는 법을 정리했어요.
