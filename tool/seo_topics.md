@@ -30,7 +30,7 @@
 - [x] 영단어 객관식 문제, 공부가 될까 — 그럴듯한 오답 · 정답 확인의 역할(/method/ 출처 범위 안에서) [카테고리 memorize] → /blog/multiple-choice-word-quiz/
 - [x] 바로 안 떠오르는 단어도 모르는 단어일까 — 아는 느낌과 바로 떠올리기의 차이, 4초 기준의 뜻(/method/ 출처 범위 안에서) [카테고리 memorize] → /blog/slow-to-recall-english-words/
 - [x] 이전 범위 단어, 언제 다시 볼까 — 새 범위로 넘어간 뒤 누적 복습 하는 법(Nakata 외 2021, /spaced-review/와 겹치지 않게 종이 단어장 실천 위주) [카테고리 daily] → /blog/review-previous-word-range/
-- [ ] 소리 나지 않는 글자 · 겹글자, 영단어 철자에서 짚을 자리 — know · listen · address 같은 예로 소리와 글자가 어긋나는 곳 모아 보기(규칙 과장 금지, /blog/how-to-memorize-english-spelling/와 겹치지 않게 단어 묶음 위주) [카테고리 basics]
+- [x] 소리 나지 않는 글자 · 겹글자, 영단어 철자에서 짚을 자리 — know · listen · address 같은 예로 소리와 글자가 어긋나는 곳 모아 보기(규칙 과장 금지, /blog/how-to-memorize-english-spelling/와 겹치지 않게 단어 묶음 위주) [카테고리 basics] → /blog/silent-letters-double-letters/
 - [ ] 영작할 때 떠오르지 않는 단어 — 뜻 → 영어 방향 연습을 문장 쓰기로 잇기(Webb 2009 범위 안에서) [카테고리 memorize]
 - [ ] 영어 문장 속 주어 · 동사 찾기 — 긴 주어 뒤 동사가 어디서 시작하는지 짚는 연습(문법 용어 최소화, /blog/words-known-but-reading-hard/와 겹치지 않게 주어 · 동사 찾기만) [카테고리 basics]
 - [ ] 쉬운 이야기로 영어 읽기 시작하기 — 아는 단어로 대부분 읽히는 글 고르기, 하루 한 문단(작품 이름으로, 과장 금지) [카테고리 basics]
@@ -56,3 +56,5 @@
 - [ ] 공책 단어장에 ○△× 표시 이어 가기 — 표시가 바뀌는 기록으로 다시 볼 단어 고르기, 한 주 동안 쓰는 예시(/blog/slow-to-recall-english-words/와 겹치지 않게 기록 · 정리 위주) [카테고리 daily]
 - [ ] 단어장 단원 날짜 칸 쓰는 법 — 처음 본 날 · 다시 본 날을 적어 오래 쉰 단원 찾기, 점 찍힌 단어만 옮겨 적는 정리 쪽 만들기(/blog/review-previous-word-range/와 겹치지 않게 기록 양식 예시 위주, 효과 숫자 지어내지 않기) [카테고리 daily]
 - [ ] 영단어 공부 다시 시작한 아이에게 건넬 말 — 지난 범위를 잊었을 때 탓하지 않고 함께 다시 펴는 법(강요 금지, 사이트 출처 범위 안에서) [카테고리 parents]
+- [ ] 소리 나지 않는 글자가 있는 단어 가족 — know · knowledge, sign · design처럼 같은 글자 덩어리를 가진 단어끼리 철자 자리 이어 보기(기본 어휘 안에서, 규칙 과장 금지, /blog/silent-letters-double-letters/와 겹치지 않게 단어 가족 위주) [카테고리 basics]
+- [ ] 받아쓰기로 철자 확인하기 — 가족이나 친구가 뜻 · 소리를 불러 주고 쓰는 짧은 확인법(시험처럼 만들지 않기, 사이트 출처 범위 안에서) [카테고리 parents]
