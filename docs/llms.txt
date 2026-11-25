@@ -39,6 +39,7 @@
 
 - [단숙이 블로그](https://dansuki.com/blog/) · RSS https://dansuki.com/blog/rss.xml
 <!-- blog:start (tool/register_articles.py가 다시 씀) -->
+- [영작할 때 단어가 안 떠오를 때 · 뜻에서 영어로 꺼내는 연습](https://dansuki.com/blog/words-not-coming-when-writing/): 읽을 때는 아는 영단어가 영작할 때는 왜 안 떠오를까요? 뜻을 보고 영어를 떠올리는 연습을 짧은 문장 쓰기로 잇는 순서와, 쓰다가 막혔을 때 할 일을 정리했어요.
 - [영어 철자 소리 안 나는 글자 · 두 번 쓰는 글자 모음](https://dansuki.com/blog/silent-letters-double-letters/): know의 k, listen의 t처럼 소리 나지 않는 묵음 글자와 address · tomorrow 같은 겹글자를 기본 어휘 묶음으로 모았어요. 소리 내어 읽고 가린 채 떠올려 쓰는 연습 순서도 함께 정리했어요.
 - [이전 범위 영단어 복습 · 새 단원 넘어간 뒤 다시 보기](https://dansuki.com/blog/review-previous-word-range/): 새 범위로 넘어간 뒤 이전 범위 영단어는 언제 다시 볼까요? 누적 복습 연구, 다시 볼 날을 벌려 가는 법, 종이 단어장에 지난 범위를 섞는 순서와 한 주 예시를 정리했어요.
 - [바로 안 떠오르는 영단어 · 아는 느낌과 떠올리기](https://dansuki.com/blog/slow-to-recall-english-words/): 보면 아는데 가리면 막히는 영단어는 모르는 단어일까요? 아는 느낌과 바로 떠올리기의 차이, 단어를 네 단계로 나눠 보는 법, 4초 기준의 뜻과 스스로 확인하는 순서를 학습 연구와 함께 정리했어요.
