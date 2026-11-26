@@ -32,7 +32,7 @@
 - [x] 이전 범위 단어, 언제 다시 볼까 — 새 범위로 넘어간 뒤 누적 복습 하는 법(Nakata 외 2021, /spaced-review/와 겹치지 않게 종이 단어장 실천 위주) [카테고리 daily] → /blog/review-previous-word-range/
 - [x] 소리 나지 않는 글자 · 겹글자, 영단어 철자에서 짚을 자리 — know · listen · address 같은 예로 소리와 글자가 어긋나는 곳 모아 보기(규칙 과장 금지, /blog/how-to-memorize-english-spelling/와 겹치지 않게 단어 묶음 위주) [카테고리 basics] → /blog/silent-letters-double-letters/
 - [x] 영작할 때 떠오르지 않는 단어 — 뜻 → 영어 방향 연습을 문장 쓰기로 잇기(Webb 2009 범위 안에서) [카테고리 memorize] → /blog/words-not-coming-when-writing/
-- [ ] 영어 문장 속 주어 · 동사 찾기 — 긴 주어 뒤 동사가 어디서 시작하는지 짚는 연습(문법 용어 최소화, /blog/words-known-but-reading-hard/와 겹치지 않게 주어 · 동사 찾기만) [카테고리 basics]
+- [x] 영어 문장 속 주어 · 동사 찾기 — 긴 주어 뒤 동사가 어디서 시작하는지 짚는 연습(문법 용어 최소화, /blog/words-known-but-reading-hard/와 겹치지 않게 주어 · 동사 찾기만) [카테고리 basics] → /blog/find-subject-and-verb/
 - [ ] 쉬운 이야기로 영어 읽기 시작하기 — 아는 단어로 대부분 읽히는 글 고르기, 하루 한 문단(작품 이름으로, 과장 금지) [카테고리 basics]
 - [ ] 밀린 영단어 복습 정리하는 법 — 며칠 쉬고 돌아왔을 때 새 단어를 멈추고 하루 양만큼 나눠 정리하기(자책 덜기, /blog/high-school-words-per-day/#backlog를 넘어 실제 정리 예시 위주) [카테고리 daily]
 - [ ] 내 하루 공부량 재는 법 — 사흘 동안 떠올리기 방식으로 몇 개를 하는지 세어 보고 새 단어 수를 거꾸로 정하기(시간 · 개수 숫자 지어내지 않기) [카테고리 daily]
@@ -60,3 +60,4 @@
 - [ ] 받아쓰기로 철자 확인하기 — 가족이나 친구가 뜻 · 소리를 불러 주고 쓰는 짧은 확인법(시험처럼 만들지 않기, 사이트 출처 범위 안에서) [카테고리 parents]
 - [ ] 쉬운 말로 바꿔 쓰기 연습 — 영작하다 막힌 단어를 이미 아는 기본 어휘로 풀어 쓰는 법(tell ~ about 등), 나중에 원래 단어로 다시 써 보기(/blog/words-not-coming-when-writing/와 겹치지 않게 바꿔 쓰기 예시 위주, 효과 숫자 지어내지 않기) [카테고리 basics]
 - [ ] 동사 과거형까지 같이 떠올리기 — forget · forgot처럼 문장에 쓸 때 모양이 바뀌는 기본 동사 묶음, 한 줄 문장으로 확인(문법 용어 최소화, 사이트 출처 범위 안에서) [카테고리 basics]
+- [ ] 문장 앞에 오는 때 · 장소 덩어리 걷어 내기 — In the morning, After school 같은 덩어리를 괄호로 묶고 주인 찾기, 기본 전치사 묶음 위주(/blog/find-subject-and-verb/와 겹치지 않게 전치사 덩어리 목록 · 예문 위주) [카테고리 basics]
